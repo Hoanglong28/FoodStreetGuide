@@ -373,7 +373,6 @@ FontAttributes="Bold"
         </VerticalStackLayout>
 
          <!-- Extra spacing at bottom for scrolling -->
-     <BoxView HeightRequest="20" Color="Transparent"/>
 
        </VerticalStackLayout>
             </ScrollView>

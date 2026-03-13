@@ -2,69 +2,123 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        x:Class="doanC_.Views.QrScannerPage"
-    Title="Qu?t m? QR">
+    Title="Quét mã QR">
 
-    <Grid>
-        <!-- Camera View - S? t?ch h?p th? vi?n QR Scanner -->
-        <VerticalStackLayout  
-            VerticalOptions="Center"
-     HorizontalOptions="Center"
-    Spacing="20"
-            Padding="30">
-     
-            <Image Source="qr_placeholder.png"
-       WidthRequest="250"
-        HeightRequest="250"
-       Aspect="AspectFit" />
-         
-            <Label Text="?? QU?T M? QR"
-            FontSize="24"
-   FontAttributes="Bold"
-       HorizontalOptions="Center" />
-     
-   <Label Text="H??ng camera v?o m? QR t?i ?i?m tham quan&#10;?? nghe thuy?t minh ngay l?p t?c"
-        FontSize="14"
-               TextColor="Gray"
-     HorizontalOptions="Center"
-              HorizontalTextAlignment="Center"
- LineBreakMode="WordWrap" />
+		<Grid RowDefinitions="Auto,*,Auto">
 
-            <Border Stroke="#FF6B35"
-            StrokeThickness="2"
-         Padding="20"
-BackgroundColor="#FFF5F0"
-      Margin="0,20,0,0">
-  <Border.StrokeShape>
-     <RoundRectangle CornerRadius="10" />
-       </Border.StrokeShape>
-   <VerticalStackLayout Spacing="10">
-   <Label Text="?? L?u ?:"
-   FontSize="16"
-     FontAttributes="Bold" />
-           <Label Text="? ??m b?o ?? ?nh s?ng"
-         FontSize="14" />
-              <Label Text="? Gi? camera ?n ??nh"
-                FontSize="14" />
-        <Label Text="? M? QR n?m trong khung"
-      FontSize="14" />
-     </VerticalStackLayout>
-     </Border>
+			<!-- TIÊU ĐỀ -->
+			<VerticalStackLayout
+				Padding="20,50,20,10"
+				HorizontalOptions="Center">
 
-       <Button Text="B?t ??u qu?t"
-          BackgroundColor="#FF6B35"
-            TextColor="White"
-         Clicked="OnStartScanClicked"
-     WidthRequest="200"
-Margin="0,20,0,0"
-           FontSize="18" />
+				<Label Text="Quét mã QR"
+					   FontSize="22"
+					   TextColor="#F5CBA7"
+					   FontAttributes="Bold"
+					   HorizontalOptions="Center"/>
 
-            <Label Text="Kh?ng c?n GPS, ch? c?n qu?t m?!"
-                 FontSize="12"
-         TextColor="#4ECDC4"
-   FontAttributes="Bold"
-        HorizontalOptions="Center"
-   Margin="0,10,0,0" />
-        </VerticalStackLayout>
-    </Grid>
+				<Label Text="Scan QR code tại điểm dừng"
+					   FontSize="13"
+					   TextColor="#D5B8A6"
+					   HorizontalOptions="Center"/>
+
+			</VerticalStackLayout>
+
+
+			<!-- KHUNG QUÉT -->
+			<Grid Grid.Row="1"
+				  HorizontalOptions="Center"
+				  VerticalOptions="Center">
+
+				<!-- Khung camera -->
+				<Frame HeightRequest="200"
+					   WidthRequest="200"
+					   CornerRadius="20"
+					   BackgroundColor="#2B1B16"
+					   HasShadow="False"/>
+
+				<!-- Góc quét -->
+				<BoxView Color="#F5CBA7"
+						 HeightRequest="2"
+						 WidthRequest="30"
+						 HorizontalOptions="Start"
+						 VerticalOptions="Start"/>
+
+				<BoxView Color="#F5CBA7"
+						 HeightRequest="30"
+						 WidthRequest="2"
+						 HorizontalOptions="Start"
+						 VerticalOptions="Start"/>
+
+				<BoxView Color="#F5CBA7"
+						 HeightRequest="2"
+						 WidthRequest="30"
+						 HorizontalOptions="End"
+						 VerticalOptions="Start"/>
+
+				<BoxView Color="#F5CBA7"
+						 HeightRequest="30"
+						 WidthRequest="2"
+						 HorizontalOptions="End"
+						 VerticalOptions="Start"/>
+
+				<BoxView Color="#F5CBA7"
+						 HeightRequest="2"
+						 WidthRequest="30"
+						 HorizontalOptions="Start"
+						 VerticalOptions="End"/>
+
+				<BoxView Color="#F5CBA7"
+						 HeightRequest="30"
+						 WidthRequest="2"
+						 HorizontalOptions="Start"
+						 VerticalOptions="End"/>
+
+				<BoxView Color="#F5CBA7"
+						 HeightRequest="2"
+						 WidthRequest="30"
+						 HorizontalOptions="End"
+						 VerticalOptions="End"/>
+
+				<BoxView Color="#F5CBA7"
+						 HeightRequest="30"
+						 WidthRequest="2"
+						 HorizontalOptions="End"
+						 VerticalOptions="End"/>
+
+			</Grid>
+
+
+			<!-- PHẦN MÔ TẢ -->
+			<VerticalStackLayout
+				Grid.Row="2"
+				Padding="20"
+				Spacing="10">
+
+				<Frame BackgroundColor="#2B1B16"
+					   CornerRadius="15"
+					   Padding="15">
+
+					<Label Text="Hướng camera vào mã QR tại bảng thông tin điểm thuyết minh. Không có QR? Hãy nhập tay tiếp tục."
+						   TextColor="#D5B8A6"
+						   FontSize="13"
+						   HorizontalTextAlignment="Center"/>
+
+				</Frame>
+
+				<!-- Nút nhập thủ công -->
+				<Button Text="Nhập mã thủ công"
+						BackgroundColor="Transparent"
+						BorderColor="#F5CBA7"
+						BorderWidth="1"
+						CornerRadius="15"
+						TextColor="#F5CBA7"
+						HeightRequest="45"/>
+
+			</VerticalStackLayout>
+
+		</Grid>
+
+
 
 </ContentPage>

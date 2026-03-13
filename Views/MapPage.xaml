@@ -41,7 +41,7 @@
 							   Padding="10,5"
 							   HasShadow="False">
 							<Label Text="VI"
-								   FontSize="12"
+								   FontSize="10"
 								   VerticalOptions="Center"/>
 						</Frame>
 
@@ -87,9 +87,9 @@
 			<!-- THẺ THÔNG TIN -->
 			<Frame Grid.Row="1"
 				   BackgroundColor="White"
-				   CornerRadius="25"
+				   
 				   Padding="20"
-				   Margin="15,0,15,10"
+				  
 				   HasShadow="True">
 
 				<VerticalStackLayout Spacing="10">

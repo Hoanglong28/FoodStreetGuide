@@ -161,9 +161,6 @@
 
         </CollectionView>
 
-    <!-- Bottom Navigation Spacer -->
-        <BoxView Grid.Row="2" HeightRequest="20" Color="Transparent"/>
-
     </Grid>
 
 </ContentPage>
