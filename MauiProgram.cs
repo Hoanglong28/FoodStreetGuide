@@ -2,6 +2,7 @@
 using Microsoft.Maui.Controls.Hosting;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using ZXing.Net.Maui.Controls;
+using doanC_.Services.Data;
 
 namespace doanC_
 {
@@ -21,7 +22,10 @@ namespace doanC_
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                     fonts.AddFont("fa-solid-900.ttf", "FontAwesome");
-                });
+                })
+                .Services
+                .AddSingleton<SQLiteService>()
+                .AddSingleton<SeedDataService>();
 
 #if DEBUG
             builder.Logging.AddDebug();
@@ -30,4 +34,4 @@ namespace doanC_
             return builder.Build();
         }
     }
-}   
+}

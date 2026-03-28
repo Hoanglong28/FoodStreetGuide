@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.Controls.Maps;
+﻿using System.Diagnostics;
+using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Devices.Sensors;
 using doanC_.Services.LocationTracking;
 using doanC_.Services;
@@ -11,6 +12,7 @@ public partial class MapPage : ContentPage
 {
     private LocationService locationService = new();
     private LocationPointService pointService = new();
+    private MapService mapService = new();
 
     private Location? lastLocation;
 
@@ -29,24 +31,26 @@ public partial class MapPage : ContentPage
             if (status != PermissionStatus.Granted)
                 status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
 
+            // set default center first
+            var defaultLocation = new Location(10.7726, 106.6980); // TP.HCM
+            map.MoveToRegion(
+                MapSpan.FromCenterAndRadius(
+                    defaultLocation,
+                    Distance.FromMeters(200)));
+
+            // Load POI from SQLite via MapService before starting tracking
+            await mapService.AddLocationPointsFromDbAsync(map);
+            Debug.WriteLine($"[MapPage] Map pins count after DB load: {map.Pins.Count}");
+
             if (status == PermissionStatus.Granted)
             {
-                // ✅ FIX: đặt vị trí mặc định (Việt Nam) trước
-                var defaultLocation = new Location(10.7726, 106.6980); // TP.HCM
-
-                map.MoveToRegion(
-                    MapSpan.FromCenterAndRadius(
-                        defaultLocation,
-                        Distance.FromMeters(200)));
-
-                // 🚀 Sau đó mới tracking GPS
-                await locationService.StartTrackingAsync(location =>
+                // Start tracking in background (do NOT await) so LoadMap can finish
+                _ = locationService.StartTrackingAsync(location =>
                 {
                     MainThread.BeginInvokeOnMainThread(async () =>
                     {
                         var current = new Location(location.Latitude, location.Longitude);
 
-                        // 🧠 Nếu đã có vị trí trước đó → kiểm tra khoảng cách
                         if (lastLocation != null &&
                             Location.CalculateDistance(lastLocation, current, DistanceUnits.Kilometers) * 1000 < 10)
                         {
@@ -55,9 +59,7 @@ public partial class MapPage : ContentPage
 
                         lastLocation = current;
 
-                        // 🎯 Zoom thông minh
                         double zoom = 100;
-
                         if (location.Speed.HasValue && location.Speed > 5)
                             zoom = 200;
                         else
@@ -72,23 +74,10 @@ public partial class MapPage : ContentPage
                     });
                 });
             }
-
-            // 📌 Add POI
-            var pois = pointService.GetLocations();
-
-            foreach (var p in pois)
-            {
-                map.Pins.Add(new Pin
-                {
-                    Label = p.Name,
-                    Address = p.Description,
-                    Location = new Location(p.Latitude, p.Longitude)
-                });
-            }
         }
         catch (Exception ex)
         {
-            System.Diagnostics.Debug.WriteLine(ex.Message);
+            Debug.WriteLine(ex.Message);
         }
     }
 

@@ -1,4 +1,6 @@
-﻿using doanC_.Models;
+﻿using System.Diagnostics;
+using doanC_.Models;
+using doanC_.Services.Data;
 using Microsoft.Maui.Controls.Maps;
 using Microsoft.Maui.Devices.Sensors;
 using Microsoft.Maui.Maps;
@@ -10,6 +12,8 @@ namespace doanC_.Services;
 
 public class MapService
 {
+    private readonly SQLiteService _sqlite = new();
+
     // Focus bản đồ
     public void FocusToLocation(MapControl map, double latitude, double longitude)
     {
@@ -60,20 +64,66 @@ public class MapService
         }
     }
 
-    // Hiển thị POI
+    // Hiển thị POI từ danh sách
     public void AddLocationPoints(MapControl map, List<LocationPoint> points)
     {
-        foreach (var p in points)
-        {
-            var pin = new Pin
-            {
-                Label = p.Name,
-                Address = p.Description,
-                Location = new Location(p.Latitude, p.Longitude),
-                Type = PinType.Place
-            };
+        if (points == null || points.Count == 0)
+            return;
 
-            map.Pins.Add(pin);
+        MainThread.BeginInvokeOnMainThread(() =>
+        {
+            foreach (var p in points)
+            {
+                var pin = new Pin
+                {
+                    Label = p.Name,
+                    Address = p.Description,
+                    Location = new Location(p.Latitude, p.Longitude),
+                    Type = PinType.Place
+                };
+
+                map.Pins.Add(pin);
+            }
+        });
+    }
+
+    // Hiển thị POI lấy từ SQLite
+    public async Task AddLocationPointsFromDbAsync(MapControl map, bool clearExisting = true)
+    {
+        try
+        {
+            // Ensure DB/tables exist
+            await _sqlite.InitializeAsync();
+
+            var points = await _sqlite.GetAllLocationPointsAsync();
+
+            if (points == null || points.Count == 0)
+                return;
+
+            if (clearExisting)
+            {
+                MainThread.BeginInvokeOnMainThread(() => map.Pins.Clear());
+            }
+
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                foreach (var p in points)
+                {
+                    var pin = new Pin
+                    {
+                        Label = p.Name,
+                        Address = p.Description,
+                        Location = new Location(p.Latitude, p.Longitude),
+                        Type = PinType.Place
+                    };
+
+                    map.Pins.Add(pin);
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"[MapService] AddLocationPointsFromDbAsync error: {ex.Message}");
         }
     }
 

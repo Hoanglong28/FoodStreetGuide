@@ -10,8 +10,6 @@
       <!-- Header Section -->
   <VerticalStackLayout Grid.Row="0" Padding="20,20,20,15" Spacing="10" BackgroundColor="#2C1810">
             
-            <!-- Title -->
-       
  <!-- Subtitle -->
         <Label Text="Khám phá các địa điểm có thuyết minh"
       FontSize="14"
@@ -59,9 +57,7 @@
 
         <!-- POI List -->
      <CollectionView Grid.Row="1"  
-    x:Name="PoiCollection"
-      SelectionMode="Single"
-    SelectionChanged="OnPoiSelected">
+    x:Name="PoiCollection">
          
             <CollectionView.ItemTemplate>
                 <DataTemplate>  
@@ -72,8 +68,10 @@
    BorderColor="Transparent"
        BackgroundColor="White"
   Margin="0,8">
-                  
 
+         <Frame.GestureRecognizers>
+             <TapGestureRecognizer Tapped="OnPoiTapped"/>
+         </Frame.GestureRecognizers>
       
        <Grid RowDefinitions="Auto,Auto" RowSpacing="0">
         
@@ -129,27 +127,23 @@
      Padding="15,10,15,15" ColumnSpacing="10">
            
       <!-- Distance Badge -->
-            <Frame Grid.Column="0"
-        Padding="8,4"
-           CornerRadius="8"
-       HasShadow="False"
-       BackgroundColor="#FFF0E8"
-            BorderColor="#FFE0CC">
-       <Label Text="{Binding Distance, StringFormat='{0}m'}"
-      FontSize="11"
-       TextColor="#C85A3F"
-    FontAttributes="Bold"/>
-             </Frame>
+                <Frame Grid.Column="0"
+            Padding="8,4"
+               CornerRadius="8"
+           HasShadow="False"
+           BackgroundColor="#FFF0E8"
+                BorderColor="#FFE0CC">
+           <Label Text="{Binding Distance, StringFormat='{0}m'}"
+          FontSize="11"
+           TextColor="#C85A3F"
+        FontAttributes="Bold"/>
+                 </Frame>
 
    <!-- Spacer -->
          <BoxView Grid.Column="1" Color="Transparent"/>
 
- <!-- Rating Icon -->
-
               <!-- Audio Icon -->
          <Label Grid.Column="3" Text="🎧" FontSize="16"/>
-
-       <!-- More Icon -->
 
      </Grid>
 

@@ -2,143 +2,279 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
         x:Class="doanC_.Views.PoiDetailPage"
-             Title="Chi ti?t ?i?m tham quan">
+             Title="Chi tiết điểm tham quan"
+             BackgroundColor="#1A1A1A">
 
     <ScrollView>
-        <VerticalStackLayout Spacing="0">
-      
-    <!-- H?nh ?nh ch?nh -->
-          <Image x:Name="MainImage"
-          Source="poi_default.png"
-  Aspect="AspectFill"
-           HeightRequest="250" />
+        <VerticalStackLayout Spacing="0" Padding="15">
 
-            <!-- N?i dung chi ti?t -->
-  <VerticalStackLayout Padding="20" Spacing="15">
-         
-            <!-- T?n POI -->
-             <Label x:Name="PoiNameLabel"
-           Text="T?n ?i?m tham quan"
-      FontSize="26"
-               FontAttributes="Bold" />
+            <!-- Image Card with Controls -->
+            <Border Padding="0" 
+                   Stroke="Transparent"
+                   BackgroundColor="#3D2817"
+                   Margin="0,0,0,20"
+                   StrokeThickness="0">
+                
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="20"/>
+                </Border.StrokeShape>
 
-                <!-- Kho?ng c?ch -->
-        <Label x:Name="DistanceLabel"
-           Text="?? 100m t? v? tr? c?a b?n"
-           FontSize="14"
-   TextColor="#FF6B35" />
+                <Grid RowDefinitions="*,Auto" ColumnDefinitions="Auto,*,Auto,Auto,Auto">
 
-<!-- M? t? -->
-      <Label x:Name="DescriptionLabel"
-               Text="M? t? chi ti?t v? ?i?m tham quan..."
-              FontSize="16"
-        TextColor="#333"
-            LineBreakMode="WordWrap" />
+                    <!-- Back Button -->
+                    <Button Grid.Row="0" Grid.Column="0"
+                            Text="‹"
+                            BackgroundColor="#6B4423"
+                            TextColor="White"
+                            FontSize="24"
+                            WidthRequest="45"
+                            HeightRequest="45"
+                            CornerRadius="22"
+                            Margin="10,10,0,0"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Start"
+                            Clicked="OnBackButtonClicked"
+                            Padding="0"/>
 
-       <!-- Audio Player Section -->
-           <Border Stroke="#FF6B35"
-   StrokeThickness="2"
-  Padding="20"
-          Margin="0,20,0,0"
-       BackgroundColor="#FFF5F0">
-           <Border.StrokeShape>
-       <RoundRectangle CornerRadius="10" />
-        </Border.StrokeShape>
-     
-          <VerticalStackLayout Spacing="15">
-      
-       <Label Text="?? Thuy?t minh ?m thanh"
-       FontSize="18"
-         FontAttributes="Bold"
-  HorizontalOptions="Center" />
+                    <!-- Right Controls -->
+                    <VerticalStackLayout Grid.Row="0" Grid.Column="4"
+                                       Spacing="10"
+                                       HorizontalOptions="End"
+                                       VerticalOptions="Start"
+                                       Margin="0,10,10,0">
 
-    <!-- Language selector -->
-   <Picker x:Name="AudioLanguagePicker"
- Title="Ch?n ng?n ng?"
-          SelectedIndexChanged="OnLanguageChanged">
-          <Picker.Items>
-               <x:String>Ti?ng Vi?t</x:String>
-             <x:String>English</x:String>
-           <x:String>??</x:String>
-      <x:String>???</x:String>
-           <x:String>???</x:String>
-          </Picker.Items>
-         </Picker>
+                        <!-- Favorite Button -->
+                        <Button Text="♡"
+                                BackgroundColor="#6B4423"
+                                TextColor="White"
+                                FontSize="20"
+                                WidthRequest="45"
+                                HeightRequest="45"
+                                CornerRadius="22"
+                                Padding="0"
+                                Clicked="OnFavoriteClicked"/>
 
-           <!-- Play/Pause Button -->
-         <Button x:Name="PlayPauseButton"
-      Text="? Ph?t"
- BackgroundColor="#FF6B35"
-  TextColor="White"
-           Clicked="OnPlayPauseClicked"
-    FontSize="18" />
+                        <!-- Share Button -->
+                        <Button Text="△"
+                                BackgroundColor="#6B4423"
+                                TextColor="White"
+                                FontSize="20"
+                                WidthRequest="45"
+                                HeightRequest="45"
+                                CornerRadius="22"
+                                Padding="0"
+                                Clicked="OnShareClicked"/>
+                    </VerticalStackLayout>
 
-           <!-- Progress Bar -->
-          <ProgressBar x:Name="AudioProgress"
-          Progress="0"
- ProgressColor="#FF6B35" />
+                    <!-- Main Image -->
+                    <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
+                           x:Name="MainImage"
+                           Source="poi_default.png"
+                           Aspect="AspectFill"
+                           HeightRequest="280"/>
 
-     <!-- Time Labels -->
-         <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-        <Label x:Name="CurrentTimeLabel" Text="0:00" FontSize="12" />
-  <Label Text="/" FontSize="12" />
-           <Label x:Name="TotalTimeLabel" Text="0:00" FontSize="12" />
-     </HorizontalStackLayout>
-    </VerticalStackLayout>
-    </Border>
+                    <!-- Dots Indicator -->
+                    <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
+                                          HorizontalOptions="Center"
+                                          Spacing="5"
+                                          Margin="0,10,0,10">
+                        <BoxView WidthRequest="6" HeightRequest="3" CornerRadius="2" Color="White"/>
+                        <BoxView WidthRequest="3" HeightRequest="3" CornerRadius="2" Color="#999999"/>
+                        <BoxView WidthRequest="3" HeightRequest="3" CornerRadius="2" Color="#999999"/>
+                    </HorizontalStackLayout>
+                </Grid>
+            </Border>
 
-            <!-- Additional Info -->
-     <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" ColumnSpacing="10" RowSpacing="10" Margin="0,20,0,0">
-              
-            <Border Grid.Column="0" Grid.Row="0" 
-                Stroke="#E0E0E0" 
-           Padding="15"
-           BackgroundColor="#F9F9F9">
-     <Border.StrokeShape>
-    <RoundRectangle CornerRadius="8" />
-     </Border.StrokeShape>
-   <VerticalStackLayout Spacing="5">
-                     <Label Text="? Gi? m? c?a" FontSize="12" TextColor="Gray" />
-                <Label x:Name="OpeningHoursLabel" Text="8:00 - 22:00" FontSize="14" FontAttributes="Bold" />
-         </VerticalStackLayout>
-      </Border>
+            <!-- Content Card -->
+            <Border Padding="20" 
+                   Stroke="Transparent"
+                   BackgroundColor="#2D2D2D"
+                   StrokeThickness="0">
+                
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
 
- <Border Grid.Column="1" Grid.Row="0" 
-            Stroke="#E0E0E0" 
-               Padding="15"
-    BackgroundColor="#F9F9F9">
-       <Border.StrokeShape>
-       <RoundRectangle CornerRadius="8" />
-</Border.StrokeShape>
-    <VerticalStackLayout Spacing="5">
-       <Label Text="?? Gi? tham kh?o" FontSize="12" TextColor="Gray" />
-         <Label x:Name="PriceLabel" Text="50.000?" FontSize="14" FontAttributes="Bold" />
+                <VerticalStackLayout Spacing="15">
+
+                    <!-- Category & Rating -->
+                    <VerticalStackLayout Spacing="5">
+                        <!-- Category Label -->
+                        <Label x:Name="CategoryLabel"
+                               FontSize="11"
+                               TextColor="#999999"
+                               FontAttributes="Bold"/>
+
+                        <!-- POI Name - Full width -->
+                        <Label x:Name="PoiNameLabel"
+                               FontSize="24"
+                               TextColor="White"
+                               FontAttributes="Bold"
+                               LineBreakMode="WordWrap"/>
+
+                        <!-- Rating - Below Name -->
+                        <Label x:Name="RatingLabel"
+                               FontSize="14"
+                               TextColor="#FF9500"
+                               FontAttributes="Bold"/>
+                    </VerticalStackLayout>
+
+                    <!-- Address -->
+                    <HorizontalStackLayout Spacing="8">
+                        <Label Text="📍"
+                               FontSize="16"
+                               VerticalOptions="Start"/>
+
+                        <Label x:Name="AddressLabel"
+                               FontSize="12"
+                               TextColor="#CCCCCC"
+                               LineBreakMode="WordWrap"
+                               VerticalOptions="Start"/>
+                    </HorizontalStackLayout>
+
+                    <!-- Description -->
+                    <Label x:Name="DescriptionLabel"
+                           FontSize="13"
+                           TextColor="#CCCCCC"
+                           LineBreakMode="WordWrap"/>
+
+                    <!-- Opening Hours & Price -->
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <Border Grid.Column="0"
+                               Padding="12,10"
+                               StrokeThickness="1"
+                               Stroke="#555555"
+                               BackgroundColor="Transparent">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="8"/>
+                            </Border.StrokeShape>
+                            <Label x:Name="OpeningHoursLabel"
+                                   FontSize="12"
+                                   TextColor="White"
+                                   HorizontalOptions="Center"
+                                   FontAttributes="Bold"/>
+                        </Border>
+
+                        <Button Grid.Column="1"
+                                Text="Đang mở cửa"
+                                BackgroundColor="#00AA44"
+                                TextColor="White"
+                                FontSize="12"
+                                Padding="0"
+                                FontAttributes="Bold"
+                                CornerRadius="8"
+                                Clicked="OnOpenStatusClicked"/>
+                    </Grid>
+
+                    <!-- Price Range -->
+                    <Border Padding="12,10"
+                           StrokeThickness="1"
+                           Stroke="#555555"
+                           BackgroundColor="Transparent">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="8"/>
+                        </Border.StrokeShape>
+                        <Label x:Name="PriceLabel"
+                               FontSize="12"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               FontAttributes="Bold"/>
+                    </Border>
+
+                    <!-- Action Buttons -->
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,10,0,0">
+
+                        <Button Grid.Column="0"
+                                Text="🎧 Audio"
+                                BackgroundColor="#333333"
+                                TextColor="White"
+                                FontSize="14"
+                                Padding="0"
+                                FontAttributes="Bold"
+                                CornerRadius="10"
+                                Clicked="OnPlayAudioClicked"/>
+
+                        <Button Grid.Column="1"
+                                Text="Chỉ đường"
+                                BackgroundColor="#FF6B35"
+                                TextColor="White"
+                                FontSize="14"
+                                Padding="0"
+                                FontAttributes="Bold"
+                                CornerRadius="10"
+                                Clicked="OnGetDirectionsClicked"/>
+                    </Grid>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Audio Player (Hidden by default) -->
+            <Border x:Name="AudioPlayerFrame"
+                   Padding="20"
+                   StrokeThickness="0"
+                   BackgroundColor="#2D2D2D"
+                   Margin="0,15,0,0"
+                   IsVisible="False">
+                
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="15"/>
+                </Border.StrokeShape>
+
+                <VerticalStackLayout Spacing="15">
+
+                    <Label Text="🎧 Thuyết minh âm thanh"
+                           FontSize="16"
+                           TextColor="White"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"/>
+
+                    <Picker x:Name="AudioLanguagePicker"
+                            Title="Chọn ngôn ngữ"
+                            TextColor="White"
+                            BackgroundColor="#333333"
+                            SelectedIndexChanged="OnLanguageChanged">
+                        <Picker.Items>
+                            <x:String>Tiếng Việt</x:String>
+                            <x:String>English</x:String>
+                            <x:String>中文</x:String>
+                            <x:String>日本語</x:String>
+                            <x:String>한국어</x:String>
+                        </Picker.Items>
+                    </Picker>
+
+                    <Button x:Name="PlayPauseButton"
+                            Text="▶ Phát"
+                            BackgroundColor="#FF6B35"
+                            TextColor="White"
+                            FontSize="16"
+                            Padding="0"
+                            FontAttributes="Bold"
+                            CornerRadius="10"
+                            Clicked="OnPlayPauseClicked"/>
+
+                    <ProgressBar x:Name="AudioProgress"
+                                 Progress="0"
+                                 ProgressColor="#FF6B35"
+                                 HeightRequest="4"/>
+
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                        <Label x:Name="CurrentTimeLabel"
+                               Text="0:00"
+                               FontSize="12"
+                               TextColor="#999999"/>
+                        <Label Text="/"
+                               FontSize="12"
+                               TextColor="#999999"/>
+                        <Label x:Name="TotalTimeLabel"
+                               Text="0:00"
+                               FontSize="12"
+                               TextColor="#999999"/>
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+
         </VerticalStackLayout>
- </Border>
-
-      <Border Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"
- Stroke="#E0E0E0" 
-              Padding="15"
-         BackgroundColor="#F9F9F9">
-               <Border.StrokeShape>
-     <RoundRectangle CornerRadius="8" />
-       </Border.StrokeShape>
-                <VerticalStackLayout Spacing="5">
-      <Label Text="?? ??a ch?" FontSize="12" TextColor="Gray" />
-       <Label x:Name="AddressLabel" Text="123 ???ng ABC, Qu?n XYZ" FontSize="14" />
-       </VerticalStackLayout>
-     </Border>
-   </Grid>
-
-      <!-- Action Buttons -->
-           <Button Text="?? Ch? ???ng"
-         BackgroundColor="#4ECDC4"
-             TextColor="White"
-           Clicked="OnGetDirectionsClicked"
-            Margin="0,20,0,0" />
-
-            </VerticalStackLayout>
- </VerticalStackLayout>
     </ScrollView>
 
 </ContentPage>
