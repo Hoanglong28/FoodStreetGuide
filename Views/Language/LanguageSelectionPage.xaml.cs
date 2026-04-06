@@ -34,6 +34,26 @@ public partial class LanguageSelectionPage : ContentPage
         SetLanguageAndNavigate("zh");
     }
 
+    private async void OnSelectFrench(object sender, EventArgs e)
+    {
+        SetLanguageAndNavigate("fr");
+    }
+
+    private async void OnSelectSpanish(object sender, EventArgs e)
+    {
+        SetLanguageAndNavigate("es");
+    }
+
+    private async void OnSelectJapanese(object sender, EventArgs e)
+    {
+        SetLanguageAndNavigate("ja");
+    }
+
+    private async void OnSelectKorean(object sender, EventArgs e)
+    {
+        SetLanguageAndNavigate("ko");
+    }
+
     private void SetLanguageAndNavigate(string languageCode)
     {
         // ?? C?p nh?t AppResources
