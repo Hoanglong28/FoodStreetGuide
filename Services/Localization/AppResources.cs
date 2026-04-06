@@ -48,7 +48,20 @@ public static class AppResources
                 { "BatterySaveLabel", "Tiết kiệm pin" },
                 { "OfflineContentSection", "NỘI DUNG OFFLINE" },
                 { "DownloadOfflineLabel", "Tải gói offline" },
-                { "OfflinePackageInfo", "Phố Lê Thánh Tôn · 24MB" }
+                { "OfflinePackageInfo", "Phố Lê Thánh Tôn ·24MB" },
+                { "PoiListTitle", "Danh sách địa điểm" },
+                { "ExploreSubtitle", "Khám phá các quán ăn" },
+
+
+                { "TapToListen2", "🔊 Nhấn để nghe thuyết minh" },
+{ "PlayCommentary", "▶ Phát thuyết minh" },
+{ "NearbyDistance", "📍 Đang gần · {0}m" },
+                { "SelectPoi", "Chọn điểm để nghe thuyết minh" },
+                // QR Scanner
+                { "QrScannerTitle", "Quét mã QR" },
+                { "QrScannerSubtitle", "Đưa mã QR vào khung hình để quét" },
+                { "QrInstructions", "Hướng camera vào mã QR để xem nội dung, hoặc nhập tay nếu cần." },
+                { "QrManualInput", "Nhập mã QR thủ công" }
             }
         },
         {
@@ -91,7 +104,19 @@ public static class AppResources
                 { "BatterySaveLabel", "Battery Save" },
                 { "OfflineContentSection", "OFFLINE CONTENT" },
                 { "DownloadOfflineLabel", "Download Offline" },
-                { "OfflinePackageInfo", "Le Thanh Ton Street · 24MB" }
+                { "OfflinePackageInfo", "Le Thanh Ton Street ·24MB" },
+                { "PoiListTitle", "POI List" },
+                { "ExploreSubtitle", "Explore great restaurants" },
+
+                { "TapToListen2", "🔊 Tap to listen to commentary" },
+{ "PlayCommentary", "▶ Play commentary" },
+{ "NearbyDistance", "📍 Nearby · {0}m" },
+                { "SelectPoi", "Select a location to hear the audio guide" },
+                 // QR Scanner
+                { "QrScannerTitle", "Scan QR Code" },
+                { "QrScannerSubtitle", "Align the QR code within the frame" },
+                { "QrInstructions", "Point your camera at a QR code to see its content, or enter it manually." },
+                { "QrManualInput", "Enter QR code manually" }
             }
         },
         {
@@ -134,7 +159,17 @@ public static class AppResources
                 { "BatterySaveLabel", "省电模式" },
                 { "OfflineContentSection", "离线内容" },
                 { "DownloadOfflineLabel", "下载离线数据" },
-                { "OfflinePackageInfo", "离线包 · 24MB" }
+                { "OfflinePackageInfo", "离线包 ·24MB" },
+                { "PoiListTitle", "地点列表" },
+                { "ExploreSubtitle", "探索美食餐厅" },
+                { "TapToListen2", "🔊 点击收听讲解" },
+{ "PlayCommentary", "▶ 播放讲解" },
+{ "NearbyDistance", "📍 附近 · {0}米" },
+                // QR Scanner
+                { "QrScannerTitle", "扫描二维码" },
+                { "QrScannerSubtitle", "将二维码对准取景框" },
+                { "QrInstructions", "将摄像头对准二维码以查看内容，或手动输入。" },
+                { "QrManualInput", "手动输入二维码" }
             }
         },
         {
@@ -177,7 +212,19 @@ public static class AppResources
                 { "BatterySaveLabel", "Économie de batterie" },
                 { "OfflineContentSection", "CONTENU HORS LIGNE" },
                 { "DownloadOfflineLabel", "Télécharger hors ligne" },
-                { "OfflinePackageInfo", "Rue Le Thanh Ton · 24MB" }
+                { "OfflinePackageInfo", "Rue Le Thanh Ton ·24MB" },
+                { "PoiListTitle", "Liste des lieux" },
+    { "ExploreSubtitle", "Découvrez de délicieux restaurants" },
+
+    { "TapToListen2", "🔊 Appuyez pour écouter le commentaire" },
+{ "PlayCommentary", "▶ Lire le commentaire" },
+{ "NearbyDistance", "📍 À proximité · {0} m" },
+                { "SelectPoi", "Sélectionnez un lieu pour écouter le guide audio" },
+                // QR Scanner
+                { "QrScannerTitle", "Scanner un QR code" },
+                { "QrScannerSubtitle", "Alignez le code QR dans le cadre" },
+                { "QrInstructions", "Pointez la caméra vers un code QR pour voir son contenu ou entrez-le manuellement." },
+                { "QrManualInput", "Saisir le code QR manuellement" }
             }
         },
         {
@@ -220,7 +267,18 @@ public static class AppResources
                 { "BatterySaveLabel", "Ahorro de batería" },
                 { "OfflineContentSection", "CONTENIDO SIN CONEXIÓN" },
                 { "DownloadOfflineLabel", "Descargar sin conexión" },
-                { "OfflinePackageInfo", "Calle Le Thanh Ton · 24MB" }
+                { "OfflinePackageInfo", "Calle Le Thanh Ton ·24MB" },
+                { "PoiListTitle", "Lista de lugares" },
+    { "ExploreSubtitle", "Explora restaurantes increíbles" },
+    { "TapToListen2", "🔊 Toca para escuchar la narración" },
+{ "PlayCommentary", "▶ Reproducir narración" },
+{ "NearbyDistance", "📍 Cerca · {0} m" },
+                { "SelectPoi", "Seleccione un lugar para escuchar la guía de audio" },
+                // QR Scanner
+                { "QrScannerTitle", "Escanear código QR" },
+                { "QrScannerSubtitle", "Alinea el código QR dentro del marco" },
+                { "QrInstructions", "Apunta la cámara al código QR para ver su contenido o introdúcelo manualmente." },
+                { "QrManualInput", "Introducir código QR manualmente" }
             }
         },
         {
@@ -263,7 +321,19 @@ public static class AppResources
                 { "BatterySaveLabel", "省電力モード" },
                 { "OfflineContentSection", "オフラインコンテンツ" },
                 { "DownloadOfflineLabel", "オフラインデータをダウンロード" },
-                { "OfflinePackageInfo", "オフラインパッケージ · 24MB" }
+                { "OfflinePackageInfo", "オフラインパッケージ ·24MB" },
+
+                { "PoiListTitle", "スポット一覧" },
+{ "ExploreSubtitle", "おすすめのレストランを見つけよう" },
+
+{ "TapToListen2", "🔊 タップして解説を再生" },
+{ "PlayCommentary", "▶ 解説を再生" },
+{ "NearbyDistance", "📍 近く · {0}m" },
+                // QR Scanner
+                { "QrScannerTitle", "QRコードをスキャン" },
+                { "QrScannerSubtitle", "QRコードを枠内に合わせてください" },
+                { "QrInstructions", "カメラをQRコードに向けて内容を表示するか、手動で入力してください。" },
+                { "QrManualInput", "QRコードを手動入力" }
             }
         },
         {
@@ -306,9 +376,18 @@ public static class AppResources
                 { "BatterySaveLabel", "절전 모드" },
                 { "OfflineContentSection", "오프라인 콘텐츠" },
                 { "DownloadOfflineLabel", "오프라인 데이터 다운로드" },
-                { "OfflinePackageInfo", "오프라인 패키지 · 24MB" }
+                { "OfflinePackageInfo", "오프라인 패키지 ·24MB" },
+                { "TapToListen2", "🔊 탭하여 설명 듣기" },
+{ "PlayCommentary", "▶ 설명 재생" },
+{ "NearbyDistance", "📍 근처 · {0}m" },
+                { "SelectPoi", "오디오 가이드를 들으려면 위치를 선택하세요" },
+                // QR Scanner
+                { "QrScannerTitle", "QR 코드 스캔" },
+                { "QrScannerSubtitle", "QR 코드를 프레임 안에 맞춰주세요" },
+                { "QrInstructions", "카메라를 QR 코드에 맞추어 내용을 보거나 직접 입력하세요." },
+                { "QrManualInput", "QR 코드 직접 입력" }
             }
-                    }
+        }
     };
 
     private static string _currentLanguage = "vi";

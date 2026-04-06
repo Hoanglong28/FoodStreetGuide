@@ -10,35 +10,50 @@
   <VerticalStackLayout Grid.Row="0" Padding="20,20,20,15" Spacing="10" BackgroundColor="#2C1810">
      
             <!-- Title -->
-     <Label x:Name="TitleLabel"
-        FontSize="20"
-        FontAttributes="Bold"
-              TextColor="#F5CBA7"/>
-            
- <!-- Subtitle -->
-        <Label x:Name="SubtitleLabel"
-      FontSize="14"
-       TextColor="#9E8B7E"/>
-     
-      <!-- Category Filter Chips -->
+     <Label
+    FontSize="20"
+    FontAttributes="Bold"
+    TextColor="#F5CBA7"
+    Text="{Binding PoiListTitle}" />
+
+<!-- Subtitle -->
+<Label
+    FontSize="14"
+    TextColor="#9E8B7E"
+    Text="{Binding ExploreSubtitle}" />
+
+<!-- Category Filter Chips -->
     <ScrollView Orientation="Horizontal">
      <HorizontalStackLayout Spacing="10" Padding="0">
          <Frame Padding="12,6" CornerRadius="20" HasShadow="False" 
   BackgroundColor="#C85A3F" BorderColor="Transparent">
- <Label x:Name="AllCategoryLabel" FontSize="12" TextColor="White" FontAttributes="Bold"/>
+ <Label
+    FontSize="12"
+    TextColor="White"
+    FontAttributes="Bold"
+    Text="{Binding AllCategories}" />
       </Frame>
  
        <Frame Padding="12,6" CornerRadius="20" HasShadow="False" 
  BackgroundColor="#E0D5CC" BorderColor="Transparent">
-    <Label x:Name="RestaurantLabel" FontSize="12" TextColor="#2C1810"/>
+    <Label
+    FontSize="12"
+    TextColor="#2C1810"
+    Text="{Binding Restaurant}" />
    </Frame>
         <Frame Padding="12,6" CornerRadius="20" HasShadow="False" 
    BackgroundColor="#E0D5CC" BorderColor="Transparent">
-      <Label x:Name="LocationLabel" FontSize="12" TextColor="#2C1810"/>
+      <Label
+    FontSize="12"
+    TextColor="#2C1810"
+    Text="{Binding Location}" />
      </Frame>
    <Frame Padding="12,6" CornerRadius="20" HasShadow="False" 
  BackgroundColor="#E0D5CC" BorderColor="Transparent">
-     <Label x:Name="HistoryLabel" FontSize="12" TextColor="#2C1810"/>
+     <Label
+    FontSize="12"
+    TextColor="#2C1810"
+    Text="{Binding History}" />
   </Frame>
 </HorizontalStackLayout>
   </ScrollView>
@@ -47,12 +62,13 @@
   <Frame Padding="0" CornerRadius="12" HasShadow="False" 
       BackgroundColor="White" BorderColor="Transparent">
   <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10" Padding="15,12">
-          <Entry x:Name="SearchEntry"
-      Grid.Column="0"
+          <Entry
+    Grid.Column="0"
     TextChanged="OnSearchTextChanged"
-            BackgroundColor="Transparent"
-      TextColor="#2C1810"
-       PlaceholderColor="#C0B5A8"/>
+    BackgroundColor="Transparent"
+    TextColor="#2C1810"
+    PlaceholderColor="#C0B5A8"
+    Placeholder="{Binding SearchPlaceholder}" />
         <Label Grid.Column="1" Text="🔍" FontSize="18" VerticalOptions="Center"/>
  </Grid>
   </Frame>

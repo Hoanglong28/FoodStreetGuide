@@ -99,7 +99,7 @@ namespace doanC_.Services.Data
                     Latitude = 11.9295,
                     Longitude = 108.4300,
                     Category = "Food",
-                    Image = "banhtrang_didinh.jpg",
+                    Image = "banh_trang_nuong_di_dinh.jpg",
                     Rating = 4.7,
                     ReviewCount = 520,
                     OpeningHours = "14:00 - 22:00",
@@ -113,7 +113,7 @@ namespace doanC_.Services.Data
                     Latitude = 11.9402,
                     Longitude = 108.4385,
                     Category = "Drink",
-                    Image = "suadaunanh_hoasua.jpg",
+                    Image = "sua_dau_nanh_hoa_sua.jpg",
                     Rating = 4.6,
                     ReviewCount = 430,
                     OpeningHours = "17:00 - 01:00",
@@ -127,27 +127,14 @@ namespace doanC_.Services.Data
                     Latitude = 11.9490,
                     Longitude = 108.4335,
                     Category = "Food",
-                    Image = "nemnuong_bahung.jpg",
+                    Image = "nem_nuong.jpg",
                     Rating = 4.5,
                     ReviewCount = 150,
                     OpeningHours = "06:00 - 18:00",
                     PriceRange = "10,000 - 50,000 VND"
                 },
                
-                new LocationPoint
-                {
-                    Name = "Sữa đậu nành Hoa Sữa",
-                    Description = "Quán sữa đậu nành nóng nổi tiếng gần chợ đêm, thích hợp thưởng thức trong thời tiết lạnh.",
-                    Address = "64 Tăng Bạt Hổ, TP. Đà Lạt",
-                    Latitude = 11.9402,
-                    Longitude = 108.4385,
-                    Category = "Drink",
-                    Image = "suadaunanh_hoasua.jpg",
-                    Rating = 4.6,
-                    ReviewCount = 430,
-                    OpeningHours = "17:00 - 01:00",
-                    PriceRange = "Rẻ"
-                },
+                
                 new LocationPoint
                 {
                     Name = "Ốc 33",
@@ -156,7 +143,7 @@ namespace doanC_.Services.Data
                     Latitude = 11.9368,
                     Longitude = 108.4330,
                     Category = "Food",
-                    Image = "oc33.jpg",
+                    Image = "oc_33.jpg",
                     Rating = 4.5,
                     ReviewCount = 410,
                     OpeningHours = "15:00 - 22:00",

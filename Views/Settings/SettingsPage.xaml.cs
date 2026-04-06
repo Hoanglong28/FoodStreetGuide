@@ -72,6 +72,9 @@ public partial class SettingsPage : ContentPage
             AppResources.SetLanguage(languageCode);
             Preferences.Set("AppLanguage", languageCode);
 
+            // 🆕 Thông báo tất cả ViewModels cập nhật ngôn ngữ
+            LanguageChangeManager.NotifyLanguageChanged();
+
             // Update label
             UpdateLanguageLabel(languageCode);
 

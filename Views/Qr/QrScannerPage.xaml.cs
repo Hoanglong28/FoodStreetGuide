@@ -4,24 +4,37 @@ using doanC_.Services;
 using doanC_.ViewModels;
 using ZXing.Net.Maui;
 using doanC_.Services.Geo;
+using doanC_.Services.Localization;
 
 namespace doanC_.Views;
 
 public partial class QrScannerPage : ContentPage
 {
     private bool _isScanning = true;
+    private QrScannerViewModel _viewModel;
 
     public QrScannerPage()
     {
         InitializeComponent();
-        this.BindingContext = new QrScannerViewModel();
+        _viewModel = new QrScannerViewModel();
+        this.BindingContext = _viewModel;
     }
 
-    // 🔥 Khi mở trang → xin quyền + bật scan
-    protected override async void OnAppearing()
+    /// <summary>
+    /// Khi trang được hiển thị, cập nhật ngôn ngữ
+    /// </summary>
+    protected override void OnAppearing()
     {
         base.OnAppearing();
 
+        // 🆕 Cập nhật ngôn ngữ mỗi khi trang được hiển thị
+        _viewModel.LoadLanguage();
+
+        RequestCameraPermissionAndStartScanning();
+    }
+
+    private async void RequestCameraPermissionAndStartScanning()
+    {
         var status = await Permissions.CheckStatusAsync<Permissions.Camera>();
 
         if (status != PermissionStatus.Granted)
@@ -29,7 +42,7 @@ public partial class QrScannerPage : ContentPage
 
         if (status != PermissionStatus.Granted)
         {
-            await DisplayAlert("Lỗi", "Cần cấp quyền camera để quét QR", "OK");
+            await DisplayAlert(AppResources.GetString("Error"), AppResources.GetString("CameraPermissionDenied"), AppResources.GetString("OK"));
             return;
         }
 
@@ -68,25 +81,25 @@ public partial class QrScannerPage : ContentPage
 
             if (point != null)
             {
-                await DisplayAlert("QR OK", $"Đã thêm: {point.Name}", "OK");
+                await DisplayAlert(AppResources.GetString("OK"), $"{AppResources.GetString("AddedToFavorite")}: {point.Name}", AppResources.GetString("OK"));
 
                 GeoFenceService.Instance.AddPoint(point);
             }
             else
             {
-                await DisplayAlert("QR", qrText, "OK");
+                await DisplayAlert("QR", qrText, AppResources.GetString("OK"));
             }
         }
         catch
         {
-            await DisplayAlert("Lỗi", "QR không đúng định dạng JSON", "OK");
+            await DisplayAlert(AppResources.GetString("Error"), AppResources.GetString("InvalidQrFormat"), AppResources.GetString("OK"));
         }
     }
 
     // 🔥 NHẬP TAY (fallback)
     private async void OnManualInputClicked(object sender, EventArgs e)
     {
-        string input = await DisplayPromptAsync("Nhập QR", "Dán nội dung QR:");
+        string input = await DisplayPromptAsync(AppResources.GetString("QrManualInput"), AppResources.GetString("PasteQrContent"), AppResources.GetString("OK"), AppResources.GetString("Cancel"));
 
         if (!string.IsNullOrEmpty(input))
         {

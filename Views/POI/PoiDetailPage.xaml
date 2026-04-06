@@ -21,6 +21,14 @@
 
                 <Grid RowDefinitions="*,Auto" ColumnDefinitions="Auto,*,Auto,Auto,Auto">
 
+                    <!-- Main Image -->
+                    <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
+                           x:Name="MainImage"
+                           Source="poi_default.png"
+                           Aspect="AspectFill"
+                           HeightRequest="280"
+                           ZIndex="0"/>
+
                     <!-- Back Button -->
                     <Button Grid.Row="0" Grid.Column="0"
                             Text="‹"
@@ -34,17 +42,19 @@
                             HorizontalOptions="Start"
                             VerticalOptions="Start"
                             Clicked="OnBackButtonClicked"
-                            Padding="0"/>
+                            Padding="0"
+                            ZIndex="1"/>
 
                     <!-- Right Controls -->
                     <VerticalStackLayout Grid.Row="0" Grid.Column="4"
                                        Spacing="10"
                                        HorizontalOptions="End"
                                        VerticalOptions="Start"
-                                       Margin="0,10,10,0">
+                                       Margin="0,10,10,0"
+                                       ZIndex="1">
 
                         <!-- Favorite Button -->
-                        <Button Text="♡"
+                        <Button Text="❤️"
                                 BackgroundColor="#6B4423"
                                 TextColor="White"
                                 FontSize="20"
@@ -55,7 +65,7 @@
                                 Clicked="OnFavoriteClicked"/>
 
                         <!-- Share Button -->
-                        <Button Text="△"
+                        <Button Text="🔗"
                                 BackgroundColor="#6B4423"
                                 TextColor="White"
                                 FontSize="20"
@@ -64,16 +74,9 @@
                                 CornerRadius="22"
                                 Padding="0"
                                 Clicked="OnShareClicked"/>
-                    </VerticalStackLayout>
+                        </VerticalStackLayout>
 
-                    <!-- Main Image -->
-                    <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
-                           x:Name="MainImage"
-                           Source="poi_default.png"
-                           Aspect="AspectFill"
-                           HeightRequest="280"/>
-
-                    <!-- Dots Indicator -->
+                        <!-- Dots Indicator -->
                     <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
                                           HorizontalOptions="Center"
                                           Spacing="5"

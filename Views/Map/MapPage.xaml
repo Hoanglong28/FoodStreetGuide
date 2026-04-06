@@ -77,28 +77,30 @@
 
             <VerticalStackLayout Spacing="10">
 
-                <Label x:Name="NearbyLabel"
-                       Text="📍 Đang gần · 45m"
-                       TextColor="Red"
-                       FontSize="12"/>
+                <Label
+                    Text="{Binding NearbyText}"
+                    TextColor="Red"
+                    FontSize="12" />
 
-                <Label x:Name="PoiNameLabel"
-                       Text="Bánh Mì Huỳnh Hoa"
-                       FontSize="18"
-                       FontAttributes="Bold"/>
+                <Label
+                    Text="{Binding PoiName}"
+                    FontSize="18"
+                    FontAttributes="Bold" 
+                    TextColor="Black"
+                    />
 
-                <Label x:Name="ListenLabel"
-                       Text="🔊 Nhấn để nghe thuyết minh"
-                       FontSize="13"
-                       TextColor="Gray"/>
+                <Label
+                    Text="{Binding ListenText}"
+                    FontSize="13"
+                    TextColor="Gray" />
 
-                <Button x:Name="PlayButton"
-                        Text="▶ Phát thuyết minh"
-                        BackgroundColor="#E85C2B"
-                        TextColor="White"
-                        CornerRadius="12"
-                        HeightRequest="45"
-                        Clicked="OnPlayButtonClicked"/>
+                <Button
+                    Text="{Binding PlayButtonText}"
+                    BackgroundColor="#E85C2B"
+                    TextColor="White"
+                    CornerRadius="12"
+                    HeightRequest="45"
+                    Clicked="OnPlayButtonClicked" />
 
             </VerticalStackLayout>
 
@@ -106,4 +108,4 @@
 
     </Grid>
 
-</ContentPage>
+</ContentPage></ContentPage>
