@@ -5,6 +5,8 @@ using doanC_.Services.LocationTracking;
 using doanC_.Services;
 using doanC_.Models;
 using Microsoft.Maui.Maps;
+using doanC_.Services.Localization;
+using Microsoft.Maui.Storage;
 
 namespace doanC_.Views;
 
@@ -15,11 +17,67 @@ public partial class MapPage : ContentPage
     private MapService mapService = new();
 
     private Location? lastLocation;
+    private string _currentLanguage = "vi";
 
     public MapPage()
     {
         InitializeComponent();
         Loaded += async (s, e) => await LoadMap();
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        // 🆕 Tải lại ngôn ngữ mỗi khi trang được hiển thị
+        LoadLanguage();
+    }
+
+    /// <summary>
+    /// Cập nhật UI theo ngôn ngữ đã chọn
+    /// </summary>
+    private void LoadLanguage()
+    {
+        try
+        {
+            var savedLanguage = Preferences.Get("AppLanguage", "vi");
+            _currentLanguage = savedLanguage;
+
+            if (SearchEntry != null)
+                SearchEntry.Placeholder = AppResources.GetString("FindPoiPlaceholder");
+
+            if (LanguageLabel != null)
+                LanguageLabel.Text = GetLanguageDisplay(_currentLanguage);
+
+            if (ListenLabel != null)
+                ListenLabel.Text = AppResources.GetString("TapToListen2");
+
+            if (PlayButton != null)
+                PlayButton.Text = AppResources.GetString("PlayCommentary");
+
+            Debug.WriteLine($"[MapPage] 🌐 UI loaded in language: {_currentLanguage}");
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"[MapPage] Error loading language: {ex.Message}");
+        }
+    }
+
+    /// <summary>
+    /// Chuyển đổi language code sang display name
+    /// </summary>
+    private string GetLanguageDisplay(string languageCode)
+    {
+        return languageCode switch
+        {
+            "vi" => "VI",
+            "en" => "EN",
+            "fr" => "FR",
+            "zh" => "ZH",
+            "es" => "ES",
+            "ja" => "JA",
+            "ko" => "KO",
+            _ => "VI"
+        };
     }
 
     private async Task LoadMap()
@@ -59,6 +117,11 @@ public partial class MapPage : ContentPage
 
                         lastLocation = current;
 
+                        // 🆕 Cập nhật nearby distance
+                        int distance = (int)(Location.CalculateDistance(current, lastLocation, DistanceUnits.Kilometers) * 1000);
+                        if (NearbyLabel != null)
+                            NearbyLabel.Text = string.Format(AppResources.GetString("NearbyDistance"), distance);
+
                         double zoom = 100;
                         if (location.Speed.HasValue && location.Speed > 5)
                             zoom = 200;
@@ -78,6 +141,18 @@ public partial class MapPage : ContentPage
         catch (Exception ex)
         {
             Debug.WriteLine(ex.Message);
+        }
+    }
+
+    private async void OnPlayButtonClicked(object sender, EventArgs e)
+    {
+        try
+        {
+      await DisplayAlert(AppResources.GetString("PoiDetail"), AppResources.GetString("FeatureInDevelopment"), AppResources.GetString("OK"));
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"[MapPage] Error: {ex.Message}");
         }
     }
 

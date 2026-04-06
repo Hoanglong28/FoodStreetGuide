@@ -29,7 +29,8 @@
                            FontSize="18"
                            VerticalOptions="Center"/>
 
-                    <Entry Placeholder="Tìm điểm thuyết minh..."
+                    <Entry x:Name="SearchEntry"
+                           Placeholder="Tìm điểm thuyết minh..."
                            Grid.Column="1"
                            FontSize="14"
                            VerticalOptions="Center"
@@ -40,7 +41,8 @@
                             StrokeShape="RoundRectangle 15"
                             Padding="10,5">
 
-                        <Label Text="VI"
+                        <Label x:Name="LanguageLabel"
+                               Text="VI"
                                FontSize="10"
                                VerticalOptions="Center"/>
 
@@ -56,7 +58,8 @@
                     HeightRequest="45"
                     WidthRequest="45"
                     AbsoluteLayout.LayoutBounds="0.95,0.85,45,45"
-                    AbsoluteLayout.LayoutFlags="PositionProportional">
+                    AbsoluteLayout.LayoutFlags="PositionProportional"
+                    x:Name="GpsButton">
 
                 <Label Text="📍"
                        HorizontalOptions="Center"
@@ -74,23 +77,28 @@
 
             <VerticalStackLayout Spacing="10">
 
-                <Label Text="📍 Đang gần · 45m"
+                <Label x:Name="NearbyLabel"
+                       Text="📍 Đang gần · 45m"
                        TextColor="Red"
                        FontSize="12"/>
 
-                <Label Text="Bánh Mì Huỳnh Hoa"
+                <Label x:Name="PoiNameLabel"
+                       Text="Bánh Mì Huỳnh Hoa"
                        FontSize="18"
                        FontAttributes="Bold"/>
 
-                <Label Text="🔊 Nhấn để nghe thuyết minh"
+                <Label x:Name="ListenLabel"
+                       Text="🔊 Nhấn để nghe thuyết minh"
                        FontSize="13"
                        TextColor="Gray"/>
 
-                <Button Text="▶ Phát thuyết minh"
+                <Button x:Name="PlayButton"
+                        Text="▶ Phát thuyết minh"
                         BackgroundColor="#E85C2B"
                         TextColor="White"
                         CornerRadius="12"
-                        HeightRequest="45"/>
+                        HeightRequest="45"
+                        Clicked="OnPlayButtonClicked"/>
 
             </VerticalStackLayout>
 

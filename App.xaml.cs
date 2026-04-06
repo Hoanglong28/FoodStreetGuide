@@ -1,8 +1,10 @@
 ﻿using doanC_.Services.Data;
 using doanC_.Helpers;
 using doanC_.Models;
+using doanC_.Services.Localization; 
 using SQLite;
 using System.Diagnostics;
+using Microsoft.Maui.Storage;
 
 namespace doanC_
 {
@@ -12,8 +14,15 @@ namespace doanC_
         {
             InitializeComponent();
 
+            // 🆕 Tải ngôn ngữ đã lưu
+            var appLanguage = Preferences.Get("AppLanguage", null);
+            if (!string.IsNullOrEmpty(appLanguage))
+            {
+                AppResources.SetLanguage(appLanguage);
+                Debug.WriteLine($"[App] 🌐 Loaded saved language: {appLanguage}");
+            }
+
             // Kiểm tra nếu đã chọn ngôn ngữ, hiển thị AppShell; nếu chưa, hiển thị LanguageSelectionPage
-            var appLanguage = Microsoft.Maui.Storage.Preferences.Get("AppLanguage", null);
             if (string.IsNullOrEmpty(appLanguage))
             {
                 MainPage = new NavigationPage(new Views.Language.LanguageSelectionPage());
@@ -32,16 +41,18 @@ namespace doanC_
             {
                 var databaseService = ServiceHelper.GetService<SQLiteService>();
                 var seedService = ServiceHelper.GetService<SeedDataService>();
+                var translationService = ServiceHelper.GetService<LibreTranslateService>();
 
                 if (databaseService != null && seedService != null)
                 {
                     await databaseService.InitializeAsync();
                     Debug.WriteLine("[App] Database initialized successfully");
 
-                    // 👇 Thêm dữ liệu mẫu (chỉ chạy lần đầu)
+                    translationService?.Initialize();
+                    Debug.WriteLine("[App] ✅ LibreTranslate service initialized");
+
                     await seedService.SeedAsync();
 
-                    // 👇 In ra dữ liệu
                     var users = await databaseService.GetAllUsersAsync();
                     var locations = await databaseService.GetAllLocationPointsAsync();
                     var database = databaseService.Database;

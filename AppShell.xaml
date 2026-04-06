@@ -25,28 +25,24 @@
     <TabBar>
         <!-- Bản đồ -->
         <ShellContent
-            Title="Bản đồ"
             Icon="{StaticResource MapIcon}"
             ContentTemplate="{DataTemplate views:MapPage}"
             Route="MapPage" />
 
         <!-- Điểm -->
         <ShellContent
-            Title="Điểm"
             Icon="{StaticResource PoiIcon}"
             ContentTemplate="{DataTemplate views:PoiListPage}"
             Route="PoiListPage" />
 
         <!-- QR -->
         <ShellContent
-            Title="QR"
             Icon="{StaticResource QrIcon}"
             ContentTemplate="{DataTemplate views:QrScannerPage}"
             Route="QrScannerPage" />
 
         <!-- Cài đặt -->
         <ShellContent
-            Title="Cài đặt"
             Icon="{StaticResource SettingsIcon}"
             ContentTemplate="{DataTemplate views:SettingsPage}"
             Route="SettingsPage" />

@@ -3,380 +3,144 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="doanC_.Views.SettingsPage"
-    BackgroundColor="#2C1810">
+    BackgroundColor="#F5EDE4">
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-<!-- Header -->
+    <Grid RowDefinitions="Auto,*">
         
-
-        <!-- Scrollable Content Area -->
-        <Border
-    Grid.Row="1"
-       BackgroundColor="#F5EDE4"
-   StrokeThickness="0"
- Padding="0">
-            <Border.StrokeShape>
-          <RoundRectangle CornerRadius="30,30,0,0"/>
-            </Border.StrokeShape>
-
-            <ScrollView Padding="20,20,20,20">
-             <VerticalStackLayout Spacing="25">
-
-      <!-- NGÔN NGỮ & GIỌNG ĐỌC Section -->
-     <VerticalStackLayout Spacing="12">
-  <Label
-Text="NGÔN NGỮ &amp; GIỌNG ĐỌC"
-    FontSize="12"
+        <!-- Header -->
+     <Grid BackgroundColor="#2C1810" Padding="20,20">
+    <Label 
+    Text="{Binding Settings}" 
+  FontSize="28" 
        FontAttributes="Bold"
-     TextColor="#9E8B7E"
-             Margin="5,0,0,5"/>
-
-         <!-- Ngôn ngữ -->
-         <Frame
-  Padding="0"
-          HasShadow="False"
-BorderColor="Transparent"
-          BackgroundColor="White"
-     CornerRadius="15">
-
-      <Frame.GestureRecognizers>
-        <TapGestureRecognizer Tapped="OnLanguageClicked"/>
-     </Frame.GestureRecognizers>
-
-   <Grid Padding="20,16">
-           <Grid.ColumnDefinitions>
- <ColumnDefinition Width="Auto"/>
-   <ColumnDefinition Width="*"/>
-    <ColumnDefinition Width="Auto"/>
-   </Grid.ColumnDefinitions>
-
-                  <!-- Icon -->
-           <Frame
-    Grid.Column="0"
-     WidthRequest="40"
-            HeightRequest="40"
-   CornerRadius="10"
-              BackgroundColor="#E8F4FF"
-     Padding="0"
-  HasShadow="False"
-    VerticalOptions="Center"
-           Margin="0,0,15,0">
-          <Label
-       Text="🌐"
-                  FontSize="20"
-    HorizontalOptions="Center"
-       VerticalOptions="Center"/>
-          </Frame>
-
-      <!-- Text -->
-   <VerticalStackLayout
-  Grid.Column="1"
-      Spacing="2"
-      VerticalOptions="Center">
-       <Label
-     Text="Ngôn ngữ"
-          FontSize="16"
-          FontAttributes="Bold"
-TextColor="#2C1810"/>
-         <Label
-      x:Name="LanguageLabel"
- Text="VN Tiếng Việt"
-    FontSize="14"
-           TextColor="#9E8B7E"/>
-          </VerticalStackLayout>
-
-           <!-- Arrow -->
-               <Label
-           Grid.Column="2"
-              Text="›"
-   FontSize="28"
-         TextColor="#C0B5A8"
-   VerticalOptions="Center"/>
-      </Grid>
-</Frame>
-
-               <!-- Giọng TTS -->
-      <Frame
-       Padding="0"
-           HasShadow="False"
-      BorderColor="Transparent"
-     BackgroundColor="White"
-     CornerRadius="15">
-
-       <Frame.GestureRecognizers>
-       <TapGestureRecognizer Tapped="OnVoiceClicked"/>
- </Frame.GestureRecognizers>
-
-         <Grid Padding="20,16">
-           <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-   <ColumnDefinition Width="*"/>
-  <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-
-                <!-- Icon -->
- <Frame
-       Grid.Column="0"
-           WidthRequest="40"
-                HeightRequest="40"
-      CornerRadius="10"
-              BackgroundColor="#E8F9F3"
-      Padding="0"
-      HasShadow="False"
-              VerticalOptions="Center"
-         Margin="0,0,15,0">
-       <Label
-         Text="🔊"
-       FontSize="20"
-                   HorizontalOptions="Center"
-        VerticalOptions="Center"/>
-      </Frame>
-
-         <!-- Text -->
-     <VerticalStackLayout
-         Grid.Column="1"
-  Spacing="2"
-      VerticalOptions="Center">
-        <Label
-      Text="Giọng TTS"
-     FontSize="16"
-FontAttributes="Bold"
-           TextColor="#2C1810"/>
-        <Label
-                x:Name="VoiceLabel"
-               Text="Giọng nữ miền Nam"
-   FontSize="14"
-            TextColor="#9E8B7E"/>
-    </VerticalStackLayout>
-
-       <!-- Arrow -->
-    <Label
-    Grid.Column="2"
-       Text="›"
-         FontSize="28"
-      TextColor="#C0B5A8"
+       TextColor="#D5B8A6"
       VerticalOptions="Center"/>
-           </Grid>
-         </Frame>
-        </VerticalStackLayout>
+        </Grid>
 
-    <!-- GPS & GEOFENCE Section -->
-<VerticalStackLayout Spacing="12">
-       <Label
-       Text="GPS &amp; GEOFENCE"
- FontSize="12"
+        <!-- Content -->
+        <ScrollView Grid.Row="1" Padding="0">
+            <VerticalStackLayout Spacing="0" Padding="0">
+
+   <!-- NGON NGU GIONG DOC Section -->
+    <VerticalStackLayout Padding="20,16,20,12" Spacing="0">
+                <Label 
+ Text="{Binding LanguageSettingsSection}" 
+     FontSize="11" 
         FontAttributes="Bold"
-       TextColor="#9E8B7E"
-    Margin="5,0,0,5"/>
-
-        <!-- Bán kính kích hoạt -->
-          <Frame
-  Padding="0"
-        HasShadow="False"
-             BorderColor="Transparent"
-     BackgroundColor="White"
-   CornerRadius="15">
-
-                    <Frame.GestureRecognizers>
- <TapGestureRecognizer Tapped="OnRadiusClicked"/>
-     </Frame.GestureRecognizers>
-
-     <Grid Padding="20,16">
-             <Grid.ColumnDefinitions>
-     <ColumnDefinition Width="Auto"/>
-         <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="Auto"/>
-   </Grid.ColumnDefinitions>
-
-        <!-- Icon -->
-        <Frame
-     Grid.Column="0"
-                 WidthRequest="40"
-                HeightRequest="40"
-   CornerRadius="10"
-          BackgroundColor="#F0E8FF"
-  Padding="0"
-     HasShadow="False"
-         VerticalOptions="Center"
-      Margin="0,0,15,0">
-       <Label
-       Text="📍"
-   FontSize="20"
-             HorizontalOptions="Center"
-     VerticalOptions="Center"/>
-</Frame>
-
-   <!-- Text -->
-      <VerticalStackLayout
-            Grid.Column="1"
- Spacing="2"
- VerticalOptions="Center">
-             <Label
-                Text="Bán kính kích hoạt"
-     FontSize="16"
-     FontAttributes="Bold"
-     TextColor="#2C1810"/>
-          <Label
-    x:Name="RadiusLabel"
-          Text="50 mét"
-              FontSize="14"
- TextColor="#9E8B7E"/>
-    </VerticalStackLayout>
-
-        <!-- Arrow -->
-      <Label
-    Grid.Column="2"
-            Text="›"
-               FontSize="28"
-   TextColor="#C0B5A8"
-   VerticalOptions="Center"/>
-            </Grid>
-</Frame>
-
-            <!-- Theo dõi nền -->
-    <Frame
-      Padding="0"
-            HasShadow="False"
-              BorderColor="Transparent"
-           BackgroundColor="White"
-             CornerRadius="15">
-
-          <Grid Padding="20,16">
-            <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="Auto"/>
-           <ColumnDefinition Width="*"/>
-     <ColumnDefinition Width="Auto"/>
-    </Grid.ColumnDefinitions>
-
-  <!-- Icon -->
-     <Frame
-          Grid.Column="0"
-            WidthRequest="40"
-  HeightRequest="40"
-      CornerRadius="10"
-          BackgroundColor="#E8FFE8"
-       Padding="0"
-             HasShadow="False"
-              VerticalOptions="Center"
-             Margin="0,0,15,0">
-      <Label
-   Text="🔋"
-           FontSize="20"
-         HorizontalOptions="Center"
-    VerticalOptions="Center"/>
-                 </Frame>
-
-     <!-- Text -->
-      <VerticalStackLayout
-   Grid.Column="1"
-           Spacing="2"
-           VerticalOptions="Center">
-             <Label
-           Text="Theo dõi nền"
-        FontSize="16"
-        FontAttributes="Bold"
-  TextColor="#2C1810"/>
-      <Label
-              Text="Tiết kiệm pin"
-      FontSize="14"
-    TextColor="#9E8B7E"/>
-    </VerticalStackLayout>
-
-       <!-- Switch -->
-   <Switch
-    x:Name="BackgroundTrackingSwitch"
-          Grid.Column="2"
-  OnColor="#C85A3F"
-     VerticalOptions="Center"
-     Toggled="OnBackgroundTrackingToggled"/>
-         </Grid>
-          </Frame>
+        TextColor="#9E8B7E"
+            Margin="0"/>
                 </VerticalStackLayout>
 
-   <!-- NỘI DUNG OFFLINE Section -->
-       <VerticalStackLayout Spacing="12">
-    <Label
-         Text="NỘI DUNG OFFLINE"
-        FontSize="12"
-   FontAttributes="Bold"
- TextColor="#9E8B7E"
-          Margin="5,0,0,5"/>
-
-   <!-- Tải gói offline -->
-          <Frame
-                  Padding="0"
-       HasShadow="False"
-       BorderColor="Transparent"
-          BackgroundColor="White"
-        CornerRadius="15">
-
-         <Frame.GestureRecognizers>
-       <TapGestureRecognizer Tapped="OnOfflinePackageClicked"/>
-          </Frame.GestureRecognizers>
-
-        <Grid Padding="20,16">
-        <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-     <ColumnDefinition Width="*"/>
-       <ColumnDefinition Width="Auto"/>
-         </Grid.ColumnDefinitions>
-
-         <!-- Icon -->
-     <Frame
-                Grid.Column="0"
-        WidthRequest="40"
-          HeightRequest="40"
-      CornerRadius="10"
-              BackgroundColor="#E8F0FF"
-   Padding="0"
-      HasShadow="False"
-      VerticalOptions="Center"
-        Margin="0,0,15,0">
-    <Label
-      Text="📥"
-    FontSize="20"
-   HorizontalOptions="Center"
-  VerticalOptions="Center"/>
+                <!-- Language Item -->
+   <Frame Padding="0" HasShadow="False" BorderColor="Transparent" BackgroundColor="White" CornerRadius="12" Margin="15,0,15,10">
+     <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnLanguageClicked"/>
+                  </Frame.GestureRecognizers>
+   <Grid Padding="16,14" ColumnSpacing="12" ColumnDefinitions="44,*,Auto">
+        <Frame Grid.Column="0" WidthRequest="44" HeightRequest="44" CornerRadius="10" BackgroundColor="#E8F4FF" Padding="0" HasShadow="False" VerticalOptions="Center">
+     <Label Text="Globe" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
    </Frame>
+         <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+     <Label Text="Ngon ngu" FontSize="14" FontAttributes="Bold" TextColor="#2C1810"/>
+               <Label x:Name="LanguageLabel" Text="VI Tieng Viet" FontSize="12" TextColor="#9E8B7E"/>
+            </VerticalStackLayout>
+   <Label Grid.Column="2" Text=">" FontSize="18" TextColor="#C0B5A8" VerticalOptions="Center" Margin="0,0,4,0"/>
+ </Grid>
+            </Frame>
 
-          <!-- Text -->
-            <VerticalStackLayout
-        Grid.Column="1"
-         Spacing="2"
-        VerticalOptions="Center">
-                 <Label
-                   Text="Tải gói offline"
-          FontSize="16"
-          FontAttributes="Bold"
-     TextColor="#2C1810"/>
-          <Label
-   x:Name="OfflinePackageLabel"
-           Text="Phố Lê Thánh Tôn · 24MB"
-          FontSize="14"
-         TextColor="#9E8B7E"/>
+         <!-- Voice Item -->
+      <Frame Padding="0" HasShadow="False" BorderColor="Transparent" BackgroundColor="White" CornerRadius="12" Margin="15,0,15,10">
+        <Frame.GestureRecognizers>
+          <TapGestureRecognizer Tapped="OnVoiceClicked"/>
+             </Frame.GestureRecognizers>
+   <Grid Padding="16,14" ColumnSpacing="12" ColumnDefinitions="44,*,Auto">
+            <Frame Grid.Column="0" WidthRequest="44" HeightRequest="44" CornerRadius="10" BackgroundColor="#E8F9F3" Padding="0" HasShadow="False" VerticalOptions="Center">
+             <Label Text="Voice" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+       </Frame>
+    <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+    <Label Text="Giong TTS" FontSize="14" FontAttributes="Bold" TextColor="#2C1810"/>
+            <Label x:Name="VoiceLabel" Text="Giong nu mien Nam" FontSize="12" TextColor="#9E8B7E"/>
+             </VerticalStackLayout>
+                <Label Grid.Column="2" Text=">" FontSize="18" TextColor="#C0B5A8" VerticalOptions="Center" Margin="0,0,4,0"/>
+         </Grid>
+                </Frame>
+
+    <!-- GPS GEOFENCE Section -->
+      <VerticalStackLayout Padding="20,16,20,12" Spacing="0" Margin="0,8,0,0">
+             <Label 
+      Text="{Binding GpsGeofenceSection}" 
+             FontSize="11" 
+        FontAttributes="Bold"
+       TextColor="#9E8B7E"
+      Margin="0"/>
     </VerticalStackLayout>
 
-        <!-- Arrow -->
-                <Label
-       Grid.Column="2"
-   Text="›"
-           FontSize="28"
-         TextColor="#C0B5A8"
-         VerticalOptions="Center"/>
-                 </Grid>
-             </Frame>
-        </VerticalStackLayout>
+       <!-- Radius Item -->
+     <Frame Padding="0" HasShadow="False" BorderColor="Transparent" BackgroundColor="White" CornerRadius="12" Margin="15,0,15,10">
+           <Frame.GestureRecognizers>
+    <TapGestureRecognizer Tapped="OnRadiusClicked"/>
+ </Frame.GestureRecognizers>
+        <Grid Padding="16,14" ColumnSpacing="12" ColumnDefinitions="44,*,Auto">
+     <Frame Grid.Column="0" WidthRequest="44" HeightRequest="44" CornerRadius="10" BackgroundColor="#F0E8FF" Padding="0" HasShadow="False" VerticalOptions="Center">
+     <Label Text="Location" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+    </Frame>
+   <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+    <Label Text="{Binding RadiusActivationLabel}" FontSize="14" FontAttributes="Bold" TextColor="#2C1810"/>
+        <Label x:Name="RadiusLabel" Text="50 met" FontSize="12" TextColor="#9E8B7E"/>
+      </VerticalStackLayout>
+   <Label Grid.Column="2" Text=">" FontSize="18" TextColor="#C0B5A8" VerticalOptions="Center" Margin="0,0,4,0"/>
+      </Grid>
+         </Frame>
 
-         <!-- Extra spacing at bottom for scrolling -->
+    <!-- Background Tracking Item -->
+    <Frame Padding="0" HasShadow="False" BorderColor="Transparent" BackgroundColor="White" CornerRadius="12" Margin="15,0,15,10">
+      <Grid Padding="16,14" ColumnSpacing="12" ColumnDefinitions="44,*,Auto">
+              <Frame Grid.Column="0" WidthRequest="44" HeightRequest="44" CornerRadius="10" BackgroundColor="#E8FFE8" Padding="0" HasShadow="False" VerticalOptions="Center">
+<Label Text="Battery" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+    </Frame>
+  <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+  <Label Text="{Binding BackgroundTrackingLabel}" FontSize="14" FontAttributes="Bold" TextColor="#2C1810"/>
+ <Label Text="{Binding BatterySaveLabel}" FontSize="12" TextColor="#9E8B7E"/>
+          </VerticalStackLayout>
+              <Switch 
+  x:Name="BackgroundTrackingSwitch" 
+       Grid.Column="2" 
+         OnColor="#E85C2B"
+             VerticalOptions="Center"
+       Toggled="OnBackgroundTrackingToggled"/>
+         </Grid>
+                </Frame>
 
-       </VerticalStackLayout>
-            </ScrollView>
-        </Border>
+       <!-- NOI DUNG OFFLINE Section -->
+    <VerticalStackLayout Padding="20,16,20,12" Spacing="0" Margin="0,8,0,0">
+     <Label 
+          Text="{Binding OfflineContentSection}" 
+         FontSize="11" 
+         FontAttributes="Bold"
+  TextColor="#9E8B7E"
+ Margin="0"/>
+    </VerticalStackLayout>
+
+     <!-- Download Offline Item -->
+ <Frame Padding="0" HasShadow="False" BorderColor="Transparent" BackgroundColor="White" CornerRadius="12" Margin="15,0,15,20">
+ <Frame.GestureRecognizers>
+               <TapGestureRecognizer Tapped="OnOfflinePackageClicked"/>
+        </Frame.GestureRecognizers>
+    <Grid Padding="16,14" ColumnSpacing="12" ColumnDefinitions="44,*,Auto">
+     <Frame Grid.Column="0" WidthRequest="44" HeightRequest="44" CornerRadius="10" BackgroundColor="#E8F0FF" Padding="0" HasShadow="False" VerticalOptions="Center">
+      <Label Text="Download" FontSize="20" HorizontalOptions="Center" VerticalOptions="Center"/>
+   </Frame>
+      <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+          <Label Text="{Binding DownloadOfflineLabel}" FontSize="14" FontAttributes="Bold" TextColor="#2C1810"/>
+    <Label x:Name="OfflinePackageLabel" Text="{Binding OfflinePackageInfo}" FontSize="12" TextColor="#9E8B7E"/>
+              </VerticalStackLayout>
+           <Label Grid.Column="2" Text=">" FontSize="18" TextColor="#C0B5A8" VerticalOptions="Center" Margin="0,0,4,0"/>
+  </Grid>
+           </Frame>
+
+  </VerticalStackLayout>
+        </ScrollView>
+
     </Grid>
 
 </ContentPage>

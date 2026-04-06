@@ -1,27 +1,30 @@
-﻿namespace doanC_.Views;
+﻿using doanC_.ViewModels;
+using doanC_;
+
+namespace doanC_.Views;
 
 public partial class SettingsPage : ContentPage
 {
     public SettingsPage()
     {
         InitializeComponent();
+        this.BindingContext = new SettingsViewModel();
         LoadSettings();
     }
 
     private void LoadSettings()
     {
-        // Load các cài đặt đã lưu
         var savedLanguage = Preferences.Get("SelectedLanguage", "VN Tiếng Việt");
         var savedVoice = Preferences.Get("SelectedVoice", "Giọng nữ miền Nam");
         var savedRadius = Preferences.Get("GeoFenceRadius", "50 mét");
         var backgroundTracking = Preferences.Get("BackgroundTracking", true);
         var offlinePackage = Preferences.Get("OfflinePackage", "Phố Lê Thánh Tôn · 24MB");
 
-        LanguageLabel.Text = savedLanguage;
-        VoiceLabel.Text = savedVoice;
-        RadiusLabel.Text = savedRadius;
-        BackgroundTrackingSwitch.IsToggled = backgroundTracking;
-        OfflinePackageLabel.Text = offlinePackage;
+        if (LanguageLabel != null) LanguageLabel.Text = savedLanguage;
+        if (VoiceLabel != null) VoiceLabel.Text = savedVoice;
+        if (RadiusLabel != null) RadiusLabel.Text = savedRadius;
+        if (BackgroundTrackingSwitch != null) BackgroundTrackingSwitch.IsToggled = backgroundTracking;
+        if (OfflinePackageLabel != null) OfflinePackageLabel.Text = offlinePackage;
     }
 
     private async void OnLanguageClicked(object sender, EventArgs e)
@@ -37,7 +40,7 @@ public partial class SettingsPage : ContentPage
 
         if (result != null && result != "Hủy")
         {
-            VoiceLabel.Text = result;
+            if (VoiceLabel != null) VoiceLabel.Text = result;
             Preferences.Set("SelectedVoice", result);
         }
     }
@@ -49,7 +52,7 @@ public partial class SettingsPage : ContentPage
 
         if (result != null && result != "Hủy")
         {
-            RadiusLabel.Text = result;
+            if (RadiusLabel != null) RadiusLabel.Text = result;
             Preferences.Set("GeoFenceRadius", result);
         }
     }
@@ -72,6 +75,4 @@ public partial class SettingsPage : ContentPage
     {
         await DisplayAlert("Tải gói offline", "Tính năng tải gói offline đang được phát triển", "OK");
     }
-
-
 }

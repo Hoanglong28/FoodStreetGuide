@@ -1,6 +1,7 @@
 ﻿using System.Text.Json;
 using doanC_.Models;
 using doanC_.Services;
+using doanC_.ViewModels;
 using ZXing.Net.Maui;
 using doanC_.Services.Geo;
 
@@ -13,6 +14,7 @@ public partial class QrScannerPage : ContentPage
     public QrScannerPage()
     {
         InitializeComponent();
+        this.BindingContext = new QrScannerViewModel();
     }
 
     // 🔥 Khi mở trang → xin quyền + bật scan

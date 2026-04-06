@@ -2,8 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.Maui.Controls"
-             x:Class="doanC_.Views.QrScannerPage"
-             Title="Quét mã QR">
+             xmlns:local="clr-namespace:doanC_.Services.Localization"
+             x:Class="doanC_.Views.QrScannerPage">
 
     <Grid>
 
@@ -23,13 +23,13 @@
                 Padding="20,50,20,10"
                 HorizontalOptions="Center">
 
-                <Label Text="Quét mã QR"
+                <Label Text="{Binding QrScannerTitle}"
                        FontSize="22"
                        TextColor="#F5CBA7"
                        FontAttributes="Bold"
                        HorizontalOptions="Center"/>
 
-                <Label Text="Scan QR code tại điểm dừng"
+                <Label Text="{Binding QrScannerSubtitle}"
                        FontSize="13"
                        TextColor="#D5B8A6"
                        HorizontalOptions="Center"/>
@@ -72,13 +72,13 @@
                        CornerRadius="15"
                        Padding="15">
 
-                    <Label Text="Hướng camera vào mã QR tại bảng thông tin điểm thuyết minh."
+                    <Label Text="{Binding QrInstructions}"
                            TextColor="#D5B8A6"
                            FontSize="13"
                            HorizontalTextAlignment="Center"/>
                 </Frame>
 
-                <Button Text="Nhập mã thủ công"
+                <Button Text="{Binding QrManualInput}"
                         Clicked="OnManualInputClicked"
                         BackgroundColor="Transparent"
                         BorderColor="#F5CBA7"
