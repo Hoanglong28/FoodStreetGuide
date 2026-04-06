@@ -1,5 +1,6 @@
 ﻿using doanC_.ViewModels;
 using doanC_;
+using doanC_.Services.Localization;
 
 namespace doanC_.Views;
 
@@ -14,23 +15,87 @@ public partial class SettingsPage : ContentPage
 
     private void LoadSettings()
     {
-        var savedLanguage = Preferences.Get("SelectedLanguage", "VN Tiếng Việt");
+        var savedLanguage = Preferences.Get("AppLanguage", "vi");
         var savedVoice = Preferences.Get("SelectedVoice", "Giọng nữ miền Nam");
         var savedRadius = Preferences.Get("GeoFenceRadius", "50 mét");
         var backgroundTracking = Preferences.Get("BackgroundTracking", true);
         var offlinePackage = Preferences.Get("OfflinePackage", "Phố Lê Thánh Tôn · 24MB");
 
-        if (LanguageLabel != null) LanguageLabel.Text = savedLanguage;
+        // Update language label based on saved language code
+        UpdateLanguageLabel(savedLanguage);
+
         if (VoiceLabel != null) VoiceLabel.Text = savedVoice;
         if (RadiusLabel != null) RadiusLabel.Text = savedRadius;
         if (BackgroundTrackingSwitch != null) BackgroundTrackingSwitch.IsToggled = backgroundTracking;
         if (OfflinePackageLabel != null) OfflinePackageLabel.Text = offlinePackage;
     }
 
+    private void UpdateLanguageLabel(string languageCode)
+    {
+        var languageNames = new Dictionary<string, string>
+        {
+            { "vi", "🇻🇳 Tiếng Việt" },
+            { "en", "🇺🇸 English" },
+            { "zh", "🇨🇳 中文 (Chinese)" },
+            { "fr", "🇫🇷 Français (French)" },
+            { "es", "🇪🇸 Español (Spanish)" },
+            { "ja", "🇯🇵 日本語 (Japanese)" },
+            { "ko", "🇰🇷 한국어 (Korean)" }
+        };
+
+        if (LanguageLabel != null && languageNames.TryGetValue(languageCode, out var displayName))
+        {
+            LanguageLabel.Text = displayName;
+        }
+    }
+
     private async void OnLanguageClicked(object sender, EventArgs e)
     {
-        // Navigate to language selection page
-        await Shell.Current.GoToAsync("//LanguageSelectionPage");
+        string[] languages =
+        {
+            "🇻🇳 Tiếng Việt",
+            "🇺🇸 English",
+            "🇨🇳 中文 (Chinese)",
+            "🇫🇷 Français (French)",
+            "🇪🇸 Español (Spanish)",
+            "🇯🇵 日本語 (Japanese)",
+            "🇰🇷 한국어 (Korean)"
+        };
+
+        var result = await DisplayActionSheet(AppResources.GetString("Language"), "Hủy", null, languages);
+
+        if (result != null && result != "Hủy")
+        {
+            string languageCode = GetLanguageCode(result);
+
+            // Update AppResources
+            AppResources.SetLanguage(languageCode);
+            Preferences.Set("AppLanguage", languageCode);
+
+            // Update label
+            UpdateLanguageLabel(languageCode);
+
+            // Reload the app shell to reflect language changes
+            var newShell = new AppShell();
+            Application.Current.MainPage = newShell;
+
+            if (LanguageLabel != null) LanguageLabel.Text = result;
+        }
+    }
+
+    private string GetLanguageCode(string displayName)
+    {
+        return displayName switch
+        {
+            "🇻🇳 Tiếng Việt" => "vi",
+            "🇺🇸 English" => "en",
+            "🇨🇳 中文 (Chinese)" => "zh",
+            "🇫🇷 Français (French)" => "fr",
+            "🇪🇸 Español (Spanish)" => "es",
+            "🇯🇵 日本語 (Japanese)" => "ja",
+            "🇰🇷 한국어 (Korean)" => "ko",
+            _ => "vi"
+        };
     }
 
     private async void OnVoiceClicked(object sender, EventArgs e)
