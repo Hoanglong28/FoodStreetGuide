@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\doanC_Admin\\doanC_Admin.csproj": {}
+    "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\FoodStreetGuide_Solution\\doanC_Admin\\doanC_Admin.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\doanC_Admin\\doanC_Admin.csproj": {
+    "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\FoodStreetGuide_Solution\\doanC_Admin\\doanC_Admin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\doanC_Admin\\doanC_Admin.csproj",
+        "projectUniqueName": "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\FoodStreetGuide_Solution\\doanC_Admin\\doanC_Admin.csproj",
         "projectName": "doanC_Admin",
-        "projectPath": "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\doanC_Admin\\doanC_Admin.csproj",
+        "projectPath": "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\FoodStreetGuide_Solution\\doanC_Admin\\doanC_Admin.csproj",
         "packagesPath": "C:\\Users\\Kien\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\doanC_Admin\\obj\\",
+        "outputPath": "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\FoodStreetGuide_Solution\\doanC_Admin\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

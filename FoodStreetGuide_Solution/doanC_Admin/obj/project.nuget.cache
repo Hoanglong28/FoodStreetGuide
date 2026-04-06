@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Jp2YEQi7jpk=",
+  "dgSpecHash": "xxAEwOhrmHQ=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\doanC_Admin\\doanC_Admin.csproj",
+  "projectFilePath": "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\FoodStreetGuide_Solution\\doanC_Admin\\doanC_Admin.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kien\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Kien\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
