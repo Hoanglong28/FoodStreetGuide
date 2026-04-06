@@ -1,0 +1,53 @@
+﻿@page
+@model doanC_Admin.Pages.LocationPoints.CreateModel
+@{
+    ViewData["Title"] = "Thêm địa điểm";
+}
+
+<h2><i class="fas fa-plus-circle me-2"></i>Thêm địa điểm mới</h2>
+
+<div class="stat-card">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Tên địa điểm</label>
+                <input asp-for="LocationPoint.Name" class="form-control" required />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Danh mục</label>
+                <input asp-for="LocationPoint.Category" class="form-control" />
+            </div>
+
+            <div class="col-12 mb-3">
+                <label class="form-label">Mô tả</label>
+                <textarea asp-for="LocationPoint.Description" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Latitude</label>
+                <input asp-for="LocationPoint.Latitude" class="form-control" step="any" required />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Longitude</label>
+                <input asp-for="LocationPoint.Longitude" class="form-control" step="any" required />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Địa chỉ</label>
+                <input asp-for="LocationPoint.Address" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Giờ mở cửa</label>
+                <input asp-for="LocationPoint.OpeningHours" class="form-control" placeholder="08:00 - 17:00" />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-gradient">
+            <i class="fas fa-save me-2"></i>Lưu
+        </button>
+        <a href="/LocationPoints" class="btn btn-secondary">Hủy</a>
+    </form>
+</div>

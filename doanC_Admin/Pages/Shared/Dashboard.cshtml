@@ -1,0 +1,169 @@
+﻿@page
+@model DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<!-- Stats Cards -->
+<div class="row">
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <small class="text-muted">Tổng địa điểm</small>
+                    <h2 class="mt-2 mb-0">@Model.TotalLocations</h2>
+                    <small class="text-success"><i class="fas fa-arrow-up"></i> +12%</small>
+                </div>
+                <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <small class="text-muted">Lượt quét QR</small>
+                    <h2 class="mt-2 mb-0">@Model.TotalScans</h2>
+                    <small class="text-success"><i class="fas fa-arrow-up"></i> +23%</small>
+                </div>
+                <div class="stat-icon bg-success bg-opacity-10 text-success">
+                    <i class="fas fa-qrcode"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <small class="text-muted">Audio files</small>
+                    <h2 class="mt-2 mb-0">@Model.TotalAudios</h2>
+                    <small class="text-success"><i class="fas fa-arrow-up"></i> +5%</small>
+                </div>
+                <div class="stat-icon bg-info bg-opacity-10 text-info">
+                    <i class="fas fa-headphones"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <small class="text-muted">Người dùng</small>
+                    <h2 class="mt-2 mb-0">@Model.TotalUsers</h2>
+                    <small class="text-success"><i class="fas fa-arrow-up"></i> +18%</small>
+                </div>
+                <div class="stat-icon bg-warning bg-opacity-10 text-warning">
+                    <i class="fas fa-users"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Charts Row -->
+<div class="row mt-4">
+    <div class="col-md-8">
+        <div class="stat-card">
+            <h5><i class="fas fa-chart-line me-2"></i>Thống kê lượt truy cập</h5>
+            <canvas id="visitChart" height="300"></canvas>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="stat-card">
+            <h5><i class="fas fa-chart-pie me-2"></i>Phân bố địa điểm</h5>
+            <canvas id="categoryChart" height="250"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Locations -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="stat-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5><i class="fas fa-history me-2"></i>Địa điểm mới thêm</h5>
+                <a href="/LocationPoints" class="btn btn-sm btn-outline-primary">Xem tất cả</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Tên địa điểm</th>
+                            <th>Danh mục</th>
+                            <th>Ngày tạo</th>
+                            <th>Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.RecentLocations)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td><span class="badge bg-info">@item.Category</span></td>
+                                <td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                <td><span class="badge bg-success">Active</span></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Biểu đồ lượt truy cập
+        const ctx1 = document.getElementById('visitChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
+                datasets: [{
+                    label: 'Lượt truy cập',
+                    data: [65, 72, 85, 91, 88, 95, 104],
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // Biểu đồ phân bố
+        const ctx2 = document.getElementById('categoryChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Di tích lịch sử', 'Danh lam thắng cảnh', 'Bảo tàng', 'Nhà hàng'],
+                datasets: [{
+                    data: [45, 30, 15, 10],
+                    backgroundColor: ['#667eea', '#764ba2', '#f093fb', '#4facfe'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    </script>
+}

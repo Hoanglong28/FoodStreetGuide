@@ -1,0 +1,47 @@
+﻿@page
+@model doanC_Admin.Pages.LocationPoints.IndexModel
+@{
+    ViewData["Title"] = "Quản lý địa điểm";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-map-marker-alt me-2"></i>Quản lý địa điểm</h2>
+    <a href="/LocationPoints/Create" class="btn btn-gradient">
+        <i class="fas fa-plus me-2"></i>Thêm địa điểm
+    </a>
+</div>
+
+<div class="stat-card">
+    <div class="table-responsive">
+        <table class="table table-custom">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên địa điểm</th>
+                    <th>Danh mục</th>
+                    <th>Lat/Lng</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.LocationPoints)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td><span class="badge bg-secondary">@item.Category</span></td>
+                        <td>@item.Latitude.ToString("F4"), @item.Longitude.ToString("F4")</td>
+                        <td>
+                            <a href="/LocationPoints/Edit/@item.Id" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="/LocationPoints/Delete/@item.Id" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
