@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using doanC_.Helpers;
 using doanC_.Models;
-using doanC_.Services.Data;
+using doanC_.Services.Api;           // ← THÊM DÒNG NÀY
 using doanC_.Services;
 using doanC_.Services.Localization;
 using doanC_.Services.Audio;
@@ -13,7 +13,7 @@ namespace doanC_.Views;
 
 public partial class PoiListPage : ContentPage
 {
-    private SQLiteService _sqliteService;
+    private ApiService _apiService;                     // ← ĐỔI từ SQLiteService
     private LocationService _locationService;
     private LibreTranslateService _translationService;
     private TTSService _ttsService;
@@ -27,12 +27,12 @@ public partial class PoiListPage : ContentPage
         // Dùng ViewModel cho text + localization
         BindingContext = new PoiListViewModel();
 
-        _sqliteService = ServiceHelper.GetService<SQLiteService>();
+        _apiService = new ApiService();                  // ← DÙNG API SERVICE
         _translationService = ServiceHelper.GetService<LibreTranslateService>();
         _ttsService = ServiceHelper.GetService<TTSService>();
         _locationService = new LocationService();
 
-        LoadDataFromDatabase();
+        LoadDataFromApi();                               // ← ĐỔI TÊN HÀM
         GetCurrentLocationAndCalculateDistance();
     }
 
@@ -58,35 +58,51 @@ public partial class PoiListPage : ContentPage
         }
     }
 
-    private async void LoadDataFromDatabase()
+    private async void LoadDataFromApi()                  // ← ĐỔI TÊN HÀM
     {
         try
         {
-            _allLocationPoints = await _sqliteService.GetAllLocationPointsAsync();
+            // Hiển thị loading
+            loadingIndicator.IsVisible = true;
+            loadingIndicator.IsRunning = true;
 
-            var poiItems = _allLocationPoints.Select(location => new PoiItem
+            _allLocationPoints = await _apiService.GetLocationPointsAsync();
+
+            if (_allLocationPoints != null && _allLocationPoints.Any())
             {
-                Id = location.Id,
-                Name = location.Name,
-                Description = location.Description,
-                Distance = 0,
-                ImageUrl = location.Image,
-                Category = location.Category,
-                Rating = location.Rating,
-                ReviewCount = location.ReviewCount,
-                Latitude = location.Latitude,
-                Longitude = location.Longitude
-            }).ToList();
+                var poiItems = _allLocationPoints.Select(location => new PoiItem
+                {
+                    PointId = location.PointId,           // ← ĐỔI Id → PointId
+                    Name = location.Name,
+                    Description = location.Description,
+                    Distance = 0,
+                    ImageUrl = location.Image,
+                    Category = location.Category,
+                    Rating = location.Rating,
+                    ReviewCount = location.ReviewCount,
+                    Latitude = location.Latitude,
+                    Longitude = location.Longitude
+                }).ToList();
 
-            PoiCollection.ItemsSource = poiItems;
+                PoiCollection.ItemsSource = poiItems;
 
-            Debug.WriteLine($"[PoiListPage] Loaded {poiItems.Count} POI items from database");
+                Debug.WriteLine($"[PoiListPage] Loaded {poiItems.Count} POI items from API");
+            }
+            else
+            {
+                Debug.WriteLine("[PoiListPage] No data from API");
+            }
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"[PoiListPage] Error loading data: {ex.Message}");
             var errorMsg = AppResources.GetString("CannotLoadData");
             await DisplayAlert(AppResources.GetString("Error"), $"{errorMsg}: {ex.Message}", AppResources.GetString("OK"));
+        }
+        finally
+        {
+            loadingIndicator.IsVisible = false;
+            loadingIndicator.IsRunning = false;
         }
     }
 
@@ -97,7 +113,7 @@ public partial class PoiListPage : ContentPage
 
         var updatedItems = _allLocationPoints.Select(location => new PoiItem
         {
-            Id = location.Id,
+            PointId = location.PointId,                   // ← ĐỔI Id → PointId
             Name = location.Name,
             Description = location.Description,
             Distance = (int)CalculateDistance(_currentLocation.Latitude, _currentLocation.Longitude, location.Latitude, location.Longitude),
@@ -127,10 +143,10 @@ public partial class PoiListPage : ContentPage
         {
             var filtered = _allLocationPoints
                 .Where(l => l.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase) ||
-                            l.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                            (l.Description != null && l.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase)))
                 .Select(location => new PoiItem
                 {
-                    Id = location.Id,
+                    PointId = location.PointId,           // ← ĐỔI Id → PointId
                     Name = location.Name,
                     Description = location.Description,
                     Distance = _currentLocation != null ? (int)CalculateDistance(_currentLocation.Latitude, _currentLocation.Longitude, location.Latitude, location.Longitude) : 0,
@@ -153,8 +169,8 @@ public partial class PoiListPage : ContentPage
             var frame = sender as Frame;
             if (frame?.BindingContext is PoiItem selectedPoi)
             {
-                Debug.WriteLine($"[PoiListPage] Selected POI: {selectedPoi.Name} (ID: {selectedPoi.Id})");
-                await Shell.Current.GoToAsync($"///poidetailpage?poiId={selectedPoi.Id}");
+                Debug.WriteLine($"[PoiListPage] Selected POI: {selectedPoi.Name} (ID: {selectedPoi.PointId})");
+                await Shell.Current.GoToAsync($"///poidetailpage?poiId={selectedPoi.PointId}");
             }
         }
         catch (Exception ex)
@@ -195,15 +211,15 @@ public partial class PoiListPage : ContentPage
 
             Debug.WriteLine($"\n[PoiListPage] 📝 Play button tapped for: {selectedPoi.Name}");
 
-            var locationPoint = _allLocationPoints.FirstOrDefault(l => l.Id == selectedPoi.Id);
+            var locationPoint = _allLocationPoints.FirstOrDefault(l => l.PointId == selectedPoi.PointId);  // ← ĐỔI Id → PointId
 
             if (locationPoint == null)
             {
-                Debug.WriteLine($"[PoiListPage] ❌ LocationPoint not found for ID: {selectedPoi.Id}");
+                Debug.WriteLine($"[PoiListPage] ❌ LocationPoint not found for ID: {selectedPoi.PointId}");
                 return;
             }
 
-            // ✅ Lấy ngôn ngữ từ Preferences
+            // Lấy ngôn ngữ từ Preferences
             var savedLanguage = Preferences.Get("AppLanguage", "vi");
             Debug.WriteLine($"[PoiListPage] 🌐 Using saved language: {savedLanguage}");
 
@@ -211,7 +227,7 @@ public partial class PoiListPage : ContentPage
             Debug.WriteLine($"  📍 Name: {locationPoint.Name}");
             Debug.WriteLine($"  📍 Description: {locationPoint.Description}");
 
-            // ✅ Dịch Description sang ngôn ngữ đã chọn
+            // Dịch Description sang ngôn ngữ đã chọn
             var translatedDescription = await _translationService.TranslateTextAsync(
                 locationPoint.Description ?? locationPoint.Name,
                 savedLanguage
@@ -220,7 +236,7 @@ public partial class PoiListPage : ContentPage
             Debug.WriteLine($"\n[PoiListPage] ✅ Translated description:");
             Debug.WriteLine($"  🌍 {translatedDescription}");
 
-            // ✅ Phát âm thanh dịch
+            // Phát âm thanh dịch
             Debug.WriteLine($"[PoiListPage] 🔊 Speaking translated text...");
 
             try
@@ -250,7 +266,7 @@ public partial class PoiListPage : ContentPage
         }
     }
 
-    // ✅ Helper: Convert language code to TTS locale
+    // Helper: Convert language code to TTS locale
     private string GetLanguageCodeForTTS(string languageCode)
     {
         return languageCode switch
@@ -285,7 +301,7 @@ public partial class PoiListPage : ContentPage
 
 public class PoiItem
 {
-    public int Id { get; set; }
+    public int PointId { get; set; }           // ← ĐỔI Id → PointId
     public string Name { get; set; }
     public string Description { get; set; }
     public int Distance { get; set; }

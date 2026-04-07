@@ -1,8 +1,6 @@
-﻿using doanC_.Services.Data;
-using doanC_.Helpers;
+﻿using doanC_.Helpers;
 using doanC_.Models;
-using doanC_.Services.Localization; 
-using SQLite;
+using doanC_.Services.Localization;
 using System.Diagnostics;
 using Microsoft.Maui.Storage;
 
@@ -14,7 +12,7 @@ namespace doanC_
         {
             InitializeComponent();
 
-            // 🆕 Tải ngôn ngữ đã lưu
+            // Tải ngôn ngữ đã lưu
             var appLanguage = Preferences.Get("AppLanguage", null);
             if (!string.IsNullOrEmpty(appLanguage))
             {
@@ -39,40 +37,18 @@ namespace doanC_
 
             try
             {
-                var databaseService = ServiceHelper.GetService<SQLiteService>();
-                var seedService = ServiceHelper.GetService<SeedDataService>();
+                // ✅ KHÔNG CẦN SQLite NỮA - DỮ LIỆU LẤY TỪ API
                 var translationService = ServiceHelper.GetService<LibreTranslateService>();
 
-                if (databaseService != null && seedService != null)
+                if (translationService != null)
                 {
-                    await databaseService.InitializeAsync();
-                    Debug.WriteLine("[App] Database initialized successfully");
-
-                    translationService?.Initialize();
+                    translationService.Initialize();
                     Debug.WriteLine("[App] ✅ LibreTranslate service initialized");
-
-                    await seedService.SeedAsync();
-
-                    var users = await databaseService.GetAllUsersAsync();
-                    var locations = await databaseService.GetAllLocationPointsAsync();
-                    var database = databaseService.Database;
-                    var dishes = await database.Table<Dish>().ToListAsync();
-                    var reviews = await database.Table<Review>().ToListAsync();
-
-                    Debug.WriteLine($"\n📊 DATABASE CONTENTS:\nUsers: {users.Count}, LocationPoints: {locations.Count}, Dishes: {dishes.Count}, Reviews: {reviews.Count}\n");
-                    
-                    foreach (var user in users)
-                        Debug.WriteLine($"👤 User: {user.Id} - {user.Username} ({user.Email})");
-                    
-                    foreach (var loc in locations)
-                        Debug.WriteLine($"🗺️ Location: {loc.Id} - {loc.Name} at ({loc.Latitude}, {loc.Longitude})");
-                    
-                    foreach (var dish in dishes)
-                        Debug.WriteLine($"🍽️ Dish: {dish.Id} - {dish.Name} (${dish.Price}) from LocationId {dish.LocationPointId}");
-                    
-                    foreach (var review in reviews)
-                        Debug.WriteLine($"⭐ Review: {review.Id} - Rating {review.Rating} by UserId {review.UserId} - \"{review.Comment}\"");
                 }
+
+                Debug.WriteLine("[App] ✅ App started - Data will be loaded from API");
+                Debug.WriteLine("[App] 💡 Make sure Admin Web is running at: http://localhost:5225");
+                Debug.WriteLine("[App] 💡 Or Ngrok URL configured in ApiConfig.cs");
             }
             catch (Exception ex)
             {

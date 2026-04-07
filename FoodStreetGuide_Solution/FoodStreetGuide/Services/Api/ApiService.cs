@@ -22,8 +22,8 @@ namespace doanC_.Services.Api
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
 
-            // ✅ SỬA: Gọi method GetBaseUrl() thay vì property BaseUrl
-            _baseUrl = ApiConfig.ApiMode.GetBaseUrl();
+            // Gọi method GetBaseUrl()
+            _baseUrl = ApiConfig.GetBaseUrl();
         }
 
         // ========== CÁC PHƯƠNG THỨC CRUD ==========
@@ -117,6 +117,7 @@ namespace doanC_.Services.Api
                 var json = JsonSerializer.Serialize(locationPoint, _jsonOptions);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
+                // ✅ SỬA: dùng PointId thay vì Id
                 var response = await _httpClient.PutAsync($"{_baseUrl}/{locationPoint.PointId}", content);
                 return response.IsSuccessStatusCode;
             }

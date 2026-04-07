@@ -8677,23 +8677,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Hoang Long\\.nuget\\packages\\": {},
+    "C:\\Users\\Kien\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Hoang Long\\source\\repos\\FoodStreetGuide_7_4\\FoodStreetGuide_Solution\\doanC_Admin\\doanC_Admin.csproj",
+      "projectUniqueName": "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\FoodStreetGuide_Solution\\doanC_Admin\\doanC_Admin.csproj",
       "projectName": "doanC_Admin",
-      "projectPath": "C:\\Users\\Hoang Long\\source\\repos\\FoodStreetGuide_7_4\\FoodStreetGuide_Solution\\doanC_Admin\\doanC_Admin.csproj",
-      "packagesPath": "C:\\Users\\Hoang Long\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Hoang Long\\Source\\Repos\\FoodStreetGuide_7_4\\FoodStreetGuide_Solution\\doanC_Admin\\obj\\",
+      "projectPath": "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\FoodStreetGuide_Solution\\doanC_Admin\\doanC_Admin.csproj",
+      "packagesPath": "C:\\Users\\Kien\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Kien\\source\\repos\\FoodStreetGuide_Solution\\FoodStreetGuide_Solution\\doanC_Admin\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Hoang Long\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Kien\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -8777,7 +8777,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.312/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

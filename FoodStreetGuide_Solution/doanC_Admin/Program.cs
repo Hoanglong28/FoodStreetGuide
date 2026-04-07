@@ -22,6 +22,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddDbContext<FoodStreetGuideDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+var urls = builder.Configuration["ASPNETCORE_URLS"] ?? builder.Configuration["Urls"] ?? "http://localhost:5225";
+builder.WebHost.UseUrls(urls);
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
