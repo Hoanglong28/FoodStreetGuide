@@ -3,6 +3,8 @@ using Microsoft.Maui.Controls.Hosting;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using ZXing.Net.Maui.Controls;
 using doanC_.Services.Data;
+using doanC_.Services.Localization;
+using doanC_.Services.Audio;
 
 namespace doanC_
 {
@@ -25,7 +27,9 @@ namespace doanC_
                 })
                 .Services
                 .AddSingleton<SQLiteService>()
-                .AddSingleton<SeedDataService>();
+                .AddSingleton<SeedDataService>()
+                .AddSingleton<LibreTranslateService>()
+                .AddSingleton<TTSService>();
 
 #if DEBUG
             builder.Logging.AddDebug();

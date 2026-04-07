@@ -1,27 +1,38 @@
 ﻿using System.Diagnostics;
 using doanC_.Helpers;
 using doanC_.Models;
-using doanC_.Services.Api;
+using doanC_.Services.Data;
 using doanC_.Services;
+using doanC_.Services.Localization;
+using doanC_.Services.Audio;
 using Microsoft.Maui.Devices.Sensors;
+using Microsoft.Maui.Storage;
+using doanC_.ViewModels;
 
 namespace doanC_.Views;
 
 public partial class PoiListPage : ContentPage
 {
-    private ApiService _apiService;
+    private SQLiteService _sqliteService;
     private LocationService _locationService;
+    private LibreTranslateService _translationService;
+    private TTSService _ttsService;
     private List<LocationPoint> _allLocationPoints;
     private Location _currentLocation;
-    private string _currentCategory = "Tất cả";
 
     public PoiListPage()
     {
         InitializeComponent();
-        _apiService = new ApiService();
+
+        // Dùng ViewModel cho text + localization
+        BindingContext = new PoiListViewModel();
+
+        _sqliteService = ServiceHelper.GetService<SQLiteService>();
+        _translationService = ServiceHelper.GetService<LibreTranslateService>();
+        _ttsService = ServiceHelper.GetService<TTSService>();
         _locationService = new LocationService();
 
-        LoadDataFromApi();
+        LoadDataFromDatabase();
         GetCurrentLocationAndCalculateDistance();
     }
 
@@ -34,7 +45,7 @@ public partial class PoiListPage : ContentPage
             if (_currentLocation != null)
             {
                 Debug.WriteLine($"[PoiListPage] Current location: {_currentLocation.Latitude}, {_currentLocation.Longitude}");
-                RefreshPoiList();
+                RefreshDistances();
             }
             else
             {
@@ -47,98 +58,58 @@ public partial class PoiListPage : ContentPage
         }
     }
 
-    private async void LoadDataFromApi()
+    private async void LoadDataFromDatabase()
     {
         try
         {
-            loadingIndicator.IsVisible = true;
+            _allLocationPoints = await _sqliteService.GetAllLocationPointsAsync();
 
-            _allLocationPoints = await _apiService.GetLocationPointsAsync();
+            var poiItems = _allLocationPoints.Select(location => new PoiItem
+            {
+                Id = location.Id,
+                Name = location.Name,
+                Description = location.Description,
+                Distance = 0,
+                ImageUrl = location.Image,
+                Category = location.Category,
+                Rating = location.Rating,
+                ReviewCount = location.ReviewCount,
+                Latitude = location.Latitude,
+                Longitude = location.Longitude
+            }).ToList();
 
-            if (_allLocationPoints != null && _allLocationPoints.Any())
-            {
-                RefreshPoiList();
-                Debug.WriteLine($"[PoiListPage] Loaded {_allLocationPoints.Count} POI items from API");
-            }
-            else
-            {
-                Debug.WriteLine("[PoiListPage] No data from API");
-            }
+            PoiCollection.ItemsSource = poiItems;
+
+            Debug.WriteLine($"[PoiListPage] Loaded {poiItems.Count} POI items from database");
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"[PoiListPage] Error loading data from API: {ex.Message}");
-            await DisplayAlert("Lỗi", $"Không thể kết nối đến server: {ex.Message}", "OK");
-        }
-        finally
-        {
-            loadingIndicator.IsVisible = false;
+            Debug.WriteLine($"[PoiListPage] Error loading data: {ex.Message}");
+            var errorMsg = AppResources.GetString("CannotLoadData");
+            await DisplayAlert(AppResources.GetString("Error"), $"{errorMsg}: {ex.Message}", AppResources.GetString("OK"));
         }
     }
 
-    private void RefreshPoiList()
+    private void RefreshDistances()
     {
-        if (_allLocationPoints == null) return;
+        if (_currentLocation == null || _allLocationPoints == null)
+            return;
 
-        // Lọc theo category
-        var source = _currentCategory == "Tất cả"
-            ? _allLocationPoints
-            : _allLocationPoints.Where(p => p.Category == _currentCategory).ToList();
-
-        // Tính khoảng cách và sắp xếp
-        var poiItems = source.Select(location => new PoiItem
+        var updatedItems = _allLocationPoints.Select(location => new PoiItem
         {
-            PointId = location.PointId,
+            Id = location.Id,
             Name = location.Name,
-            Description = location.Description ?? "",
-            Distance = _currentLocation != null
-                ? (int)CalculateDistance(_currentLocation.Latitude, _currentLocation.Longitude, location.Latitude, location.Longitude)
-                : 0,
-            ImageUrl = location.Image ?? "poi_default.png",
-            Category = location.Category ?? "",
+            Description = location.Description,
+            Distance = (int)CalculateDistance(_currentLocation.Latitude, _currentLocation.Longitude, location.Latitude, location.Longitude),
+            ImageUrl = location.Image,
+            Category = location.Category,
             Rating = location.Rating,
             ReviewCount = location.ReviewCount,
             Latitude = location.Latitude,
             Longitude = location.Longitude
-        })
-        .OrderBy(p => p.Distance)
-        .ToList();
+        }).ToList();
 
-        PoiCollection.ItemsSource = poiItems;
-    }
-
-    private void OnCategoryTapped(object sender, TappedEventArgs e)
-    {
-        var frame = sender as Frame;
-        var label = frame?.Content as Label;
-        if (label != null)
-        {
-            _currentCategory = label.Text;
-            UpdateCategoryUI();
-            RefreshPoiList();
-        }
-    }
-
-    private void UpdateCategoryUI()
-    {
-        // Reset all category frames
-        var categories = new Dictionary<Frame, Label>
-        {
-            { CategoryAll, CategoryAll.Content as Label },
-            { CategoryFood, CategoryFood.Content as Label },
-            { CategoryPlace, CategoryPlace.Content as Label },
-            { CategoryHistory, CategoryHistory.Content as Label }
-        };
-
-        foreach (var cat in categories)
-        {
-            var isActive = (cat.Value?.Text == _currentCategory);
-            cat.Key.BackgroundColor = isActive ? Color.FromArgb("#C85A3F") : Color.FromArgb("#E0D5CC");
-            if (cat.Value != null)
-            {
-                cat.Value.TextColor = isActive ? Colors.White : Color.FromArgb("#2C1810");
-            }
-        }
+        PoiCollection.ItemsSource = updatedItems;
     }
 
     private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
@@ -148,38 +119,30 @@ public partial class PoiListPage : ContentPage
 
     private void SearchData(string searchText)
     {
-        if (_allLocationPoints == null) return;
-
         if (string.IsNullOrWhiteSpace(searchText))
         {
-            RefreshPoiList();
+            RefreshDistances();
         }
         else
         {
-            var source = _allLocationPoints
+            var filtered = _allLocationPoints
                 .Where(l => l.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase) ||
-                           (l.Description != null && l.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase)))
-                .ToList();
+                            l.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                .Select(location => new PoiItem
+                {
+                    Id = location.Id,
+                    Name = location.Name,
+                    Description = location.Description,
+                    Distance = _currentLocation != null ? (int)CalculateDistance(_currentLocation.Latitude, _currentLocation.Longitude, location.Latitude, location.Longitude) : 0,
+                    ImageUrl = location.Image,
+                    Category = location.Category,
+                    Rating = location.Rating,
+                    ReviewCount = location.ReviewCount,
+                    Latitude = location.Latitude,
+                    Longitude = location.Longitude
+                }).ToList();
 
-            var filteredItems = source.Select(location => new PoiItem
-            {
-                PointId = location.PointId,
-                Name = location.Name,
-                Description = location.Description ?? "",
-                Distance = _currentLocation != null
-                    ? (int)CalculateDistance(_currentLocation.Latitude, _currentLocation.Longitude, location.Latitude, location.Longitude)
-                    : 0,
-                ImageUrl = location.Image ?? "poi_default.png",
-                Category = location.Category ?? "",
-                Rating = location.Rating,
-                ReviewCount = location.ReviewCount,
-                Latitude = location.Latitude,
-                Longitude = location.Longitude
-            })
-            .OrderBy(p => p.Distance)
-            .ToList();
-
-            PoiCollection.ItemsSource = filteredItems;
+            PoiCollection.ItemsSource = filtered;
         }
     }
 
@@ -190,14 +153,116 @@ public partial class PoiListPage : ContentPage
             var frame = sender as Frame;
             if (frame?.BindingContext is PoiItem selectedPoi)
             {
-                await Shell.Current.GoToAsync($"///poidetailpage?poiId={selectedPoi.PointId}");
-                Debug.WriteLine($"[PoiListPage] Selected POI: {selectedPoi.Name} (ID: {selectedPoi.PointId})");
+                Debug.WriteLine($"[PoiListPage] Selected POI: {selectedPoi.Name} (ID: {selectedPoi.Id})");
+                await Shell.Current.GoToAsync($"///poidetailpage?poiId={selectedPoi.Id}");
             }
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"[PoiListPage] Error: {ex.Message}");
         }
+    }
+
+    private async void OnPlayButtonTapped(object sender, EventArgs e)
+    {
+        try
+        {
+            if (sender is Button button)
+            {
+                var frame = button.Parent?.Parent?.Parent as Frame;
+
+                if (frame?.BindingContext is PoiItem selectedPoi)
+                {
+                    await HandlePlayButton(selectedPoi);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"[PoiListPage] ❌ Error in OnPlayButtonTapped: {ex.Message}");
+        }
+    }
+
+    private async Task HandlePlayButton(PoiItem selectedPoi)
+    {
+        try
+        {
+            if (selectedPoi == null)
+            {
+                Debug.WriteLine("[PoiListPage] ❌ SelectedPoi is null");
+                return;
+            }
+
+            Debug.WriteLine($"\n[PoiListPage] 📝 Play button tapped for: {selectedPoi.Name}");
+
+            var locationPoint = _allLocationPoints.FirstOrDefault(l => l.Id == selectedPoi.Id);
+
+            if (locationPoint == null)
+            {
+                Debug.WriteLine($"[PoiListPage] ❌ LocationPoint not found for ID: {selectedPoi.Id}");
+                return;
+            }
+
+            // ✅ Lấy ngôn ngữ từ Preferences
+            var savedLanguage = Preferences.Get("AppLanguage", "vi");
+            Debug.WriteLine($"[PoiListPage] 🌐 Using saved language: {savedLanguage}");
+
+            Debug.WriteLine($"[PoiListPage] Original text:");
+            Debug.WriteLine($"  📍 Name: {locationPoint.Name}");
+            Debug.WriteLine($"  📍 Description: {locationPoint.Description}");
+
+            // ✅ Dịch Description sang ngôn ngữ đã chọn
+            var translatedDescription = await _translationService.TranslateTextAsync(
+                locationPoint.Description ?? locationPoint.Name,
+                savedLanguage
+            );
+
+            Debug.WriteLine($"\n[PoiListPage] ✅ Translated description:");
+            Debug.WriteLine($"  🌍 {translatedDescription}");
+
+            // ✅ Phát âm thanh dịch
+            Debug.WriteLine($"[PoiListPage] 🔊 Speaking translated text...");
+
+            try
+            {
+                await _ttsService.SpeakAsync(translatedDescription, GetLanguageCodeForTTS(savedLanguage));
+                Debug.WriteLine("[PoiListPage] ✅ Speech completed");
+            }
+            catch (Exception ttsEx)
+            {
+                Debug.WriteLine($"[PoiListPage] ❌ TextToSpeech Exception: {ttsEx.Message}");
+                Debug.WriteLine($"[PoiListPage] ❌ Stack: {ttsEx.StackTrace}");
+
+                // Fallback: Display text if TTS fails
+                await DisplayAlert(
+                    $"Thuyết minh: {locationPoint.Name}",
+                    $"{translatedDescription}",
+                    AppResources.GetString("OK")
+                );
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"[PoiListPage] ❌ Error in HandlePlayButton: {ex.Message}");
+            Debug.WriteLine($"[PoiListPage] ❌ Stack trace: {ex.StackTrace}");
+
+            await DisplayAlert(AppResources.GetString("Error"), $"Error: {ex.Message}", AppResources.GetString("OK"));
+        }
+    }
+
+    // ✅ Helper: Convert language code to TTS locale
+    private string GetLanguageCodeForTTS(string languageCode)
+    {
+        return languageCode switch
+        {
+            "en" => "en-US",
+            "fr" => "fr-FR",
+            "es" => "es-ES",
+            "zh" => "zh-CN",
+            "ja" => "ja-JP",
+            "vi" => "vi-VN",
+            _ => "vi-VN"
+        };
     }
 
     private double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
@@ -211,6 +276,7 @@ public partial class PoiListPage : ContentPage
                    Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
 
         double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
+
         return R * c;
     }
 
@@ -219,7 +285,7 @@ public partial class PoiListPage : ContentPage
 
 public class PoiItem
 {
-    public int PointId { get; set; }
+    public int Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public int Distance { get; set; }

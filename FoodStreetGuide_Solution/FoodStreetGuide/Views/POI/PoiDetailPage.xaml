@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
         x:Class="doanC_.Views.PoiDetailPage"
-             Title="Chi tiết điểm tham quan"
+      Title="{Binding PoiDetailTitle}"
              BackgroundColor="#1A1A1A">
 
     <ScrollView>
@@ -21,6 +21,14 @@
 
                 <Grid RowDefinitions="*,Auto" ColumnDefinitions="Auto,*,Auto,Auto,Auto">
 
+                    <!-- Main Image -->
+                    <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
+                           x:Name="MainImage"
+                           Source="poi_default.png"
+                           Aspect="AspectFill"
+                           HeightRequest="280"
+                           ZIndex="0"/>
+
                     <!-- Back Button -->
                     <Button Grid.Row="0" Grid.Column="0"
                             Text="‹"
@@ -34,17 +42,19 @@
                             HorizontalOptions="Start"
                             VerticalOptions="Start"
                             Clicked="OnBackButtonClicked"
-                            Padding="0"/>
+                            Padding="0"
+                            ZIndex="1"/>
 
                     <!-- Right Controls -->
                     <VerticalStackLayout Grid.Row="0" Grid.Column="4"
                                        Spacing="10"
                                        HorizontalOptions="End"
                                        VerticalOptions="Start"
-                                       Margin="0,10,10,0">
+                                       Margin="0,10,10,0"
+                                       ZIndex="1">
 
                         <!-- Favorite Button -->
-                        <Button Text="♡"
+                        <Button Text="❤️"
                                 BackgroundColor="#6B4423"
                                 TextColor="White"
                                 FontSize="20"
@@ -55,7 +65,7 @@
                                 Clicked="OnFavoriteClicked"/>
 
                         <!-- Share Button -->
-                        <Button Text="△"
+                        <Button Text="🔗"
                                 BackgroundColor="#6B4423"
                                 TextColor="White"
                                 FontSize="20"
@@ -64,16 +74,9 @@
                                 CornerRadius="22"
                                 Padding="0"
                                 Clicked="OnShareClicked"/>
-                    </VerticalStackLayout>
+                        </VerticalStackLayout>
 
-                    <!-- Main Image -->
-                    <Image Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"
-                           x:Name="MainImage"
-                           Source="poi_default.png"
-                           Aspect="AspectFill"
-                           HeightRequest="280"/>
-
-                    <!-- Dots Indicator -->
+                        <!-- Dots Indicator -->
                     <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
                                           HorizontalOptions="Center"
                                           Spacing="5"
@@ -156,7 +159,8 @@
                         </Border>
 
                         <Button Grid.Column="1"
-                                Text="Đang mở cửa"
+                                x:Name="OpenStatusButton"
+                                Text="{Binding OpenStatus}"
                                 BackgroundColor="#00AA44"
                                 TextColor="White"
                                 FontSize="12"
@@ -185,7 +189,8 @@
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="10" Margin="0,10,0,0">
 
                         <Button Grid.Column="0"
-                                Text="🎧 Audio"
+                                x:Name="AudioButton"
+                                Text="{Binding AudioButton}"
                                 BackgroundColor="#333333"
                                 TextColor="White"
                                 FontSize="14"
@@ -195,7 +200,8 @@
                                 Clicked="OnPlayAudioClicked"/>
 
                         <Button Grid.Column="1"
-                                Text="Chỉ đường"
+                                x:Name="DirectionsButton"
+                                Text="{Binding DirectionsButton}"
                                 BackgroundColor="#FF6B35"
                                 TextColor="White"
                                 FontSize="14"
@@ -222,14 +228,15 @@
 
                 <VerticalStackLayout Spacing="15">
 
-                    <Label Text="🎧 Thuyết minh âm thanh"
+                    <Label x:Name="AudioPlayerTitle"
+                           Text="{Binding AudioPlayerTitle}"
                            FontSize="16"
                            TextColor="White"
                            FontAttributes="Bold"
                            HorizontalOptions="Center"/>
 
                     <Picker x:Name="AudioLanguagePicker"
-                            Title="Chọn ngôn ngữ"
+                            Title="{Binding AudioLanguagePickerTitle}"
                             TextColor="White"
                             BackgroundColor="#333333"
                             SelectedIndexChanged="OnLanguageChanged">
@@ -243,7 +250,7 @@
                     </Picker>
 
                     <Button x:Name="PlayPauseButton"
-                            Text="▶ Phát"
+                            Text="{Binding PlayButton}"
                             BackgroundColor="#FF6B35"
                             TextColor="White"
                             FontSize="16"

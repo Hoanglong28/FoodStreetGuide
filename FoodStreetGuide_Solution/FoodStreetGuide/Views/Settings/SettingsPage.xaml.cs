@@ -1,33 +1,104 @@
-﻿namespace doanC_.Views;
+﻿using doanC_.ViewModels;
+using doanC_;
+using doanC_.Services.Localization;
+
+namespace doanC_.Views;
 
 public partial class SettingsPage : ContentPage
 {
     public SettingsPage()
     {
         InitializeComponent();
+        this.BindingContext = new SettingsViewModel();
         LoadSettings();
     }
 
     private void LoadSettings()
     {
-        // Load các cài đặt đã lưu
-        var savedLanguage = Preferences.Get("SelectedLanguage", "VN Tiếng Việt");
+        var savedLanguage = Preferences.Get("AppLanguage", "vi");
         var savedVoice = Preferences.Get("SelectedVoice", "Giọng nữ miền Nam");
         var savedRadius = Preferences.Get("GeoFenceRadius", "50 mét");
         var backgroundTracking = Preferences.Get("BackgroundTracking", true);
         var offlinePackage = Preferences.Get("OfflinePackage", "Phố Lê Thánh Tôn · 24MB");
 
-        LanguageLabel.Text = savedLanguage;
-        VoiceLabel.Text = savedVoice;
-        RadiusLabel.Text = savedRadius;
-        BackgroundTrackingSwitch.IsToggled = backgroundTracking;
-        OfflinePackageLabel.Text = offlinePackage;
+        // Update language label based on saved language code
+        UpdateLanguageLabel(savedLanguage);
+
+        if (VoiceLabel != null) VoiceLabel.Text = savedVoice;
+        if (RadiusLabel != null) RadiusLabel.Text = savedRadius;
+        if (BackgroundTrackingSwitch != null) BackgroundTrackingSwitch.IsToggled = backgroundTracking;
+        if (OfflinePackageLabel != null) OfflinePackageLabel.Text = offlinePackage;
+    }
+
+    private void UpdateLanguageLabel(string languageCode)
+    {
+        var languageNames = new Dictionary<string, string>
+        {
+            { "vi", "🇻🇳 Tiếng Việt" },
+            { "en", "🇺🇸 English" },
+            { "zh", "🇨🇳 中文 (Chinese)" },
+            { "fr", "🇫🇷 Français (French)" },
+            { "es", "🇪🇸 Español (Spanish)" },
+            { "ja", "🇯🇵 日本語 (Japanese)" },
+            { "ko", "🇰🇷 한국어 (Korean)" }
+        };
+
+        if (LanguageLabel != null && languageNames.TryGetValue(languageCode, out var displayName))
+        {
+            LanguageLabel.Text = displayName;
+        }
     }
 
     private async void OnLanguageClicked(object sender, EventArgs e)
     {
-        // Navigate to language selection page
-        await Shell.Current.GoToAsync("//LanguageSelectionPage");
+        string[] languages =
+        {
+            "🇻🇳 Tiếng Việt",
+            "🇺🇸 English",
+            "🇨🇳 中文 (Chinese)",
+            "🇫🇷 Français (French)",
+            "🇪🇸 Español (Spanish)",
+            "🇯🇵 日本語 (Japanese)",
+            "🇰🇷 한국어 (Korean)"
+        };
+
+        var result = await DisplayActionSheet(AppResources.GetString("Language"), "Hủy", null, languages);
+
+        if (result != null && result != "Hủy")
+        {
+            string languageCode = GetLanguageCode(result);
+
+            // Update AppResources
+            AppResources.SetLanguage(languageCode);
+            Preferences.Set("AppLanguage", languageCode);
+
+            // 🆕 Thông báo tất cả ViewModels cập nhật ngôn ngữ
+            LanguageChangeManager.NotifyLanguageChanged();
+
+            // Update label
+            UpdateLanguageLabel(languageCode);
+
+            // Reload the app shell to reflect language changes
+            var newShell = new AppShell();
+            Application.Current.MainPage = newShell;
+
+            if (LanguageLabel != null) LanguageLabel.Text = result;
+        }
+    }
+
+    private string GetLanguageCode(string displayName)
+    {
+        return displayName switch
+        {
+            "🇻🇳 Tiếng Việt" => "vi",
+            "🇺🇸 English" => "en",
+            "🇨🇳 中文 (Chinese)" => "zh",
+            "🇫🇷 Français (French)" => "fr",
+            "🇪🇸 Español (Spanish)" => "es",
+            "🇯🇵 日本語 (Japanese)" => "ja",
+            "🇰🇷 한국어 (Korean)" => "ko",
+            _ => "vi"
+        };
     }
 
     private async void OnVoiceClicked(object sender, EventArgs e)
@@ -37,7 +108,7 @@ public partial class SettingsPage : ContentPage
 
         if (result != null && result != "Hủy")
         {
-            VoiceLabel.Text = result;
+            if (VoiceLabel != null) VoiceLabel.Text = result;
             Preferences.Set("SelectedVoice", result);
         }
     }
@@ -49,7 +120,7 @@ public partial class SettingsPage : ContentPage
 
         if (result != null && result != "Hủy")
         {
-            RadiusLabel.Text = result;
+            if (RadiusLabel != null) RadiusLabel.Text = result;
             Preferences.Set("GeoFenceRadius", result);
         }
     }
@@ -72,6 +143,4 @@ public partial class SettingsPage : ContentPage
     {
         await DisplayAlert("Tải gói offline", "Tính năng tải gói offline đang được phát triển", "OK");
     }
-
-
 }

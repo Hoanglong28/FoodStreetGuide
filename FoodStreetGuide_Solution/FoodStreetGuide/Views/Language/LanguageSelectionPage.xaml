@@ -4,7 +4,7 @@
              x:Class="doanC_.Views.Language.LanguageSelectionPage"
              Title="Chọn ngôn ngữ">
 
-    <VerticalStackLayout Padding="30" Spacing="20" VerticalOptions="Center">
+    <VerticalStackLayout Padding="30" Spacing="15" VerticalOptions="Center">
         <Label Text="Chọn ngôn ngữ / Choose language"
                FontSize="18"
                HorizontalOptions="Center" />
@@ -16,5 +16,25 @@
         <Button Text="English"
                 FontSize="16"
                 Clicked="OnSelectEnglish" />
+
+        <Button Text="中文 (Chinese)"
+                FontSize="16"
+                Clicked="OnSelectChinese" />
+
+        <Button Text="Français (French)"
+                FontSize="16"
+                Clicked="OnSelectFrench" />
+
+        <Button Text="Español (Spanish)"
+                FontSize="16"
+                Clicked="OnSelectSpanish" />
+
+        <Button Text="日本語 (Japanese)"
+                FontSize="16"
+                Clicked="OnSelectJapanese" />
+
+        <Button Text="한국어 (Korean)"
+                FontSize="16"
+                Clicked="OnSelectKorean" />
     </VerticalStackLayout>
 </ContentPage>

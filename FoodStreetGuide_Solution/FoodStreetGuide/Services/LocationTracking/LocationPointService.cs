@@ -1,7 +1,4 @@
 ﻿using doanC_.Models;
-using doanC_.Services;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace doanC_.Services.LocationTracking;
 
