@@ -12,8 +12,8 @@
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "9.0.14",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "9.0.14",
           "Microsoft.AspNetCore.Identity.UI": "9.0.14",
-          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.14",
-          "Microsoft.EntityFrameworkCore.Tools": "9.0.14",
+          "Microsoft.EntityFrameworkCore.SqlServer": "9.0.4",
+          "Microsoft.EntityFrameworkCore.Tools": "9.0.4",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "9.0.12"
         },
         "runtime": {
@@ -28,7 +28,7 @@
           "System.Memory.Data": "1.0.2",
           "System.Numerics.Vectors": "4.5.0",
           "System.Text.Encodings.Web": "8.0.0",
-          "System.Text.Json": "9.0.14",
+          "System.Text.Json": "9.0.12",
           "System.Threading.Tasks.Extensions": "4.5.4"
         },
         "runtime": {
@@ -45,7 +45,7 @@
           "Microsoft.Identity.Client.Extensions.Msal": "4.61.3",
           "System.Memory": "4.5.4",
           "System.Security.Cryptography.ProtectedData": "8.0.0",
-          "System.Text.Json": "9.0.14",
+          "System.Text.Json": "9.0.12",
           "System.Threading.Tasks.Extensions": "4.5.4"
         },
         "runtime": {
@@ -871,7 +871,7 @@
           "System.Reflection.Metadata": "8.0.0",
           "System.Security.Cryptography.ProtectedData": "8.0.0",
           "System.Text.Encodings.Web": "8.0.0",
-          "System.Text.Json": "9.0.14",
+          "System.Text.Json": "9.0.12",
           "System.Threading.Channels": "7.0.0"
         },
         "runtime": {
@@ -1013,7 +1013,7 @@
           "System.Reflection.Metadata": "8.0.0",
           "System.Security.Cryptography.ProtectedData": "8.0.0",
           "System.Text.Encodings.Web": "8.0.0",
-          "System.Text.Json": "9.0.14",
+          "System.Text.Json": "9.0.12",
           "System.Threading.Channels": "7.0.0"
         },
         "runtime": {
@@ -1220,7 +1220,7 @@
           "System.Security.Cryptography.Xml": "7.0.1",
           "System.Security.Permissions": "8.0.0",
           "System.Text.Encodings.Web": "8.0.0",
-          "System.Text.Json": "9.0.14",
+          "System.Text.Json": "9.0.12",
           "System.Threading.Channels": "7.0.0",
           "System.Threading.Tasks.Dataflow": "8.0.0",
           "System.Windows.Extensions": "8.0.0"
@@ -1356,12 +1356,12 @@
           "Microsoft.CodeAnalysis.Common": "4.12.0",
           "Microsoft.CodeAnalysis.Features": "4.12.0",
           "Microsoft.CodeAnalysis.Workspaces.Common": "4.12.0",
-          "Microsoft.Extensions.DependencyModel": "9.0.14",
+          "Microsoft.Extensions.DependencyModel": "9.0.12",
           "Mono.TextTemplating": "3.0.0",
           "Newtonsoft.Json": "13.0.3",
           "NuGet.Packaging": "6.12.1",
           "NuGet.ProjectModel": "6.12.1",
-          "System.Formats.Asn1": "9.0.14",
+          "System.Formats.Asn1": "9.0.12",
           "System.Security.Cryptography.ProtectedData": "8.0.0"
         },
         "runtime": {
@@ -1394,7 +1394,7 @@
         }
       },
       "Microsoft.EntityFrameworkCore.Analyzers/9.0.14": {},
-      "Microsoft.EntityFrameworkCore.Design/9.0.14": {
+      "Microsoft.EntityFrameworkCore.Design/9.0.12": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
           "Microsoft.Build.Framework": "17.11.48",
@@ -1405,15 +1405,15 @@
           "Microsoft.EntityFrameworkCore.Relational": "9.0.14",
           "Microsoft.Extensions.Caching.Memory": "9.0.14",
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.14",
-          "Microsoft.Extensions.DependencyModel": "9.0.14",
+          "Microsoft.Extensions.DependencyModel": "9.0.12",
           "Microsoft.Extensions.Logging": "9.0.14",
           "Mono.TextTemplating": "3.0.0",
-          "System.Text.Json": "9.0.14"
+          "System.Text.Json": "9.0.12"
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Design.dll": {
-            "assemblyVersion": "9.0.14.0",
-            "fileVersion": "9.0.1426.11905"
+            "assemblyVersion": "9.0.12.0",
+            "fileVersion": "9.0.1225.60812"
           }
         }
       },
@@ -1431,26 +1431,26 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.SqlServer/9.0.14": {
+      "Microsoft.EntityFrameworkCore.SqlServer/9.0.4": {
         "dependencies": {
           "Microsoft.Data.SqlClient": "5.1.6",
           "Microsoft.EntityFrameworkCore.Relational": "9.0.14",
           "Microsoft.Extensions.Caching.Memory": "9.0.14",
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.14",
           "Microsoft.Extensions.Logging": "9.0.14",
-          "System.Formats.Asn1": "9.0.14",
-          "System.Text.Json": "9.0.14"
+          "System.Formats.Asn1": "9.0.12",
+          "System.Text.Json": "9.0.12"
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.SqlServer.dll": {
-            "assemblyVersion": "9.0.14.0",
-            "fileVersion": "9.0.1426.11905"
+            "assemblyVersion": "9.0.4.0",
+            "fileVersion": "9.0.425.16310"
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Tools/9.0.14": {
+      "Microsoft.EntityFrameworkCore.Tools/9.0.4": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Design": "9.0.14"
+          "Microsoft.EntityFrameworkCore.Design": "9.0.12"
         }
       },
       "Microsoft.Extensions.Caching.Abstractions/9.0.14": {
@@ -1509,11 +1509,11 @@
           }
         }
       },
-      "Microsoft.Extensions.DependencyModel/9.0.14": {
+      "Microsoft.Extensions.DependencyModel/9.0.12": {
         "runtime": {
           "lib/net9.0/Microsoft.Extensions.DependencyModel.dll": {
-            "assemblyVersion": "9.0.0.14",
-            "fileVersion": "9.0.1426.11910"
+            "assemblyVersion": "9.0.0.12",
+            "fileVersion": "9.0.1225.60609"
           }
         }
       },
@@ -1646,7 +1646,7 @@
           "Microsoft.IdentityModel.Tokens": "6.35.0",
           "System.Text.Encoding": "4.3.0",
           "System.Text.Encodings.Web": "8.0.0",
-          "System.Text.Json": "9.0.14"
+          "System.Text.Json": "9.0.12"
         },
         "runtime": {
           "lib/net6.0/Microsoft.IdentityModel.JsonWebTokens.dll": {
@@ -1745,18 +1745,18 @@
           "Microsoft.CodeAnalysis.Workspaces.Common": "4.12.0",
           "Microsoft.CodeAnalysis.Workspaces.MSBuild": "4.12.0",
           "Microsoft.EntityFrameworkCore": "9.0.14",
-          "Microsoft.EntityFrameworkCore.Design": "9.0.14",
+          "Microsoft.EntityFrameworkCore.Design": "9.0.12",
           "Microsoft.Extensions.Caching.Memory": "9.0.14",
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.14",
           "Microsoft.Extensions.DependencyInjection": "9.0.14",
-          "Microsoft.Extensions.DependencyModel": "9.0.14",
+          "Microsoft.Extensions.DependencyModel": "9.0.12",
           "Microsoft.Extensions.Logging": "9.0.14",
           "Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore": "9.0.12",
           "Mono.TextTemplating": "3.0.0",
           "Newtonsoft.Json": "13.0.3",
           "NuGet.Packaging": "6.12.1",
           "NuGet.ProjectModel": "6.12.1",
-          "System.Formats.Asn1": "9.0.14",
+          "System.Formats.Asn1": "9.0.12",
           "System.Security.Cryptography.ProtectedData": "8.0.0"
         },
         "runtime": {
@@ -1779,13 +1779,13 @@
           "Microsoft.CodeAnalysis.Razor": "6.0.24",
           "Microsoft.CodeAnalysis.Workspaces.Common": "4.12.0",
           "Microsoft.Extensions.DependencyInjection": "9.0.14",
-          "Microsoft.Extensions.DependencyModel": "9.0.14",
+          "Microsoft.Extensions.DependencyModel": "9.0.12",
           "Microsoft.VisualStudio.Web.CodeGeneration.Templating": "9.0.12",
           "Mono.TextTemplating": "3.0.0",
           "Newtonsoft.Json": "13.0.3",
           "NuGet.Packaging": "6.12.1",
           "NuGet.ProjectModel": "6.12.1",
-          "System.Formats.Asn1": "9.0.14",
+          "System.Formats.Asn1": "9.0.12",
           "System.Security.Cryptography.ProtectedData": "8.0.0"
         },
         "runtime": {
@@ -1812,18 +1812,18 @@
           "Microsoft.CodeAnalysis.Workspaces.MSBuild": "4.12.0",
           "Microsoft.DotNet.Scaffolding.Shared": "9.0.12",
           "Microsoft.EntityFrameworkCore": "9.0.14",
-          "Microsoft.EntityFrameworkCore.Design": "9.0.14",
+          "Microsoft.EntityFrameworkCore.Design": "9.0.12",
           "Microsoft.Extensions.Caching.Memory": "9.0.14",
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.14",
           "Microsoft.Extensions.DependencyInjection": "9.0.14",
-          "Microsoft.Extensions.DependencyModel": "9.0.14",
+          "Microsoft.Extensions.DependencyModel": "9.0.12",
           "Microsoft.Extensions.Logging": "9.0.14",
           "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": "9.0.12",
           "Mono.TextTemplating": "3.0.0",
           "Newtonsoft.Json": "13.0.3",
           "NuGet.Packaging": "6.12.1",
           "NuGet.ProjectModel": "6.12.1",
-          "System.Formats.Asn1": "9.0.14",
+          "System.Formats.Asn1": "9.0.12",
           "System.Security.Cryptography.ProtectedData": "8.0.0"
         },
         "runtime": {
@@ -1850,18 +1850,18 @@
           "Microsoft.CodeAnalysis.Workspaces.MSBuild": "4.12.0",
           "Microsoft.DotNet.Scaffolding.Shared": "9.0.12",
           "Microsoft.EntityFrameworkCore": "9.0.14",
-          "Microsoft.EntityFrameworkCore.Design": "9.0.14",
+          "Microsoft.EntityFrameworkCore.Design": "9.0.12",
           "Microsoft.Extensions.Caching.Memory": "9.0.14",
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.14",
           "Microsoft.Extensions.DependencyInjection": "9.0.14",
-          "Microsoft.Extensions.DependencyModel": "9.0.14",
+          "Microsoft.Extensions.DependencyModel": "9.0.12",
           "Microsoft.Extensions.Logging": "9.0.14",
           "Microsoft.VisualStudio.Web.CodeGeneration.Core": "9.0.12",
           "Mono.TextTemplating": "3.0.0",
           "Newtonsoft.Json": "13.0.3",
           "NuGet.Packaging": "6.12.1",
           "NuGet.ProjectModel": "6.12.1",
-          "System.Formats.Asn1": "9.0.14",
+          "System.Formats.Asn1": "9.0.12",
           "System.Security.Cryptography.ProtectedData": "8.0.0"
         },
         "runtime": {
@@ -1883,13 +1883,13 @@
           "Microsoft.CodeAnalysis.Features": "4.12.0",
           "Microsoft.CodeAnalysis.Razor": "6.0.24",
           "Microsoft.CodeAnalysis.Workspaces.Common": "4.12.0",
-          "Microsoft.Extensions.DependencyModel": "9.0.14",
+          "Microsoft.Extensions.DependencyModel": "9.0.12",
           "Microsoft.VisualStudio.Web.CodeGeneration.Utils": "9.0.12",
           "Mono.TextTemplating": "3.0.0",
           "Newtonsoft.Json": "13.0.3",
           "NuGet.Packaging": "6.12.1",
           "NuGet.ProjectModel": "6.12.1",
-          "System.Formats.Asn1": "9.0.14",
+          "System.Formats.Asn1": "9.0.12",
           "System.Security.Cryptography.ProtectedData": "8.0.0"
         },
         "runtime": {
@@ -1910,12 +1910,12 @@
           "Microsoft.CodeAnalysis.Features": "4.12.0",
           "Microsoft.CodeAnalysis.Workspaces.Common": "4.12.0",
           "Microsoft.DotNet.Scaffolding.Shared": "9.0.12",
-          "Microsoft.Extensions.DependencyModel": "9.0.14",
+          "Microsoft.Extensions.DependencyModel": "9.0.12",
           "Mono.TextTemplating": "3.0.0",
           "Newtonsoft.Json": "13.0.3",
           "NuGet.Packaging": "6.12.1",
           "NuGet.ProjectModel": "6.12.1",
-          "System.Formats.Asn1": "9.0.14",
+          "System.Formats.Asn1": "9.0.12",
           "System.Security.Cryptography.ProtectedData": "8.0.0"
         },
         "runtime": {
@@ -1942,18 +1942,18 @@
           "Microsoft.CodeAnalysis.Workspaces.MSBuild": "4.12.0",
           "Microsoft.DotNet.Scaffolding.Shared": "9.0.12",
           "Microsoft.EntityFrameworkCore": "9.0.14",
-          "Microsoft.EntityFrameworkCore.Design": "9.0.14",
+          "Microsoft.EntityFrameworkCore.Design": "9.0.12",
           "Microsoft.Extensions.Caching.Memory": "9.0.14",
           "Microsoft.Extensions.Configuration.Abstractions": "9.0.14",
           "Microsoft.Extensions.DependencyInjection": "9.0.14",
-          "Microsoft.Extensions.DependencyModel": "9.0.14",
+          "Microsoft.Extensions.DependencyModel": "9.0.12",
           "Microsoft.Extensions.Logging": "9.0.14",
           "Microsoft.VisualStudio.Web.CodeGeneration": "9.0.12",
           "Mono.TextTemplating": "3.0.0",
           "Newtonsoft.Json": "13.0.3",
           "NuGet.Packaging": "6.12.1",
           "NuGet.ProjectModel": "6.12.1",
-          "System.Formats.Asn1": "9.0.14",
+          "System.Formats.Asn1": "9.0.12",
           "System.Security.Cryptography.ProtectedData": "8.0.0"
         },
         "runtime": {
@@ -2043,7 +2043,7 @@
           "Newtonsoft.Json": "13.0.3",
           "NuGet.Configuration": "6.12.1",
           "NuGet.Versioning": "6.12.1",
-          "System.Formats.Asn1": "9.0.14",
+          "System.Formats.Asn1": "9.0.12",
           "System.Security.Cryptography.Pkcs": "7.0.2"
         },
         "runtime": {
@@ -2086,7 +2086,7 @@
       "System.ClientModel/1.0.0": {
         "dependencies": {
           "System.Memory.Data": "1.0.2",
-          "System.Text.Json": "9.0.14"
+          "System.Text.Json": "9.0.12"
         },
         "runtime": {
           "lib/net6.0/System.ClientModel.dll": {
@@ -2183,7 +2183,7 @@
         }
       },
       "System.Diagnostics.EventLog/8.0.0": {},
-      "System.Formats.Asn1/9.0.14": {},
+      "System.Formats.Asn1/9.0.12": {},
       "System.IdentityModel.Tokens.Jwt/6.35.0": {
         "dependencies": {
           "Microsoft.IdentityModel.JsonWebTokens": "6.35.0",
@@ -2201,7 +2201,7 @@
       "System.Memory.Data/1.0.2": {
         "dependencies": {
           "System.Text.Encodings.Web": "8.0.0",
-          "System.Text.Json": "9.0.14"
+          "System.Text.Json": "9.0.12"
         },
         "runtime": {
           "lib/netstandard2.0/System.Memory.Data.dll": {
@@ -2264,12 +2264,12 @@
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
       "System.Security.Cryptography.Cng/5.0.0": {
         "dependencies": {
-          "System.Formats.Asn1": "9.0.14"
+          "System.Formats.Asn1": "9.0.12"
         }
       },
       "System.Security.Cryptography.Pkcs/7.0.2": {
         "dependencies": {
-          "System.Formats.Asn1": "9.0.14"
+          "System.Formats.Asn1": "9.0.12"
         }
       },
       "System.Security.Cryptography.ProtectedData/8.0.0": {
@@ -2310,7 +2310,7 @@
         }
       },
       "System.Text.Encodings.Web/8.0.0": {},
-      "System.Text.Json/9.0.14": {},
+      "System.Text.Json/9.0.12": {},
       "System.Threading.Channels/7.0.0": {},
       "System.Threading.Tasks.Dataflow/8.0.0": {},
       "System.Threading.Tasks.Extensions/4.5.4": {},
@@ -2933,12 +2933,12 @@
       "path": "microsoft.entityframeworkcore.analyzers/9.0.14",
       "hashPath": "microsoft.entityframeworkcore.analyzers.9.0.14.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Design/9.0.14": {
+    "Microsoft.EntityFrameworkCore.Design/9.0.12": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-+7ojPX5p3NYCRPJoLSiimdmHpDpLH8S93XXnDKeFwRnD6GirJS2E0UxYnRZ3ovqtsIzsDHiRAkPl7N5XjM2BAw==",
-      "path": "microsoft.entityframeworkcore.design/9.0.14",
-      "hashPath": "microsoft.entityframeworkcore.design.9.0.14.nupkg.sha512"
+      "sha512": "sha512-7Lge+YprsKyrLs+teI1R8ra0mneKEbkKEwFJoJlHfsylDfXtPLNSzOGBt2dRikxxFDDO1SA1t1zC2ZZV0NSd+w==",
+      "path": "microsoft.entityframeworkcore.design/9.0.12",
+      "hashPath": "microsoft.entityframeworkcore.design.9.0.12.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Relational/9.0.14": {
       "type": "package",
@@ -2947,19 +2947,19 @@
       "path": "microsoft.entityframeworkcore.relational/9.0.14",
       "hashPath": "microsoft.entityframeworkcore.relational.9.0.14.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.SqlServer/9.0.14": {
+    "Microsoft.EntityFrameworkCore.SqlServer/9.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-61dCO899upHGw+nMTU5GxsheExdhOxmi3E+dB6EwK7VYeh1VImCWJbRkPBRZ+VYChz6Vqi2KySkdZ6GuIBnLvQ==",
-      "path": "microsoft.entityframeworkcore.sqlserver/9.0.14",
-      "hashPath": "microsoft.entityframeworkcore.sqlserver.9.0.14.nupkg.sha512"
+      "sha512": "sha512-UCo6rRUIx2Rhl6xVkMPf1yL/97jcYkwrryOKB5e68YCZ7NdQyk+7wfXJzEDvkFcjTw45H5sy4/1vW6vXCs/Kag==",
+      "path": "microsoft.entityframeworkcore.sqlserver/9.0.4",
+      "hashPath": "microsoft.entityframeworkcore.sqlserver.9.0.4.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Tools/9.0.14": {
+    "Microsoft.EntityFrameworkCore.Tools/9.0.4": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-td19w8F9eaYLrL9fpOarzXPQNlJomTGVH24meuokp72m5tsEdGWNzVvorpIL9wFBKmZmny2Ws7DfjoFe2layAw==",
-      "path": "microsoft.entityframeworkcore.tools/9.0.14",
-      "hashPath": "microsoft.entityframeworkcore.tools.9.0.14.nupkg.sha512"
+      "sha512": "sha512-QW87VJ1TRTN/tOATTfaXlP8BZZjpi9XkOwJHvDUQosS7cmD03bkYkbp3eoLwIlLOHRJaWi1NhOjqQ9zoBPZa9w==",
+      "path": "microsoft.entityframeworkcore.tools/9.0.4",
+      "hashPath": "microsoft.entityframeworkcore.tools.9.0.4.nupkg.sha512"
     },
     "Microsoft.Extensions.Caching.Abstractions/9.0.14": {
       "type": "package",
@@ -2996,12 +2996,12 @@
       "path": "microsoft.extensions.dependencyinjection.abstractions/9.0.14",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.9.0.14.nupkg.sha512"
     },
-    "Microsoft.Extensions.DependencyModel/9.0.14": {
+    "Microsoft.Extensions.DependencyModel/9.0.12": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-3KI67cvKZqHMBffWushySB0FqrFphIK3mnxnN9YoBdjsTPzSSIMYej4cqtHM4LgFMHcO33C5ObOHqzls+7eJng==",
-      "path": "microsoft.extensions.dependencymodel/9.0.14",
-      "hashPath": "microsoft.extensions.dependencymodel.9.0.14.nupkg.sha512"
+      "sha512": "sha512-Uf6nB44TjuOyvxNP5CR3jdAMX5z0pqWQMJSvaoVlUX+dwUTuPhxHzKf8wh6Rx1so6hxnHFwS75CXKg7ZDGyZLw==",
+      "path": "microsoft.extensions.dependencymodel/9.0.12",
+      "hashPath": "microsoft.extensions.dependencymodel.9.0.12.nupkg.sha512"
     },
     "Microsoft.Extensions.FileProviders.Abstractions/9.0.14": {
       "type": "package",
@@ -3367,12 +3367,12 @@
       "path": "system.diagnostics.eventlog/8.0.0",
       "hashPath": "system.diagnostics.eventlog.8.0.0.nupkg.sha512"
     },
-    "System.Formats.Asn1/9.0.14": {
+    "System.Formats.Asn1/9.0.12": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-yVH5DlO8/wXO0/XzWN2dzjY3dWKc9W65FDhHeuWVsNnnnpXvp9D+9tR5Xcjp9BwEdJcaL07fxSom0MW0uFZ/kg==",
-      "path": "system.formats.asn1/9.0.14",
-      "hashPath": "system.formats.asn1.9.0.14.nupkg.sha512"
+      "sha512": "sha512-E8ilbnvT4lRSzCkvawCm36wC9ABYkoomA5++mqduzkXmIixvlGpqwbQDenz57zTLczYvC2V+HONrMCBMfHVvIA==",
+      "path": "system.formats.asn1/9.0.12",
+      "hashPath": "system.formats.asn1.9.0.12.nupkg.sha512"
     },
     "System.IdentityModel.Tokens.Jwt/6.35.0": {
       "type": "package",
@@ -3514,12 +3514,12 @@
       "path": "system.text.encodings.web/8.0.0",
       "hashPath": "system.text.encodings.web.8.0.0.nupkg.sha512"
     },
-    "System.Text.Json/9.0.14": {
+    "System.Text.Json/9.0.12": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zahtYv0C3LAIUUSiEwuL9QAtal8X1cp32qua8JWMjgoik33BpRU9ziLT9QJukF39y/G43VeTn0XFcDujzeFMMA==",
-      "path": "system.text.json/9.0.14",
-      "hashPath": "system.text.json.9.0.14.nupkg.sha512"
+      "sha512": "sha512-wHv2GrfYd4/uaoZQJj6NOR8M0AlnWJ2/MFAHQomSMqk+/rSIY6AlcitL6LXbTgXf8+ngGjAAmQm17kfbNplQ9w==",
+      "path": "system.text.json/9.0.12",
+      "hashPath": "system.text.json.9.0.12.nupkg.sha512"
     },
     "System.Threading.Channels/7.0.0": {
       "type": "package",

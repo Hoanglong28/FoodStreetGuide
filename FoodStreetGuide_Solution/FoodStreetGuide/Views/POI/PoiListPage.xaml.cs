@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using doanC_.Helpers;
 using doanC_.Models;
-using doanC_.Services.Data;
+using doanC_.Services.Api;
 using doanC_.Services;
 using Microsoft.Maui.Devices.Sensors;
 
@@ -9,17 +9,19 @@ namespace doanC_.Views;
 
 public partial class PoiListPage : ContentPage
 {
-    private SQLiteService _sqliteService;
+    private ApiService _apiService;
     private LocationService _locationService;
     private List<LocationPoint> _allLocationPoints;
     private Location _currentLocation;
+    private string _currentCategory = "Tất cả";
 
     public PoiListPage()
     {
         InitializeComponent();
-        _sqliteService = ServiceHelper.GetService<SQLiteService>();
+        _apiService = new ApiService();
         _locationService = new LocationService();
-        LoadDataFromDatabase();
+
+        LoadDataFromApi();
         GetCurrentLocationAndCalculateDistance();
     }
 
@@ -28,11 +30,11 @@ public partial class PoiListPage : ContentPage
         try
         {
             _currentLocation = await _locationService.GetCurrentLocationAsync();
-            
+
             if (_currentLocation != null)
             {
                 Debug.WriteLine($"[PoiListPage] Current location: {_currentLocation.Latitude}, {_currentLocation.Longitude}");
-                RefreshDistances();
+                RefreshPoiList();
             }
             else
             {
@@ -45,57 +47,98 @@ public partial class PoiListPage : ContentPage
         }
     }
 
-    private async void LoadDataFromDatabase()
+    private async void LoadDataFromApi()
     {
         try
         {
-            _allLocationPoints = await _sqliteService.GetAllLocationPointsAsync();
+            loadingIndicator.IsVisible = true;
 
-            var poiItems = _allLocationPoints.Select(location => new PoiItem
+            _allLocationPoints = await _apiService.GetLocationPointsAsync();
+
+            if (_allLocationPoints != null && _allLocationPoints.Any())
             {
-                Id = location.Id,
-                Name = location.Name,
-                Description = location.Description,
-                Distance = 0,
-                ImageUrl = location.Image,
-                Category = location.Category,
-                Rating = location.Rating,
-                ReviewCount = location.ReviewCount,
-                Latitude = location.Latitude,
-                Longitude = location.Longitude
-            }).ToList();
-
-            PoiCollection.ItemsSource = poiItems;
-
-            Debug.WriteLine($"[PoiListPage] Loaded {poiItems.Count} POI items from database");
+                RefreshPoiList();
+                Debug.WriteLine($"[PoiListPage] Loaded {_allLocationPoints.Count} POI items from API");
+            }
+            else
+            {
+                Debug.WriteLine("[PoiListPage] No data from API");
+            }
         }
         catch (Exception ex)
         {
-            Debug.WriteLine($"[PoiListPage] Error loading data: {ex.Message}");
-            await DisplayAlert("Lỗi", $"Không thể tải dữ liệu: {ex.Message}", "OK");
+            Debug.WriteLine($"[PoiListPage] Error loading data from API: {ex.Message}");
+            await DisplayAlert("Lỗi", $"Không thể kết nối đến server: {ex.Message}", "OK");
+        }
+        finally
+        {
+            loadingIndicator.IsVisible = false;
         }
     }
 
-    private void RefreshDistances()
+    private void RefreshPoiList()
     {
-        if (_currentLocation == null || _allLocationPoints == null)
-            return;
+        if (_allLocationPoints == null) return;
 
-        var updatedItems = _allLocationPoints.Select(location => new PoiItem
+        // Lọc theo category
+        var source = _currentCategory == "Tất cả"
+            ? _allLocationPoints
+            : _allLocationPoints.Where(p => p.Category == _currentCategory).ToList();
+
+        // Tính khoảng cách và sắp xếp
+        var poiItems = source.Select(location => new PoiItem
         {
-            Id = location.Id,
+            PointId = location.PointId,
             Name = location.Name,
-            Description = location.Description,
-            Distance = (int)CalculateDistance(_currentLocation.Latitude, _currentLocation.Longitude, location.Latitude, location.Longitude),
-            ImageUrl = location.Image,
-            Category = location.Category,
+            Description = location.Description ?? "",
+            Distance = _currentLocation != null
+                ? (int)CalculateDistance(_currentLocation.Latitude, _currentLocation.Longitude, location.Latitude, location.Longitude)
+                : 0,
+            ImageUrl = location.Image ?? "poi_default.png",
+            Category = location.Category ?? "",
             Rating = location.Rating,
             ReviewCount = location.ReviewCount,
             Latitude = location.Latitude,
             Longitude = location.Longitude
-        }).ToList();
+        })
+        .OrderBy(p => p.Distance)
+        .ToList();
 
-        PoiCollection.ItemsSource = updatedItems;
+        PoiCollection.ItemsSource = poiItems;
+    }
+
+    private void OnCategoryTapped(object sender, TappedEventArgs e)
+    {
+        var frame = sender as Frame;
+        var label = frame?.Content as Label;
+        if (label != null)
+        {
+            _currentCategory = label.Text;
+            UpdateCategoryUI();
+            RefreshPoiList();
+        }
+    }
+
+    private void UpdateCategoryUI()
+    {
+        // Reset all category frames
+        var categories = new Dictionary<Frame, Label>
+        {
+            { CategoryAll, CategoryAll.Content as Label },
+            { CategoryFood, CategoryFood.Content as Label },
+            { CategoryPlace, CategoryPlace.Content as Label },
+            { CategoryHistory, CategoryHistory.Content as Label }
+        };
+
+        foreach (var cat in categories)
+        {
+            var isActive = (cat.Value?.Text == _currentCategory);
+            cat.Key.BackgroundColor = isActive ? Color.FromArgb("#C85A3F") : Color.FromArgb("#E0D5CC");
+            if (cat.Value != null)
+            {
+                cat.Value.TextColor = isActive ? Colors.White : Color.FromArgb("#2C1810");
+            }
+        }
     }
 
     private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
@@ -105,30 +148,38 @@ public partial class PoiListPage : ContentPage
 
     private void SearchData(string searchText)
     {
+        if (_allLocationPoints == null) return;
+
         if (string.IsNullOrWhiteSpace(searchText))
         {
-            RefreshDistances();
+            RefreshPoiList();
         }
         else
         {
-            var filtered = _allLocationPoints
+            var source = _allLocationPoints
                 .Where(l => l.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase) ||
-                           l.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase))
-                .Select(location => new PoiItem
-                {
-                    Id = location.Id,
-                    Name = location.Name,
-                    Description = location.Description,
-                    Distance = _currentLocation != null ? (int)CalculateDistance(_currentLocation.Latitude, _currentLocation.Longitude, location.Latitude, location.Longitude) : 0,
-                    ImageUrl = location.Image,
-                    Category = location.Category,
-                    Rating = location.Rating,
-                    ReviewCount = location.ReviewCount,
-                    Latitude = location.Latitude,
-                    Longitude = location.Longitude
-                }).ToList();
+                           (l.Description != null && l.Description.Contains(searchText, StringComparison.OrdinalIgnoreCase)))
+                .ToList();
 
-            PoiCollection.ItemsSource = filtered;
+            var filteredItems = source.Select(location => new PoiItem
+            {
+                PointId = location.PointId,
+                Name = location.Name,
+                Description = location.Description ?? "",
+                Distance = _currentLocation != null
+                    ? (int)CalculateDistance(_currentLocation.Latitude, _currentLocation.Longitude, location.Latitude, location.Longitude)
+                    : 0,
+                ImageUrl = location.Image ?? "poi_default.png",
+                Category = location.Category ?? "",
+                Rating = location.Rating,
+                ReviewCount = location.ReviewCount,
+                Latitude = location.Latitude,
+                Longitude = location.Longitude
+            })
+            .OrderBy(p => p.Distance)
+            .ToList();
+
+            PoiCollection.ItemsSource = filteredItems;
         }
     }
 
@@ -139,8 +190,8 @@ public partial class PoiListPage : ContentPage
             var frame = sender as Frame;
             if (frame?.BindingContext is PoiItem selectedPoi)
             {
-                Debug.WriteLine($"[PoiListPage] Selected POI: {selectedPoi.Name} (ID: {selectedPoi.Id})");
-                await Shell.Current.GoToAsync($"///poidetailpage?poiId={selectedPoi.Id}");
+                await Shell.Current.GoToAsync($"///poidetailpage?poiId={selectedPoi.PointId}");
+                Debug.WriteLine($"[PoiListPage] Selected POI: {selectedPoi.Name} (ID: {selectedPoi.PointId})");
             }
         }
         catch (Exception ex)
@@ -160,7 +211,6 @@ public partial class PoiListPage : ContentPage
                    Math.Sin(dLon / 2) * Math.Sin(dLon / 2);
 
         double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-
         return R * c;
     }
 
@@ -169,7 +219,7 @@ public partial class PoiListPage : ContentPage
 
 public class PoiItem
 {
-    public int Id { get; set; }
+    public int PointId { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
     public int Distance { get; set; }

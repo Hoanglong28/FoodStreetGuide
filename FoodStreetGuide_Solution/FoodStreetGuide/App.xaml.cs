@@ -31,42 +31,23 @@ namespace doanC_
             try
             {
                 var databaseService = ServiceHelper.GetService<SQLiteService>();
-                var seedService = ServiceHelper.GetService<SeedDataService>();
 
-                if (databaseService != null && seedService != null)
+                if (databaseService != null)
                 {
                     await databaseService.InitializeAsync();
                     Debug.WriteLine("[App] Database initialized successfully");
 
-                    // 👇 Thêm dữ liệu mẫu (chỉ chạy lần đầu)
-                    await seedService.SeedAsync();
+                    // ❌ TẮT SEED - không cần nữa vì dữ liệu từ API
+                    // var seedService = ServiceHelper.GetService<SeedDataService>();
+                    // await seedService.SeedAsync();
 
-                    // 👇 In ra dữ liệu
-                    var users = await databaseService.GetAllUsersAsync();
-                    var locations = await databaseService.GetAllLocationPointsAsync();
-                    var database = databaseService.Database;
-                    var dishes = await database.Table<Dish>().ToListAsync();
-                    var reviews = await database.Table<Review>().ToListAsync();
-
-                    Debug.WriteLine($"\n📊 DATABASE CONTENTS:\nUsers: {users.Count}, LocationPoints: {locations.Count}, Dishes: {dishes.Count}, Reviews: {reviews.Count}\n");
-                    
-                    foreach (var user in users)
-                        Debug.WriteLine($"👤 User: {user.Id} - {user.Username} ({user.Email})");
-                    
-                    foreach (var loc in locations)
-                        Debug.WriteLine($"🗺️ Location: {loc.Id} - {loc.Name} at ({loc.Latitude}, {loc.Longitude})");
-                    
-                    foreach (var dish in dishes)
-                        Debug.WriteLine($"🍽️ Dish: {dish.Id} - {dish.Name} (${dish.Price}) from LocationId {dish.LocationPointId}");
-                    
-                    foreach (var review in reviews)
-                        Debug.WriteLine($"⭐ Review: {review.Id} - Rating {review.Rating} by UserId {review.UserId} - \"{review.Comment}\"");
+                    // Chỉ hiển thị thông báo đã sẵn sàng
+                    Debug.WriteLine("[App] Ready to load data from API");
                 }
             }
             catch (Exception ex)
             {
                 Debug.WriteLine($"[App] Error: {ex.Message}");
-                Debug.WriteLine($"[App] Stack trace: {ex.StackTrace}");
             }
         }
     }

@@ -3,7 +3,7 @@ using System.Linq;
 using doanC_.Helpers;
 using doanC_.Models;
 using doanC_.Services;
-using doanC_.Services.Data;
+using doanC_.Services.Api;  // ← THÊM DÒNG NÀY
 using Microsoft.Maui.Devices.Sensors;
 using Microsoft.Maui.Media;
 
@@ -12,7 +12,7 @@ namespace doanC_.Views;
 [QueryProperty(nameof(PoiId), "poiId")]
 public partial class PoiDetailPage : ContentPage
 {
-    private SQLiteService _sqliteService;
+    private ApiService _apiService;  // ← ĐỔI từ SQLiteService sang ApiService
     private LocationService _locationService;
 
     private LocationPoint _currentPoi;
@@ -35,17 +35,16 @@ public partial class PoiDetailPage : ContentPage
     {
         InitializeComponent();
 
-        _sqliteService = ServiceHelper.GetService<SQLiteService>();
+        _apiService = new ApiService();  // ← DÙNG API SERVICE
         _locationService = new LocationService();
 
-        // mặc định tiếng Việt
         AudioLanguagePicker.SelectedIndex = 0;
     }
 
     protected override async void OnNavigatedTo(NavigatedToEventArgs args)
     {
         base.OnNavigatedTo(args);
-        GetCurrentLocationAndCalculateDistance();
+        await GetCurrentLocationAndCalculateDistance();
     }
 
     private async Task LoadPoiDetailsAsync(int poiId)
@@ -55,7 +54,8 @@ public partial class PoiDetailPage : ContentPage
             if (poiId == 0)
                 return;
 
-            _currentPoi = await _sqliteService.GetLocationPointByIdAsync(poiId);
+            // GỌI API THAY VÌ SQLITE
+            _currentPoi = await _apiService.GetLocationPointByIdAsync(poiId);
 
             if (_currentPoi == null)
             {
@@ -74,6 +74,7 @@ public partial class PoiDetailPage : ContentPage
         catch (Exception ex)
         {
             Debug.WriteLine($"[PoiDetailPage] Error: {ex.Message}");
+            await DisplayAlert("Lỗi", $"Không thể tải chi tiết: {ex.Message}", "OK");
         }
     }
 
@@ -126,14 +127,23 @@ public partial class PoiDetailPage : ContentPage
             _currentPoi.Longitude);
 
         Debug.WriteLine($"Distance: {(int)distance}m");
+
+        // Hiển thị khoảng cách lên UI nếu có label
+        // DistanceLabel.Text = $"Cách bạn {(int)distance}m";
     }
 
-    private async void GetCurrentLocationAndCalculateDistance()
+    private async Task GetCurrentLocationAndCalculateDistance()
     {
-        _userLocation = await _locationService.GetCurrentLocationAsync();
-
-        if (_userLocation != null)
-            UpdateDistance();
+        try
+        {
+            _userLocation = await _locationService.GetCurrentLocationAsync();
+            if (_userLocation != null)
+                UpdateDistance();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Location error: {ex.Message}");
+        }
     }
 
     private async Task GoBackAsync()
@@ -168,7 +178,7 @@ public partial class PoiDetailPage : ContentPage
 
     private async void OnOpenStatusClicked(object sender, EventArgs e)
     {
-        await DisplayAlert("Thông tin", "Quán đang mở cửa", "OK");
+        await DisplayAlert("Thông tin", "Đang mở cửa", "OK");
     }
 
     private void OnPlayAudioClicked(object sender, EventArgs e)

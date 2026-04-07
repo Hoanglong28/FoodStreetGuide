@@ -1,7 +1,6 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace doanC_Admin.Pages.Shared.Audio
+namespace doanC_Admin.Pages.QRCodes
 {
     public class IndexModel : PageModel
     {

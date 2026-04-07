@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "{currentPage:int?}"
 @model doanC_Admin.Pages.LocationPoints.IndexModel
 @{
     ViewData["Title"] = "Quản lý địa điểm";
@@ -27,15 +27,15 @@
                 @foreach (var item in Model.LocationPoints)
                 {
                     <tr>
-                        <td>@item.Id</td>
+                        <td>@item.PointId</td>
                         <td>@item.Name</td>
-                        <td><span class="badge bg-secondary">@item.Category</span></td>
+                        <td>@item.Category</td>
                         <td>@item.Latitude.ToString("F4"), @item.Longitude.ToString("F4")</td>
                         <td>
-                            <a href="/LocationPoints/Edit/@item.Id" class="btn btn-sm btn-warning">
+                            <a href="/LocationPoints/Edit/@item.PointId" class="btn btn-sm btn-warning">  @* Id → PointId *@
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="/LocationPoints/Delete/@item.Id" class="btn btn-sm btn-danger">
+                            <a href="/LocationPoints/Delete/@item.PointId" class="btn btn-sm btn-danger">  @* Id → PointId *@
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
@@ -44,4 +44,19 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Phân trang -->
+    @if (Model.TotalPages > 1)
+    {
+        <nav>
+            <ul class="pagination justify-content-center">
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="/LocationPoints?currentPage=@i">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
 </div>

@@ -295,7 +295,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Audio" ? "active" : "")"
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Audios" ? "active" : "")"
                    href="/Audios">
                     <i class="fas fa-headphones"></i>
                     <span>Audio Guide</span>
@@ -303,8 +303,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "QRCode" ? "active" : "")"
-                   href="/QRCode">
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "QRCodes" ? "active" : "")"
+                   href="/QRCodes">
                     <i class="fas fa-qrcode"></i>
                     <span>QR Code</span>
                 </a>

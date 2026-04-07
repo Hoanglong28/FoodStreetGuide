@@ -32,6 +32,14 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/Audios/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXVkaW9zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/Dashboard.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGFzaGJvYXJkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -40,32 +48,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/LocationPoints/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9jYXRpb25Qb2ludHNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/LocationPoints/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9jYXRpb25Qb2ludHNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/LocationPoints/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9jYXRpb25Qb2ludHNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/LocationPoints/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9jYXRpb25Qb2ludHNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/Shared/Audio/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXEF1ZGlvXEluZGV4LmNzaHRtbA==
+[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/QRCodes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUVJDb2Rlc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/Shared/Dashboard.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXERhc2hib2FyZC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/Shared/LocationPoints/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXExvY2F0aW9uUG9pbnRzXENyZWF0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/Shared/LocationPoints/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXExvY2F0aW9uUG9pbnRzXERlbGV0ZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/Shared/LocationPoints/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXExvY2F0aW9uUG9pbnRzXEVkaXQuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/Shared/LocationPoints/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXExvY2F0aW9uUG9pbnRzXEluZGV4LmNzaHRtbA==
+[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/Reports/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVwb3J0c1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/Shared/_LoginPartial.cshtml]
@@ -82,30 +90,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Views/LocationPoints/Create.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9jYXRpb25Qb2ludHNcQ3JlYXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Views/LocationPoints/Delete.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9jYXRpb25Qb2ludHNcRGVsZXRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Views/LocationPoints/Details.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9jYXRpb25Qb2ludHNcRGV0YWlscy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Views/LocationPoints/Edit.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9jYXRpb25Qb2ludHNcRWRpdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Views/LocationPoints/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9jYXRpb25Qb2ludHNcSW5kZXguY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Views/Shared/_ValidationScriptsPartial.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Kien/source/repos/FoodStreetGuide_Solution/FoodStreetGuide_Solution/doanC_Admin/Pages/Shared/_Layout.cshtml]

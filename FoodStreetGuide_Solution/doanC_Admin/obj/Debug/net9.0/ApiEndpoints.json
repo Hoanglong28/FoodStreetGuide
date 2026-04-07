@@ -1,8 +1,8 @@
 [
   {
-    "ContainingType": "doanC_Admin.Controllers.API.LocationPointsApiController",
-    "Method": "GetLocationPoints",
-    "RelativePath": "api/LocationPointsApi",
+    "ContainingType": "doanC_Admin.Controllers.Api.LocationApiController",
+    "Method": "GetAllLocations",
+    "RelativePath": "api/LocationApi",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -20,15 +20,15 @@
     ]
   },
   {
-    "ContainingType": "doanC_Admin.Controllers.API.LocationPointsApiController",
-    "Method": "PostLocationPoint",
-    "RelativePath": "api/LocationPointsApi",
+    "ContainingType": "doanC_Admin.Controllers.Api.LocationApiController",
+    "Method": "AddLocation",
+    "RelativePath": "api/LocationApi",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "locationPoint",
+        "Name": "location",
         "Type": "doanC_Admin.Models.LocationPoint",
         "IsRequired": true
       }
@@ -46,9 +46,9 @@
     ]
   },
   {
-    "ContainingType": "doanC_Admin.Controllers.API.LocationPointsApiController",
-    "Method": "GetLocationPoint",
-    "RelativePath": "api/LocationPointsApi/{id}",
+    "ContainingType": "doanC_Admin.Controllers.Api.LocationApiController",
+    "Method": "GetLocationById",
+    "RelativePath": "api/LocationApi/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -72,9 +72,9 @@
     ]
   },
   {
-    "ContainingType": "doanC_Admin.Controllers.API.LocationPointsApiController",
-    "Method": "PutLocationPoint",
-    "RelativePath": "api/LocationPointsApi/{id}",
+    "ContainingType": "doanC_Admin.Controllers.Api.LocationApiController",
+    "Method": "UpdateLocation",
+    "RelativePath": "api/LocationApi/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -85,7 +85,7 @@
         "IsRequired": true
       },
       {
-        "Name": "locationPoint",
+        "Name": "location",
         "Type": "doanC_Admin.Models.LocationPoint",
         "IsRequired": true
       }
@@ -93,9 +93,9 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "doanC_Admin.Controllers.API.LocationPointsApiController",
-    "Method": "DeleteLocationPoint",
-    "RelativePath": "api/LocationPointsApi/{id}",
+    "ContainingType": "doanC_Admin.Controllers.Api.LocationApiController",
+    "Method": "DeleteLocation",
+    "RelativePath": "api/LocationApi/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -107,5 +107,73 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "doanC_Admin.Controllers.Api.LocationApiController",
+    "Method": "BatchInsertLocations",
+    "RelativePath": "api/LocationApi/batch",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "locations",
+        "Type": "System.Collections.Generic.List\u00601[[doanC_Admin.Models.LocationPoint, doanC_Admin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "doanC_Admin.Controllers.Api.LocationApiController",
+    "Method": "GetLocationsByCategory",
+    "RelativePath": "api/LocationApi/category/{category}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "category",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[doanC_Admin.Models.LocationPoint, doanC_Admin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "doanC_Admin.Controllers.Api.LocationApiController",
+    "Method": "SearchLocations",
+    "RelativePath": "api/LocationApi/search/{keyword}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "keyword",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[doanC_Admin.Models.LocationPoint, doanC_Admin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

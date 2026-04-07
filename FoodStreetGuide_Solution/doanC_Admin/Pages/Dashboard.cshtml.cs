@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using doanC_Admin.Data;
 using doanC_Admin.Models;
 
 namespace doanC_Admin.Pages
 {
     public class DashboardModel : PageModel
     {
-        private readonly AppDbContext _context;
+        private readonly FoodStreetGuideDBContext _context;
 
-        public DashboardModel(AppDbContext context)
+        public DashboardModel(FoodStreetGuideDBContext context)
         {
             _context = context;
         }
@@ -22,15 +21,17 @@ namespace doanC_Admin.Pages
 
         public async Task OnGetAsync()
         {
+            // Cách 1: Chạy tuần tự (đơn giản, dễ hiểu)
             TotalLocations = await _context.LocationPoints.CountAsync();
-            TotalScans = 1245; // Tạm thời, sau này lấy từ bảng ScanLog
             TotalAudios = await _context.LocationPoints.CountAsync(l => !string.IsNullOrEmpty(l.AudioFile));
-            TotalUsers = 156; // Tạm thời
-
             RecentLocations = await _context.LocationPoints
                 .OrderByDescending(l => l.CreatedAt)
                 .Take(5)
                 .ToListAsync();
+
+            // Dữ liệu tạm (sau này có thể lấy từ bảng QRScanLogs)
+            TotalScans = 1245;
+            TotalUsers = 156;
         }
     }
 }

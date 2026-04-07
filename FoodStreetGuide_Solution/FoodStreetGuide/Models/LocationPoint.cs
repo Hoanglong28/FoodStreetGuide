@@ -6,15 +6,15 @@ namespace doanC_.Models
     public class LocationPoint
     {
         [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
+        public int PointId { get; set; } 
 
         [NotNull]
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         [NotNull]
-        public string Address { get; set; }
+        public string Address { get; set; } = string.Empty;
 
         [NotNull]
         public double Latitude { get; set; }
@@ -22,9 +22,9 @@ namespace doanC_.Models
         [NotNull]
         public double Longitude { get; set; }
 
-        public string Category { get; set; }
+        public string Category { get; set; } = string.Empty;
 
-        public string Image { get; set; }
+        public string Image { get; set; } = string.Empty;
 
         public double Rating { get; set; } = 0;
 
@@ -34,10 +34,12 @@ namespace doanC_.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-        public string OpeningHours { get; set; }
-        public string PriceRange { get; set; }
 
-        // Constructor cho compatibility với mã cũ
+        public string OpeningHours { get; set; } = string.Empty;
+
+        public string PriceRange { get; set; } = string.Empty;
+
+        // Constructor cho compatibility
         public LocationPoint()
         {
         }

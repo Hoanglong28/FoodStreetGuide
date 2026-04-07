@@ -14,16 +14,16 @@ namespace doanC_.Services.Api
         public ApiService()
         {
             _httpClient = new HttpClient();
+            _httpClient.Timeout = TimeSpan.FromSeconds(30);
 
-            // Cấu hình JSON serializer
             _jsonOptions = new JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true,
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
 
-            // Lấy base URL từ cấu hình (có thể đọc từ file settings)
-            _baseUrl = ApiConfig.BaseUrl;
+            // ✅ SỬA: Gọi method GetBaseUrl() thay vì property BaseUrl
+            _baseUrl = ApiConfig.ApiMode.GetBaseUrl();
         }
 
         // ========== CÁC PHƯƠNG THỨC CRUD ==========
@@ -54,6 +54,11 @@ namespace doanC_.Services.Api
             catch (JsonException ex)
             {
                 await ShowError($"Lỗi xử lý dữ liệu: {ex.Message}");
+                return new List<LocationPoint>();
+            }
+            catch (Exception ex)
+            {
+                await ShowError($"Lỗi không xác định: {ex.Message}");
                 return new List<LocationPoint>();
             }
         }
@@ -112,7 +117,7 @@ namespace doanC_.Services.Api
                 var json = JsonSerializer.Serialize(locationPoint, _jsonOptions);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PutAsync($"{_baseUrl}/{locationPoint.Id}", content);
+                var response = await _httpClient.PutAsync($"{_baseUrl}/{locationPoint.PointId}", content);
                 return response.IsSuccessStatusCode;
             }
             catch (Exception ex)
@@ -185,7 +190,7 @@ namespace doanC_.Services.Api
         /// </summary>
         private double CalculateDistance(double lat1, double lon1, double lat2, double lon2)
         {
-            const double R = 6371; // Bán kính trái đất (km)
+            const double R = 6371;
 
             var dLat = ToRadians(lat2 - lat1);
             var dLon = ToRadians(lon2 - lon1);
