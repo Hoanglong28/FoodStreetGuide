@@ -11,11 +11,12 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap5")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-doanC_Admin-5007aaeb-cd7d-43fb-826d-9d18bed3cd9d")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("doanC_Admin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+973f3630b432898933e1a9657011a2888500a0d8")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0fcb349b8b37404fa8468edb5b0d1f6bb263fbd3")]
 [assembly: System.Reflection.AssemblyProductAttribute("doanC_Admin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("doanC_Admin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
