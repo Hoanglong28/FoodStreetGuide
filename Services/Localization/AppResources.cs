@@ -1,0 +1,423 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+
+namespace doanC_.Services.Localization;
+
+public static class AppResources
+{
+    private static readonly Dictionary<string, Dictionary<string, string>> Translations = new()
+    {
+        {
+            "vi", new Dictionary<string, string>
+            {
+                { "SearchPlaceholder", "Tìm kiếm..." },
+                { "AllCategories", "Tất cả" },
+                { "Restaurant", "Quán ăn" },
+                { "Location", "Địa điểm" },
+                { "History", "Lịch sử" },
+                { "Error", "Lỗi" },
+                { "OK", "OK" },
+                { "NotFound", "Không tìm thấy thông tin" },
+                { "CannotLoadData", "Không thể tải dữ liệu" },
+                { "Cancel", "Hủy" },
+                { "Settings", "Cài đặt" },
+                { "Language", "Ngôn ngữ" },
+                { "Vietnamese", "Tiếng Việt" },
+                { "English", "Tiếng Anh" },
+                { "Chinese", "Tiếng Trung" },
+                { "Play", "Phát" },
+                { "Stop", "Dừng" },
+                { "TabMap", "Bản đồ" },
+                { "TabPoi", "Điểm" },
+                { "TabQr", "QR" },
+                { "TabSettings", "Cài đặt" },
+                { "PoiDetailTitle", "Chi tiết điểm tham quan" },
+                { "OpenStatus", "Đang mở cửa" },
+                { "DirectionsButton", "Chỉ đường" },
+                { "AudioButton", "Audio" },
+                { "AudioPlayerTitle", "Thuyết minh âm thanh" },
+                { "PlayButton", "Phát" },
+                { "AudioLanguagePickerTitle", "Chọn ngôn ngữ" },
+                { "LanguageSettingsSection", "NGÔN NGỮ & GIỌNG ĐỌC" },
+                { "LanguageLabel", "Ngôn ngữ" },
+                { "VoiceTTSLabel", "Giọng TTS" },
+                { "GpsGeofenceSection", "GPS & GEOFENCE" },
+                { "RadiusActivationLabel", "Bán kính kích hoạt" },
+                { "BackgroundTrackingLabel", "Theo dõi nền" },
+                { "BatterySaveLabel", "Tiết kiệm pin" },
+                { "OfflineContentSection", "NỘI DUNG OFFLINE" },
+                { "DownloadOfflineLabel", "Tải gói offline" },
+                { "OfflinePackageInfo", "Phố Lê Thánh Tôn ·24MB" },
+                { "PoiListTitle", "Danh sách địa điểm" },
+                { "ExploreSubtitle", "Khám phá các quán ăn" },
+
+
+                { "TapToListen2", "🔊 Nhấn để nghe thuyết minh" },
+{ "PlayCommentary", "▶ Phát thuyết minh" },
+{ "NearbyDistance", "📍 Đang gần · {0}m" },
+                { "SelectPoi", "Chọn điểm để nghe thuyết minh" },
+                // QR Scanner
+                { "QrScannerTitle", "Quét mã QR" },
+                { "QrScannerSubtitle", "Đưa mã QR vào khung hình để quét" },
+                { "QrInstructions", "Hướng camera vào mã QR để xem nội dung, hoặc nhập tay nếu cần." },
+                { "QrManualInput", "Nhập mã QR thủ công" }
+            }
+        },
+        {
+            "en", new Dictionary<string, string>
+            {
+                { "SearchPlaceholder", "Search..." },
+                { "AllCategories", "All" },
+                { "Restaurant", "Restaurant" },
+                { "Location", "Location" },
+                { "History", "History" },
+                { "Error", "Error" },
+                { "OK", "OK" },
+                { "NotFound", "Not found" },
+                { "CannotLoadData", "Cannot load data" },
+                { "Cancel", "Cancel" },
+                { "Settings", "Settings" },
+                { "Language", "Language" },
+                { "Vietnamese", "Vietnamese" },
+                { "English", "English" },
+                { "Chinese", "Chinese" },
+                { "Play", "Play" },
+                { "Stop", "Stop" },
+                { "TabMap", "Map" },
+                { "TabPoi", "Points" },
+                { "TabQr", "QR" },
+                { "TabSettings", "Settings" },
+                { "PoiDetailTitle", "POI Details" },
+                { "OpenStatus", "Now Open" },
+                { "DirectionsButton", "Directions" },
+                { "AudioButton", "Audio" },
+                { "AudioPlayerTitle", "Audio Commentary" },
+                { "PlayButton", "Play" },
+                { "AudioLanguagePickerTitle", "Select Language" },
+                { "LanguageSettingsSection", "LANGUAGE & VOICE" },
+                { "LanguageLabel", "Language" },
+                { "VoiceTTSLabel", "TTS Voice" },
+                { "GpsGeofenceSection", "GPS & GEOFENCE" },
+                { "RadiusActivationLabel", "Trigger Radius" },
+                { "BackgroundTrackingLabel", "Background Tracking" },
+                { "BatterySaveLabel", "Battery Save" },
+                { "OfflineContentSection", "OFFLINE CONTENT" },
+                { "DownloadOfflineLabel", "Download Offline" },
+                { "OfflinePackageInfo", "Le Thanh Ton Street ·24MB" },
+                { "PoiListTitle", "POI List" },
+                { "ExploreSubtitle", "Explore great restaurants" },
+
+                { "TapToListen2", "🔊 Tap to listen to commentary" },
+{ "PlayCommentary", "▶ Play commentary" },
+{ "NearbyDistance", "📍 Nearby · {0}m" },
+                { "SelectPoi", "Select a location to hear the audio guide" },
+                 // QR Scanner
+                { "QrScannerTitle", "Scan QR Code" },
+                { "QrScannerSubtitle", "Align the QR code within the frame" },
+                { "QrInstructions", "Point your camera at a QR code to see its content, or enter it manually." },
+                { "QrManualInput", "Enter QR code manually" }
+            }
+        },
+        {
+            "zh", new Dictionary<string, string>
+            {
+                { "SearchPlaceholder", "搜索..." },
+                { "AllCategories", "所有类别" },
+                { "Restaurant", "餐厅" },
+                { "Location", "位置" },
+                { "History", "历史记录" },
+                { "Error", "错误" },
+                { "OK", "确定" },
+                { "NotFound", "未找到" },
+                { "CannotLoadData", "无法加载数据" },
+                { "Cancel", "取消" },
+                { "Settings", "设置" },
+                { "Language", "语言" },
+                { "Vietnamese", "越南语" },
+                { "English", "英语" },
+                { "Chinese", "中文" },
+                { "Play", "播放" },
+                { "Stop", "停止" },
+                { "TabMap", "地图" },
+                { "TabPoi", "地点" },
+                { "TabQr", "二维码" },
+                { "TabSettings", "设置" },
+                { "PoiDetailTitle", "地点详情" },
+                { "OpenStatus", "营业状态" },
+                { "DirectionsButton", "导航" },
+                { "AudioButton", "语音" },
+                { "AudioPlayerTitle", "音频播放" },
+                { "PlayButton", "播放" },
+                { "AudioLanguagePickerTitle", "选择语音语言" },
+                { "LanguageSettingsSection", "语言设置" },
+                { "LanguageLabel", "语言" },
+                { "VoiceTTSLabel", "语音朗读" },
+                { "GpsGeofenceSection", "GPS地理围栏" },
+                { "RadiusActivationLabel", "激活半径" },
+                { "BackgroundTrackingLabel", "后台定位" },
+                { "BatterySaveLabel", "省电模式" },
+                { "OfflineContentSection", "离线内容" },
+                { "DownloadOfflineLabel", "下载离线数据" },
+                { "OfflinePackageInfo", "离线包 ·24MB" },
+                { "PoiListTitle", "地点列表" },
+                { "ExploreSubtitle", "探索美食餐厅" },
+                { "TapToListen2", "🔊 点击收听讲解" },
+{ "PlayCommentary", "▶ 播放讲解" },
+{ "NearbyDistance", "📍 附近 · {0}米" },
+                // QR Scanner
+                { "QrScannerTitle", "扫描二维码" },
+                { "QrScannerSubtitle", "将二维码对准取景框" },
+                { "QrInstructions", "将摄像头对准二维码以查看内容，或手动输入。" },
+                { "QrManualInput", "手动输入二维码" }
+            }
+        },
+        {
+            "fr", new Dictionary<string, string>
+            {
+                { "SearchPlaceholder", "Rechercher..." },
+                { "AllCategories", "Tous" },
+                { "Restaurant", "Restaurant" },
+                { "Location", "Lieu" },
+                { "History", "Histoire" },
+                { "Error", "Erreur" },
+                { "OK", "OK" },
+                { "NotFound", "Non trouvé" },
+                { "CannotLoadData", "Impossible de charger les données" },
+                { "Cancel", "Annuler" },
+                { "Settings", "Paramètres" },
+                { "Language", "Langue" },
+                { "Vietnamese", "Vietnamien" },
+                { "English", "Anglais" },
+                { "Chinese", "Chinois" },
+                { "Play", "Lire" },
+                { "Stop", "Arrêter" },
+                { "TabMap", "Carte" },
+                { "TabPoi", "Points" },
+                { "TabQr", "QR" },
+                { "TabSettings", "Paramètres" },
+                { "PoiDetailTitle", "Détails du point d'intérêt" },
+                { "OpenStatus", "Maintenant ouvert" },
+                { "DirectionsButton", "Itinéraires" },
+                { "AudioButton", "Audio" },
+                { "AudioPlayerTitle", "Commentaire audio" },
+                { "PlayButton", "Lire" },
+                { "AudioLanguagePickerTitle", "Sélectionner la langue" },
+                { "LanguageSettingsSection", "LANGUE & VOIX" },
+                { "LanguageLabel", "Langue" },
+                { "VoiceTTSLabel", "Voix TTS" },
+                { "GpsGeofenceSection", "GPS & GEOFENCE" },
+                { "RadiusActivationLabel", "Rayon de déclenchement" },
+                { "BackgroundTrackingLabel", "Suivi en arrière-plan" },
+                { "BatterySaveLabel", "Économie de batterie" },
+                { "OfflineContentSection", "CONTENU HORS LIGNE" },
+                { "DownloadOfflineLabel", "Télécharger hors ligne" },
+                { "OfflinePackageInfo", "Rue Le Thanh Ton ·24MB" },
+                { "PoiListTitle", "Liste des lieux" },
+    { "ExploreSubtitle", "Découvrez de délicieux restaurants" },
+
+    { "TapToListen2", "🔊 Appuyez pour écouter le commentaire" },
+{ "PlayCommentary", "▶ Lire le commentaire" },
+{ "NearbyDistance", "📍 À proximité · {0} m" },
+                { "SelectPoi", "Sélectionnez un lieu pour écouter le guide audio" },
+                // QR Scanner
+                { "QrScannerTitle", "Scanner un QR code" },
+                { "QrScannerSubtitle", "Alignez le code QR dans le cadre" },
+                { "QrInstructions", "Pointez la caméra vers un code QR pour voir son contenu ou entrez-le manuellement." },
+                { "QrManualInput", "Saisir le code QR manuellement" }
+            }
+        },
+        {
+            "es", new Dictionary<string, string>
+            {
+                { "SearchPlaceholder", "Buscar..." },
+                { "AllCategories", "Todos" },
+                { "Restaurant", "Restaurante" },
+                { "Location", "Lugar" },
+                { "History", "Historia" },
+                { "Error", "Error" },
+                { "OK", "OK" },
+                { "NotFound", "No encontrado" },
+                { "CannotLoadData", "No se pueden cargar los datos" },
+                { "Cancel", "Cancelar" },
+                { "Settings", "Configuración" },
+                { "Language", "Idioma" },
+                { "Vietnamese", "Vietnamita" },
+                { "English", "Inglés" },
+                { "Chinese", "Chino" },
+                { "Play", "Reproducir" },
+                { "Stop", "Detener" },
+                { "TabMap", "Mapa" },
+                { "TabPoi", "Lugares" },
+                { "TabQr", "QR" },
+                { "TabSettings", "Configuración" },
+                { "PoiDetailTitle", "Detalles del punto de interés" },
+                { "OpenStatus", "Abierto ahora" },
+                { "DirectionsButton", "Direcciones" },
+                { "AudioButton", "Audio" },
+                { "AudioPlayerTitle", "Comentario de audio" },
+                { "PlayButton", "Reproducir" },
+                { "AudioLanguagePickerTitle", "Seleccionar idioma" },
+                { "LanguageSettingsSection", "IDIOMA Y VOZ" },
+                { "LanguageLabel", "Idioma" },
+                { "VoiceTTSLabel", "Voz TTS" },
+                { "GpsGeofenceSection", "GPS Y GEOFENCE" },
+                { "RadiusActivationLabel", "Radio de activación" },
+                { "BackgroundTrackingLabel", "Seguimiento en segundo plano" },
+                { "BatterySaveLabel", "Ahorro de batería" },
+                { "OfflineContentSection", "CONTENIDO SIN CONEXIÓN" },
+                { "DownloadOfflineLabel", "Descargar sin conexión" },
+                { "OfflinePackageInfo", "Calle Le Thanh Ton ·24MB" },
+                { "PoiListTitle", "Lista de lugares" },
+    { "ExploreSubtitle", "Explora restaurantes increíbles" },
+    { "TapToListen2", "🔊 Toca para escuchar la narración" },
+{ "PlayCommentary", "▶ Reproducir narración" },
+{ "NearbyDistance", "📍 Cerca · {0} m" },
+                { "SelectPoi", "Seleccione un lugar para escuchar la guía de audio" },
+                // QR Scanner
+                { "QrScannerTitle", "Escanear código QR" },
+                { "QrScannerSubtitle", "Alinea el código QR dentro del marco" },
+                { "QrInstructions", "Apunta la cámara al código QR para ver su contenido o introdúcelo manualmente." },
+                { "QrManualInput", "Introducir código QR manualmente" }
+            }
+        },
+        {
+            "ja", new Dictionary<string, string>
+            {
+                { "SearchPlaceholder", "検索..." },
+                { "AllCategories", "すべてのカテゴリ" },
+                { "Restaurant", "レストラン" },
+                { "Location", "場所" },
+                { "History", "履歴" },
+                { "Error", "エラー" },
+                { "OK", "OK" },
+                { "NotFound", "見つかりません" },
+                { "CannotLoadData", "データを読み込めません" },
+                { "Cancel", "キャンセル" },
+                { "Settings", "設定" },
+                { "Language", "言語" },
+                { "Vietnamese", "ベトナム語" },
+                { "English", "英語" },
+                { "Chinese", "中国語" },
+                { "Play", "再生" },
+                { "Stop", "停止" },
+                { "TabMap", "地図" },
+                { "TabPoi", "スポット" },
+                { "TabQr", "QRコード" },
+                { "TabSettings", "設定" },
+                { "PoiDetailTitle", "スポット詳細" },
+                { "OpenStatus", "営業状況" },
+                { "DirectionsButton", "経路案内" },
+                { "AudioButton", "音声" },
+                { "AudioPlayerTitle", "音声プレーヤー" },
+                { "PlayButton", "再生" },
+                { "AudioLanguagePickerTitle", "音声言語を選択" },
+                { "LanguageSettingsSection", "言語設定" },
+                { "LanguageLabel", "言語" },
+                { "VoiceTTSLabel", "音声読み上げ" },
+                { "GpsGeofenceSection", "GPSジオフェンス" },
+                { "RadiusActivationLabel", "有効半径" },
+                { "BackgroundTrackingLabel", "バックグラウンド追跡" },
+                { "BatterySaveLabel", "省電力モード" },
+                { "OfflineContentSection", "オフラインコンテンツ" },
+                { "DownloadOfflineLabel", "オフラインデータをダウンロード" },
+                { "OfflinePackageInfo", "オフラインパッケージ ·24MB" },
+
+                { "PoiListTitle", "スポット一覧" },
+{ "ExploreSubtitle", "おすすめのレストランを見つけよう" },
+
+{ "TapToListen2", "🔊 タップして解説を再生" },
+{ "PlayCommentary", "▶ 解説を再生" },
+{ "NearbyDistance", "📍 近く · {0}m" },
+                // QR Scanner
+                { "QrScannerTitle", "QRコードをスキャン" },
+                { "QrScannerSubtitle", "QRコードを枠内に合わせてください" },
+                { "QrInstructions", "カメラをQRコードに向けて内容を表示するか、手動で入力してください。" },
+                { "QrManualInput", "QRコードを手動入力" }
+            }
+        },
+        {
+            "ko", new Dictionary<string, string>
+            {
+                { "SearchPlaceholder", "검색..." },
+                { "AllCategories", "전체 카테고리" },
+                { "Restaurant", "식당" },
+                { "Location", "위치" },
+                { "History", "기록" },
+                { "Error", "오류" },
+                { "OK", "확인" },
+                { "NotFound", "찾을 수 없습니다" },
+                { "CannotLoadData", "데이터를 불러올 수 없습니다" },
+                { "Cancel", "취소" },
+                { "Settings", "설정" },
+                { "Language", "언어" },
+                { "Vietnamese", "베트남어" },
+                { "English", "영어" },
+                { "Chinese", "중국어" },
+                { "Play", "재생" },
+                { "Stop", "정지" },
+                { "TabMap", "지도" },
+                { "TabPoi", "장소" },
+                { "TabQr", "QR 코드" },
+                { "TabSettings", "설정" },
+                { "PoiDetailTitle", "장소 상세 정보" },
+                { "OpenStatus", "영업 상태" },
+                { "DirectionsButton", "길찾기" },
+                { "AudioButton", "음성" },
+                { "AudioPlayerTitle", "오디오 플레이어" },
+                { "PlayButton", "재생" },
+                { "AudioLanguagePickerTitle", "음성 언어 선택" },
+                { "LanguageSettingsSection", "언어 설정" },
+                { "LanguageLabel", "언어" },
+                { "VoiceTTSLabel", "음성 읽기" },
+                { "GpsGeofenceSection", "GPS 지오펜스" },
+                { "RadiusActivationLabel", "활성 반경" },
+                { "BackgroundTrackingLabel", "백그라운드 추적" },
+                { "BatterySaveLabel", "절전 모드" },
+                { "OfflineContentSection", "오프라인 콘텐츠" },
+                { "DownloadOfflineLabel", "오프라인 데이터 다운로드" },
+                { "OfflinePackageInfo", "오프라인 패키지 ·24MB" },
+                { "TapToListen2", "🔊 탭하여 설명 듣기" },
+{ "PlayCommentary", "▶ 설명 재생" },
+{ "NearbyDistance", "📍 근처 · {0}m" },
+                { "SelectPoi", "오디오 가이드를 들으려면 위치를 선택하세요" },
+                // QR Scanner
+                { "QrScannerTitle", "QR 코드 스캔" },
+                { "QrScannerSubtitle", "QR 코드를 프레임 안에 맞춰주세요" },
+                { "QrInstructions", "카메라를 QR 코드에 맞추어 내용을 보거나 직접 입력하세요." },
+                { "QrManualInput", "QR 코드 직접 입력" }
+            }
+        }
+    };
+
+    private static string _currentLanguage = "vi";
+
+    public static void SetLanguage(string languageCode)
+    {
+        if (string.IsNullOrEmpty(languageCode))
+            languageCode = "vi";
+
+        _currentLanguage = languageCode;
+        Debug.WriteLine($"[AppResources] Language set to: {languageCode}");
+    }
+
+    public static string GetString(string key)
+    {
+        if (string.IsNullOrEmpty(key))
+            return key;
+
+        if (Translations.TryGetValue(_currentLanguage, out var langDict))
+        {
+            if (langDict.TryGetValue(key, out var value))
+                return value;
+        }
+
+        if (Translations.TryGetValue("en", out var enDict) && enDict.TryGetValue(key, out var enValue))
+            return enValue;
+
+        Debug.WriteLine($"[AppResources] Translation key not found: {key}");
+        return key;
+    }
+
+    public static string GetCurrentLanguage() => _currentLanguage;
+}

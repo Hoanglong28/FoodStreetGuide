@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      x:Class="doanC_.Views.PoiListPage"
+   BackgroundColor="#2C1810">
+
+    <Grid RowDefinitions="Auto,*,Auto">
+  
+      <!-- Header Section -->
+  <VerticalStackLayout Grid.Row="0" Padding="20,20,20,15" Spacing="10" BackgroundColor="#2C1810">
+     
+            <!-- Title -->
+     <Label
+    FontSize="20"
+    FontAttributes="Bold"
+    TextColor="#F5CBA7"
+    Text="{Binding PoiListTitle}" />
+
+<!-- Subtitle -->
+<Label
+    FontSize="14"
+    TextColor="#9E8B7E"
+    Text="{Binding ExploreSubtitle}" />
+
+<!-- Category Filter Chips -->
+    <ScrollView Orientation="Horizontal">
+     <HorizontalStackLayout Spacing="10" Padding="0">
+         <Frame Padding="12,6" CornerRadius="20" HasShadow="False" 
+  BackgroundColor="#C85A3F" BorderColor="Transparent">
+ <Label
+    FontSize="12"
+    TextColor="White"
+    FontAttributes="Bold"
+    Text="{Binding AllCategories}" />
+      </Frame>
+ 
+       <Frame Padding="12,6" CornerRadius="20" HasShadow="False" 
+ BackgroundColor="#E0D5CC" BorderColor="Transparent">
+    <Label
+    FontSize="12"
+    TextColor="#2C1810"
+    Text="{Binding Restaurant}" />
+   </Frame>
+        <Frame Padding="12,6" CornerRadius="20" HasShadow="False" 
+   BackgroundColor="#E0D5CC" BorderColor="Transparent">
+      <Label
+    FontSize="12"
+    TextColor="#2C1810"
+    Text="{Binding Location}" />
+     </Frame>
+   <Frame Padding="12,6" CornerRadius="20" HasShadow="False" 
+ BackgroundColor="#E0D5CC" BorderColor="Transparent">
+     <Label
+    FontSize="12"
+    TextColor="#2C1810"
+    Text="{Binding History}" />
+  </Frame>
+</HorizontalStackLayout>
+  </ScrollView>
+    
+      <!-- Search Bar -->
+  <Frame Padding="0" CornerRadius="12" HasShadow="False" 
+      BackgroundColor="White" BorderColor="Transparent">
+  <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10" Padding="15,12">
+          <Entry
+    Grid.Column="0"
+    TextChanged="OnSearchTextChanged"
+    BackgroundColor="Transparent"
+    TextColor="#2C1810"
+    PlaceholderColor="#C0B5A8"
+    Placeholder="{Binding SearchPlaceholder}" />
+        <Label Grid.Column="1" Text="🔍" FontSize="18" VerticalOptions="Center"/>
+ </Grid>
+  </Frame>
+
+        </VerticalStackLayout>
+
+        <!-- POI List -->
+     <CollectionView Grid.Row="1"  
+    x:Name="PoiCollection">
+         
+          <CollectionView.ItemTemplate>
+            <DataTemplate>  
+          <Frame Padding="0"  
+            
+     CornerRadius="20" 
+             HasShadow="True"
+   BorderColor="Transparent"
+       BackgroundColor="White"
+  Margin="0,8">
+
+    <Frame.GestureRecognizers>
+    <TapGestureRecognizer Tapped="OnPoiTapped"/>
+         </Frame.GestureRecognizers>
+      
+       <Grid RowDefinitions="Auto,Auto" RowSpacing="0">
+        
+    <!-- Header with Image and Category Badge -->
+ <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto" Padding="15,15,15,10" ColumnSpacing="12">
+ 
+             <!-- Image -->
+    <Frame Grid.Column="0" 
+Padding="0" 
+      CornerRadius="12" 
+ HasShadow="False"
+        WidthRequest="60"
+     HeightRequest="60"
+      BorderColor="Transparent">
+  <Image Source="{Binding ImageUrl}"
+   Aspect="AspectFill"/>
+         </Frame>
+
+       <!-- Title and Description -->
+     <VerticalStackLayout Grid.Column="1" Spacing="3" VerticalOptions="Center">
+      <Label Text="{Binding Name}"
+  FontSize="16"
+ FontAttributes="Bold"
+       TextColor="#2C1810"/>
+         <Label Text="{Binding Description}"
+       FontSize="12"
+  TextColor="#9E8B7E"
+       LineBreakMode="TailTruncation"
+    MaxLines="1"/>
+  </VerticalStackLayout>
+
+    <!-- Play Button -->
+ <Button Grid.Column="2"
+   Padding="0"
+ CornerRadius="20"
+      WidthRequest="40"
+     HeightRequest="40"
+     BackgroundColor="#FFE8E0"
+     VerticalOptions="Center"
+      Text="▶"
+        FontSize="16"
+ TextColor="#C85A3F"
+  HorizontalOptions="Center"
+           Clicked="OnPlayButtonTapped"/>
+   </Grid>
+
+    <!-- Footer with Distance and Icons -->
+    <Grid Grid.Row="1" ColumnDefinitions="Auto,*,Auto,Auto,Auto" 
+Padding="15,10,15,15" ColumnSpacing="10">
+           
+   <!-- Distance Badge -->
+ <Frame Grid.Column="0"
+            Padding="8,4"
+   CornerRadius="8"
+        HasShadow="False"
+           BackgroundColor="#FFF0E8"
+             BorderColor="#FFE0CC">
+      <Label Text="{Binding Distance, StringFormat='{0}m'}"
+          FontSize="11"
+           TextColor="#C85A3F"
+        FontAttributes="Bold"/>
+       </Frame>
+
+   <!-- Spacer -->
+         <BoxView Grid.Column="1" Color="Transparent"/>
+
+   <!-- Audio Icon -->
+  <Label Grid.Column="3" Text="🎧" FontSize="16"/>
+
+     </Grid>
+
+ </Grid>
+
+ </Frame>
+   </DataTemplate>
+    </CollectionView.ItemTemplate>
+
+   </CollectionView>
+
+    </Grid>
+
+</ContentPage>
