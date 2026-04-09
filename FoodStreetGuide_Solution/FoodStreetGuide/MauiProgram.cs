@@ -5,6 +5,7 @@ using ZXing.Net.Maui.Controls;
 using doanC_.Services.Data;
 using doanC_.Services.Localization;
 using doanC_.Services.Audio;
+using doanC_.Services;
 
 namespace doanC_
 {
@@ -29,7 +30,9 @@ namespace doanC_
                 .AddSingleton<SQLiteService>()
                 .AddSingleton<SeedDataService>()
                 .AddSingleton<LibreTranslateService>()
-                .AddSingleton<TTSService>();
+                .AddSingleton<TTSService>()
+                .AddSingleton<LocationService>() 
+                .AddSingleton<GeofenceService>(); // ✅ Thêm GeofenceService
 
 #if DEBUG
             builder.Logging.AddDebug();

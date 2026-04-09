@@ -1,33 +1,58 @@
 ﻿using doanC_.ViewModels;
 using doanC_;
 using doanC_.Services.Localization;
+using doanC_.Services;
+using doanC_.Helpers;
 
 namespace doanC_.Views;
 
 public partial class SettingsPage : ContentPage
 {
+    // ✅ Lấy LocationService từ ServiceHelper (singleton)
+    private LocationService _locationService => ServiceHelper.GetService<LocationService>();
+
     public SettingsPage()
     {
         InitializeComponent();
         this.BindingContext = new SettingsViewModel();
+        
         LoadSettings();
     }
 
     private void LoadSettings()
     {
         var savedLanguage = Preferences.Get("AppLanguage", "vi");
-        var savedVoice = Preferences.Get("SelectedVoice", "Giọng nữ miền Nam");
-        var savedRadius = Preferences.Get("GeoFenceRadius", "50 mét");
+        var savedVoice = Preferences.Get("SelectedVoice", "Giọng nữ");
+        var savedRadius = Preferences.Get("GeoFenceRadius", "15 mét");
         var backgroundTracking = Preferences.Get("BackgroundTracking", true);
         var offlinePackage = Preferences.Get("OfflinePackage", "Phố Lê Thánh Tôn · 24MB");
 
         // Update language label based on saved language code
         UpdateLanguageLabel(savedLanguage);
 
-        if (VoiceLabel != null) VoiceLabel.Text = savedVoice;
-        if (RadiusLabel != null) RadiusLabel.Text = savedRadius;
+        // ✅ Dịch giọng sang ngôn ngữ hiện tại
+        string displayVoice = savedVoice == "Giọng nữ" ? AppResources.GetString("FemaleVoice") : AppResources.GetString("MaleVoice");
+        if (VoiceLabel != null) VoiceLabel.Text = displayVoice;
+
+        // ✅ Dịch bán kính sang ngôn ngữ hiện tại
+        string displayRadius = MapRadiusToLocalized(savedRadius);
+        if (RadiusLabel != null) RadiusLabel.Text = displayRadius;
+
         if (BackgroundTrackingSwitch != null) BackgroundTrackingSwitch.IsToggled = backgroundTracking;
         if (OfflinePackageLabel != null) OfflinePackageLabel.Text = offlinePackage;
+    }
+
+    private string MapRadiusToLocalized(string savedRadius)
+    {
+        // Map bán kính từ tiếng Việt sang ngôn ngữ hiện tại
+     return savedRadius switch
+        {
+            "15 mét" => AppResources.GetString("Radius15m"),
+    "20 mét" => AppResources.GetString("Radius20m"),
+    "25 mét" => AppResources.GetString("Radius25m"),
+     "30 mét" => AppResources.GetString("Radius30m"),
+  _ => savedRadius // Fallback nếu có giá trị khác
+    };
     }
 
     private void UpdateLanguageLabel(string languageCode)
@@ -62,9 +87,9 @@ public partial class SettingsPage : ContentPage
             "🇰🇷 한국어 (Korean)"
         };
 
-        var result = await DisplayActionSheet(AppResources.GetString("Language"), "Hủy", null, languages);
+        var result = await DisplayActionSheet(AppResources.GetString("Language"), AppResources.GetString("Cancel"), null, languages);
 
-        if (result != null && result != "Hủy")
+        if (result != null && result != AppResources.GetString("Cancel"))
         {
             string languageCode = GetLanguageCode(result);
 
@@ -72,13 +97,13 @@ public partial class SettingsPage : ContentPage
             AppResources.SetLanguage(languageCode);
             Preferences.Set("AppLanguage", languageCode);
 
-            // 🆕 Thông báo tất cả ViewModels cập nhật ngôn ngữ
+            // ✅ Thông báo tất cả ViewModels cập nhật ngôn ngữ
             LanguageChangeManager.NotifyLanguageChanged();
 
             // Update label
             UpdateLanguageLabel(languageCode);
 
-            // Reload the app shell to reflect language changes
+            // ✅ QUAN TRỌNG: Reload AppShell để tất cả trang được cập nhật ngôn ngữ
             var newShell = new AppShell();
             Application.Current.MainPage = newShell;
 
@@ -103,23 +128,46 @@ public partial class SettingsPage : ContentPage
 
     private async void OnVoiceClicked(object sender, EventArgs e)
     {
-        string[] voices = { "Giọng nữ miền Nam", "Giọng nam miền Bắc", "Giọng nữ miền Bắc", "Giọng nam miền Nam" };
-        var result = await DisplayActionSheet("Chọn giọng đọc", "Hủy", null, voices);
+        // ✅ Dịch tiêu đề và các tùy chọn giọng theo ngôn ngữ hiện tại
+        string voiceTitle = AppResources.GetString("VoiceTTSLabel");
+        string cancelText = AppResources.GetString("Cancel");
 
-        if (result != null && result != "Hủy")
+        // Lấy giọng từ AppResources theo ngôn ngữ hiện tại
+        string maleVoice = AppResources.GetString("MaleVoice");
+        string femaleVoice = AppResources.GetString("FemaleVoice");
+
+        string[] voices = { femaleVoice, maleVoice };
+        var result = await DisplayActionSheet(voiceTitle, cancelText, null, voices);
+
+        if (result != null && result != cancelText)
         {
+            // ✅ Map từ ngôn ngữ hiện tại về "Giọng nữ" hoặc "Giọng nam" (tiếng Việt) để lưu
+            string voiceToSave = result == femaleVoice ? "Giọng nữ" : "Giọng nam";
+
+            Preferences.Set("SelectedVoice", voiceToSave);
+
+            // ✅ Set text cho VoiceLabel
             if (VoiceLabel != null) VoiceLabel.Text = result;
-            Preferences.Set("SelectedVoice", result);
+
+            // ✅ Refresh binding
+            (this.BindingContext as SettingsViewModel)?.RefreshLanguage();
         }
     }
 
     private async void OnRadiusClicked(object sender, EventArgs e)
     {
-        string[] radii = { "20 mét", "50 mét", "100 mét", "200 mét" };
-        var result = await DisplayActionSheet("Chọn bán kính kích hoạt", "Hủy", null, radii);
+        // ✅ Dịch các tùy chọn bán kính theo ngôn ngữ hiện tại
+        string radius15 = AppResources.GetString("Radius15m");
+        string radius20 = AppResources.GetString("Radius20m");
+        string radius25 = AppResources.GetString("Radius25m");
+        string radius30 = AppResources.GetString("Radius30m");
 
-        if (result != null && result != "Hủy")
+        string[] radii = { radius15, radius20, radius25, radius30 };
+        var result = await DisplayActionSheet(AppResources.GetString("RadiusActivationLabel"), AppResources.GetString("Cancel"), null, radii);
+
+        if (result != null && result != AppResources.GetString("Cancel"))
         {
+            // ✅ Set text cho RadiusLabel
             if (RadiusLabel != null) RadiusLabel.Text = result;
             Preferences.Set("GeoFenceRadius", result);
         }
@@ -127,15 +175,67 @@ public partial class SettingsPage : ContentPage
 
     private void OnBackgroundTrackingToggled(object sender, ToggledEventArgs e)
     {
+        // ✅ Lưu trạng thái Background Tracking vào Preferences
         Preferences.Set("BackgroundTracking", e.Value);
 
         if (e.Value)
         {
-            // Enable background tracking
-        }
+     // ✅ Bật theo dõi nền - dùng pin nhiều hơn
+            System.Diagnostics.Debug.WriteLine("[SettingsPage] Background Tracking: ON ✅");
+            System.Diagnostics.Debug.WriteLine("[SettingsPage] Sẽ theo dõi vị trí liên tục, tiêu thụ pin nhiều hơn");
+           
+ // ✅ Bắt đầu theo dõi vị trí nền
+  StartBackgroundTracking();
+   }
         else
         {
-            // Disable background tracking
+    // ✅ Tắt theo dõi nền - tiết kiệm pin
+  System.Diagnostics.Debug.WriteLine("[SettingsPage] Background Tracking: OFF ❌");
+      System.Diagnostics.Debug.WriteLine("[SettingsPage] Chỉ theo dõi vị trí khi app mở");
+           
+         // ✅ Dừng theo dõi nền
+            StopBackgroundTracking();
+        }
+    }
+
+    private void StartBackgroundTracking()
+    {
+        try
+    {
+System.Diagnostics.Debug.WriteLine("[SettingsPage] 🔄 Bắt đầu theo dõi nền...");
+   
+         // ✅ Gọi LocationService để bắt đầu theo dõi
+   _ = _locationService.StartTrackingAsync(location =>
+            {
+      MainThread.BeginInvokeOnMainThread(() =>
+   {
+ System.Diagnostics.Debug.WriteLine($"[SettingsPage] 📍 Location updated: {location.Latitude}, {location.Longitude}");
+    // Cập nhật vị trí nếu cần
+          });
+      });
+           
+   System.Diagnostics.Debug.WriteLine("[SettingsPage] ✅ Background Tracking bắt đầu");
+        }
+        catch (Exception ex)
+        {
+      System.Diagnostics.Debug.WriteLine($"[SettingsPage] ❌ Lỗi khi bắt đầu tracking: {ex.Message}");
+        }
+    }
+
+    private void StopBackgroundTracking()
+  {
+   try
+    {
+      System.Diagnostics.Debug.WriteLine("[SettingsPage] 🛑 Dừng theo dõi nền...");
+           
+    // ✅ Gọi LocationService để dừng theo dõi
+       _locationService.StopTracking();
+  
+    System.Diagnostics.Debug.WriteLine("[SettingsPage] ✅ Background Tracking dừng");
+   }
+        catch (Exception ex)
+        {
+        System.Diagnostics.Debug.WriteLine($"[SettingsPage] ❌ Lỗi khi dừng tracking: {ex.Message}");
         }
     }
 

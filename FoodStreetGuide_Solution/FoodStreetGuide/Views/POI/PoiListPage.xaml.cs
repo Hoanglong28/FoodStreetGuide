@@ -223,6 +223,10 @@ public partial class PoiListPage : ContentPage
             var savedLanguage = Preferences.Get("AppLanguage", "vi");
             Debug.WriteLine($"[PoiListPage] 🌐 Using saved language: {savedLanguage}");
 
+            // ✅ Lấy giọng đã chọn từ Preferences
+            var selectedVoice = Preferences.Get("SelectedVoice", "Giọng nữ");
+            Debug.WriteLine($"[PoiListPage] 👤 Selected Voice: {selectedVoice}");
+
             Debug.WriteLine($"[PoiListPage] Original text:");
             Debug.WriteLine($"  📍 Name: {locationPoint.Name}");
             Debug.WriteLine($"  📍 Description: {locationPoint.Description}");
@@ -236,12 +240,12 @@ public partial class PoiListPage : ContentPage
             Debug.WriteLine($"\n[PoiListPage] ✅ Translated description:");
             Debug.WriteLine($"  🌍 {translatedDescription}");
 
-            // Phát âm thanh dịch
+            // Phát âm thanh dịch với giọng đã chọn
             Debug.WriteLine($"[PoiListPage] 🔊 Speaking translated text...");
 
             try
             {
-                await _ttsService.SpeakAsync(translatedDescription, GetLanguageCodeForTTS(savedLanguage));
+                await _ttsService.SpeakAsync(translatedDescription, GetLanguageCodeForTTS(savedLanguage), selectedVoice);
                 Debug.WriteLine("[PoiListPage] ✅ Speech completed");
             }
             catch (Exception ttsEx)

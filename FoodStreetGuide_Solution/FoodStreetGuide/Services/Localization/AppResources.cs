@@ -57,10 +57,16 @@ public static class AppResources
 { "PlayCommentary", "▶ Phát thuyết minh" },
 { "NearbyDistance", "📍 Đang gần · {0}m" },
                 { "SelectPoi", "Chọn điểm để nghe thuyết minh" },
+                { "MaleVoice", "Giọng nam" },
+                { "FemaleVoice", "Giọng nữ" },
+   { "Radius15m", "15 mét" },
+     { "Radius20m", "20 mét" },
+     { "Radius25m", "25 mét" },
+    { "Radius30m", "30 mét" },
                 // QR Scanner
                 { "QrScannerTitle", "Quét mã QR" },
                 { "QrScannerSubtitle", "Đưa mã QR vào khung hình để quét" },
-                { "QrInstructions", "Hướng camera vào mã QR để xem nội dung, hoặc nhập tay nếu cần." },
+                { "QrInstructions", "Hướng camera vào mã QR để quét" },
                 { "QrManualInput", "Nhập mã QR thủ công" }
             }
         },
@@ -112,8 +118,14 @@ public static class AppResources
 { "PlayCommentary", "▶ Play commentary" },
 { "NearbyDistance", "📍 Nearby · {0}m" },
                 { "SelectPoi", "Select a location to hear the audio guide" },
-                 // QR Scanner
-                { "QrScannerTitle", "Scan QR Code" },
+                { "MaleVoice", "Male Voice" },
+                { "FemaleVoice", "Female Voice" },
+                { "Radius15m", "15 meters" },
+      { "Radius20m", "20 meters" },
+      { "Radius25m", "25 meters" },
+      { "Radius30m", "30 meters" },
+  // QR Scanner
+  { "QrScannerTitle", "Scan QR Code" },
                 { "QrScannerSubtitle", "Align the QR code within the frame" },
                 { "QrInstructions", "Point your camera at a QR code to see its content, or enter it manually." },
                 { "QrManualInput", "Enter QR code manually" }
@@ -165,8 +177,14 @@ public static class AppResources
                 { "TapToListen2", "🔊 点击收听讲解" },
 { "PlayCommentary", "▶ 播放讲解" },
 { "NearbyDistance", "📍 附近 · {0}米" },
-                // QR Scanner
-                { "QrScannerTitle", "扫描二维码" },
+                { "MaleVoice", "男性声音" },
+                { "FemaleVoice", "女性声音" },
+    { "Radius15m", "15米" },
+      { "Radius20m", "20米" },
+    { "Radius25m", "25米" },
+      { "Radius30m", "30米" },
+  // QR Scanner
+  { "QrScannerTitle", "扫描二维码" },
                 { "QrScannerSubtitle", "将二维码对准取景框" },
                 { "QrInstructions", "将摄像头对准二维码以查看内容，或手动输入。" },
                 { "QrManualInput", "手动输入二维码" }
@@ -219,9 +237,14 @@ public static class AppResources
     { "TapToListen2", "🔊 Appuyez pour écouter le commentaire" },
 { "PlayCommentary", "▶ Lire le commentaire" },
 { "NearbyDistance", "📍 À proximité · {0} m" },
-                { "SelectPoi", "Sélectionnez un lieu pour écouter le guide audio" },
-                // QR Scanner
-                { "QrScannerTitle", "Scanner un QR code" },
+                { "MaleVoice", "Voix masculine" },
+                { "FemaleVoice", "Voix féminine" },
+   { "Radius15m", "15 mètres" },
+      { "Radius20m", "20 mètres" },
+     { "Radius25m", "25 mètres" },
+      { "Radius30m", "30 mètres" },
+  // QR Scanner
+   { "QrScannerTitle", "Scanner un QR code" },
                 { "QrScannerSubtitle", "Alignez le code QR dans le cadre" },
                 { "QrInstructions", "Pointez la caméra vers un code QR pour voir son contenu ou entrez-le manuellement." },
                 { "QrManualInput", "Saisir le code QR manuellement" }
@@ -273,9 +296,14 @@ public static class AppResources
     { "TapToListen2", "🔊 Toca para escuchar la narración" },
 { "PlayCommentary", "▶ Reproducir narración" },
 { "NearbyDistance", "📍 Cerca · {0} m" },
-                { "SelectPoi", "Seleccione un lugar para escuchar la guía de audio" },
-                // QR Scanner
-                { "QrScannerTitle", "Escanear código QR" },
+                { "MaleVoice", "Voz masculina" },
+                { "FemaleVoice", "Voz femenina" },
+  { "Radius15m", "15 metros" },
+      { "Radius20m", "20 metros" },
+      { "Radius25m", "25 metros" },
+      { "Radius30m", "30 metros" },
+   // QR Scanner
+    { "QrScannerTitle", "Escanear código QR" },
                 { "QrScannerSubtitle", "Alinea el código QR dentro del marco" },
                 { "QrInstructions", "Apunta la cámara al código QR para ver su contenido o introdúcelo manualmente." },
                 { "QrManualInput", "Introducir código QR manualmente" }
@@ -322,15 +350,19 @@ public static class AppResources
                 { "OfflineContentSection", "オフラインコンテンツ" },
                 { "DownloadOfflineLabel", "オフラインデータをダウンロード" },
                 { "OfflinePackageInfo", "オフラインパッケージ ·24MB" },
-
-                { "PoiListTitle", "スポット一覧" },
-{ "ExploreSubtitle", "おすすめのレストランを見つけよう" },
-
-{ "TapToListen2", "🔊 タップして解説を再生" },
-{ "PlayCommentary", "▶ 解説を再生" },
-{ "NearbyDistance", "📍 近く · {0}m" },
-                // QR Scanner
-                { "QrScannerTitle", "QRコードをスキャン" },
+  { "PoiListTitle", "スポット一覧" },
+     { "ExploreSubtitle", "おすすめのレストランを見つけよう" },
+    { "TapToListen2", "🔊 タップして解説を再生" },
+   { "PlayCommentary", "▶ 解説を再生" },
+      { "NearbyDistance", "📍 近く · {0}m" },
+   { "MaleVoice", "男性の声" },
+     { "FemaleVoice", "女性の声" },
+                { "Radius15m", "15メートル" },
+      { "Radius20m", "20メートル" },
+      { "Radius25m", "25メートル" },
+      { "Radius30m", "30メートル" },
+             // QR Scanner
+          { "QrScannerTitle", "QRコードをスキャン" },
                 { "QrScannerSubtitle", "QRコードを枠内に合わせてください" },
                 { "QrInstructions", "カメラをQRコードに向けて内容を表示するか、手動で入力してください。" },
                 { "QrManualInput", "QRコードを手動入力" }
@@ -378,11 +410,16 @@ public static class AppResources
                 { "DownloadOfflineLabel", "오프라인 데이터 다운로드" },
                 { "OfflinePackageInfo", "오프라인 패키지 ·24MB" },
                 { "TapToListen2", "🔊 탭하여 설명 듣기" },
-{ "PlayCommentary", "▶ 설명 재생" },
-{ "NearbyDistance", "📍 근처 · {0}m" },
-                { "SelectPoi", "오디오 가이드를 들으려면 위치를 선택하세요" },
-                // QR Scanner
-                { "QrScannerTitle", "QR 코드 스캔" },
+                { "PlayCommentary", "▶ 설명 재생" },
+                { "NearbyDistance", "📍 근처 · {0}m" },
+                { "MaleVoice", "남성 음성" },
+                { "FemaleVoice", "여성 음성" },
+                { "Radius15m", "15미터" },
+      { "Radius20m", "20미터" },
+      { "Radius25m", "25미터" },
+      { "Radius30m", "30미터" },
+     // QR Scanner
+        { "QrScannerTitle", "QR 코드 스캔" },
                 { "QrScannerSubtitle", "QR 코드를 프레임 안에 맞춰주세요" },
                 { "QrInstructions", "카메라를 QR 코드에 맞추어 내용을 보거나 직접 입력하세요." },
                 { "QrManualInput", "QR 코드 직접 입력" }

@@ -17,7 +17,9 @@ namespace doanC_.Views;
 
 public partial class MapPage : ContentPage
 {
-    private LocationService locationService = new();
+    // ✅ Dùng singleton LocationService từ ServiceHelper
+    private LocationService locationService => ServiceHelper.GetService<LocationService>();
+    private GeofenceService _geofenceService => ServiceHelper.GetService<GeofenceService>();
     private LocationPointService pointService = new();
     private MapService mapService = new();
     private SQLiteService _sqliteService;
@@ -199,73 +201,77 @@ public partial class MapPage : ContentPage
     private async void OnPlayButtonClicked(object sender, EventArgs e)
     {
         try
-        {
+  {
    // ✅ Kiểm tra có POI gần nhất không
    if (_viewModel.NearestPoi == null)
       {
-       await DisplayAlert(
-        AppResources.GetString("Error"),
+     await DisplayAlert(
+    AppResources.GetString("Error"),
            "Không có điểm nào gần bạn",
       AppResources.GetString("OK"));
          return;
-            }
+   }
 
  var nearestPoi = _viewModel.NearestPoi;
-            string poiName = nearestPoi.Name;
-            string poiDescription = nearestPoi.Description ?? poiName;
+     string poiName = nearestPoi.Name;
+  string poiDescription = nearestPoi.Description ?? poiName;
 
      Debug.WriteLine($"[MapPage] 🔊 Playing audio for: {poiName}");
-            Debug.WriteLine($"[MapPage] 📝 Description: {poiDescription}");
+     Debug.WriteLine($"[MapPage] 📝 Description: {poiDescription}");
         Debug.WriteLine($"[MapPage] 🌐 Language: {_currentLanguage}");
 
   // ✅ Dịch mô tả sang ngôn ngữ đã chọn
        string textToSpeak = poiDescription;
-         if (_currentLanguage != "vi" && _translationService != null)
+      if (_currentLanguage != "vi" && _translationService != null)
    {
-              try
-                {
+   try
+ {
              Debug.WriteLine($"[MapPage] 🔄 Translating to {_currentLanguage}...");
-        textToSpeak = await _translationService.TranslateTextAsync(poiDescription, _currentLanguage);
+      textToSpeak = await _translationService.TranslateTextAsync(poiDescription, _currentLanguage);
        Debug.WriteLine($"[MapPage] ✅ Translated: {textToSpeak}");
     }
       catch (Exception transEx)
 {
-             Debug.WriteLine($"[MapPage] ⚠️ Translation failed, using original: {transEx.Message}");
+       Debug.WriteLine($"[MapPage] ⚠️ Translation failed, using original: {transEx.Message}");
       textToSpeak = poiDescription;
-       }
+  }
     }
 
-         // ✅ Phát âm thanh 
+         // ✅ Lấy giọng đã chọn từ Preferences
+     var selectedVoice = Preferences.Get("SelectedVoice", "Giọng nữ");
+         Debug.WriteLine($"[MapPage] 👤 Selected Voice: {selectedVoice}");
+
+       // ✅ Phát âm thanh với giọng đã chọn
        if (_ttsService != null)
-      {
+    {
      try
   {
-              Debug.WriteLine($"[MapPage] 🔊 Speaking: {textToSpeak}");
-         await _ttsService.SpeakAsync(textToSpeak, GetLanguageCodeForTTS(_currentLanguage));
+            Debug.WriteLine($"[MapPage] 🔊 Speaking: {textToSpeak}");
+         await _ttsService.SpeakAsync(textToSpeak, GetLanguageCodeForTTS(_currentLanguage), selectedVoice);
          Debug.WriteLine($"[MapPage] ✅ Speech completed");
     }
-      catch (Exception ttsEx)
+   catch (Exception ttsEx)
       {
         Debug.WriteLine($"[MapPage] ❌ TTS Error: {ttsEx.Message}");
      
        // Fallback: Hiển thị alert nếu TTS fails
-                  await DisplayAlert(
-            $"📍 {poiName}",
-           $"{textToSpeak}",
-            AppResources.GetString("OK"));
+         await DisplayAlert(
+ $"📍 {poiName}",
+       $"{textToSpeak}",
+   AppResources.GetString("OK"));
         }
             }
-       else
-            {
+     else
+   {
        Debug.WriteLine($"[MapPage] ❌ TTSService is null");
-                // Hiển thị alert nếu không có TTS service
+   // Hiển thị alert nếu không có TTS service
     await DisplayAlert(
           $"📍 {poiName}",
           $"{textToSpeak}",
-        AppResources.GetString("OK"));
+      AppResources.GetString("OK"));
    }
         }
-        catch (Exception ex)
+      catch (Exception ex)
         {
  Debug.WriteLine($"[MapPage] ❌ Error in OnPlayButtonClicked: {ex.Message}");
 Debug.WriteLine($"[MapPage] ❌ Stack: {ex.StackTrace}");
